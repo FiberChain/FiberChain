@@ -76,7 +76,7 @@ namespace futurepia {
       typedef fc::ecc::compact_signature  signature_type;
       typedef safe<int64_t>               share_type;
       typedef uint16_t                    weight_type;
-      typedef fixed_string_32             dapp_name_type;
+      typedef fixed_string_32             asset_name_type;
       typedef account_name_type           token_name_type;
       typedef fixed_string_32             fund_name_type;
 
