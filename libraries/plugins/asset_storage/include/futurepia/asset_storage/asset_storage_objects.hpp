@@ -39,7 +39,7 @@ namespace futurepia { namespace asset_storage {
    {
       public:
          template< typename Constructor, typename Allocator >
-         asset_object( Constructor&& c, allocator< Allocator > a )
+         asset_event( Constructor&& c, allocator< Allocator > a )
          {
             c( *this );
          }

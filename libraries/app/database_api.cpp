@@ -159,7 +159,7 @@ database_api_impl::database_api_impl( const futurepia::app::api_context& ctx )
 
    try
    {
-      ctx.app.get_plugin< futurepia::dapp::dapp_plugin>( DAPP_PLUGIN_NAME );
+      ctx.app.get_plugin< futurepia::dapp::dapp_plugin>( ASSET_PLUGIN_NAME );
       _dapp_api = std::make_shared< futurepia::dapp::dapp_api >(ctx);
    }
    catch (fc::assert_exception) { ilog("dapp Pugin not loaded"); }

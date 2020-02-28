@@ -2581,7 +2581,7 @@ creating_dapp_result wallet_api::create_dapp ( string owner, string name, bool b
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( owner );
 
@@ -2614,7 +2614,7 @@ creating_dapp_result wallet_api::reissue_dapp_key ( string owner, string name, b
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( owner );
 
@@ -2672,7 +2672,7 @@ annotated_signed_transaction wallet_api::post_dapp_comment( string dapp_name, st
       dapp_operation plugin_op = op;
       
       custom_json_hf2_operation custom_op;
-      custom_op.id = DAPP_PLUGIN_NAME;
+      custom_op.id = ASSET_PLUGIN_NAME;
       custom_op.json = fc::json::to_string( plugin_op );
       custom_op.required_posting_auths.insert( author );
 
@@ -2700,7 +2700,7 @@ annotated_signed_transaction wallet_api::vote_dapp_comment( string dapp_name, st
       dapp_operation plugin_op = op;
       
       custom_json_hf2_operation custom_op;
-      custom_op.id = DAPP_PLUGIN_NAME;
+      custom_op.id = ASSET_PLUGIN_NAME;
       custom_op.json = fc::json::to_string( plugin_op );
       custom_op.required_posting_auths.insert( voter );
 
@@ -2727,7 +2727,7 @@ annotated_signed_transaction wallet_api::delete_dapp_comment( string dapp_name, 
       dapp_operation plugin_op = op;
       
       custom_json_hf2_operation custom_op;
-      custom_op.id = DAPP_PLUGIN_NAME;
+      custom_op.id = ASSET_PLUGIN_NAME;
       custom_op.json = fc::json::to_string( plugin_op );
       custom_op.required_posting_auths.insert( author );
 
@@ -2777,7 +2777,7 @@ annotated_signed_transaction wallet_api::join_dapp ( string dapp_name, string ac
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( account_name );
 
@@ -2803,7 +2803,7 @@ annotated_signed_transaction wallet_api::leave_dapp ( string dapp_name, string a
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( account_name );
 
@@ -2829,7 +2829,7 @@ annotated_signed_transaction wallet_api::vote_dapp ( string voter, string dapp_n
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( voter );
 
@@ -2854,7 +2854,7 @@ annotated_signed_transaction wallet_api::vote_dapp_transaction_fee ( string vote
       dapp_operation dapp_op = operation;
 
       custom_json_hf2_operation custom_operation;
-      custom_operation.id = DAPP_PLUGIN_NAME;
+      custom_operation.id = ASSET_PLUGIN_NAME;
       custom_operation.json = fc::json::to_string( dapp_op );
       custom_operation.required_active_auths.insert( voter );
 
