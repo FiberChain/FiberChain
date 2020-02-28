@@ -16,6 +16,7 @@ namespace futurepia { namespace asset_storage {
    {
       account_name_type                owner;
       asset_name_type                  asset_name;
+      string                           asset_title;
 
       void validate()const;
       void get_required_active_authorities( flat_set< account_name_type >& a )const { a.insert( owner );}
@@ -23,7 +24,7 @@ namespace futurepia { namespace asset_storage {
 
    struct create_asset_event_operation : base_operation
    {
-      asset_object_id_type    asset_id;
+      asset_name_type         asset;
       account_name_type       author;
       string                  title;
       string                  body;
@@ -45,10 +46,11 @@ namespace futurepia { namespace asset_storage {
 FC_REFLECT( futurepia::asset_storage::create_asset_operation,
    ( owner )
    ( asset_name )
+   ( asset_title )
    )
 
 FC_REFLECT( futurepia::asset_storage::create_asset_event_operation,
-   ( asset_id )
+   ( asset )
    ( author ) 
    ( title )
    ( body )
