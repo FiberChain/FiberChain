@@ -11,7 +11,7 @@ add_library( futurepia_app
 
 target_link_libraries( futurepia_app futurepia_chain futurepia_protocol 
                      futurepia_tags futurepia_bobserver
-                     futurepia_token futurepia_dapp futurepia_dapp_history 
+                     futurepia_token futurepia_asset_storage 
                      futurepia_private_message 
                      futurepia_mf_plugins fc graphene_net 
                      graphene_utilities 

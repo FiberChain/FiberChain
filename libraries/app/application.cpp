@@ -965,9 +965,8 @@ void application::set_program_options(boost::program_options::options_descriptio
    default_apis.push_back( "login_api" );
    default_apis.push_back( "account_by_key_api" );
    default_apis.push_back( "network_broadcast_api" );
-   default_apis.push_back( "dapp_api" );
+   default_apis.push_back( "asset_api" );
    default_apis.push_back( "token_api" );
-   default_apis.push_back( "dapp_history_api" );
    std::string str_default_apis = boost::algorithm::join( default_apis, " " );
 
    std::vector< std::string > default_plugins;
@@ -975,9 +974,8 @@ void application::set_program_options(boost::program_options::options_descriptio
    default_plugins.push_back( "account_history" );
    default_plugins.push_back( "account_by_key" );
    default_plugins.push_back( "tags" );
-   default_plugins.push_back( "dapp" );
+   default_plugins.push_back( "asset_storage" );
    default_plugins.push_back( "token" );
-   default_plugins.push_back( "dapp_history" );
    std::string str_default_plugins = boost::algorithm::join( default_plugins, " " );
 
    configuration_file_options.add_options()
