@@ -35,17 +35,6 @@
 #define BOBSERVER_SPACE_ID 12
 #endif
 
-#ifndef TOKEN_SPACE_ID
-#define TOKEN_SPACE_ID 13
+#ifndef ASSET_SPACE_ID
+#define ASSET_SPACE_ID 13
 #endif
-
-#ifndef DAPP_SPACE_ID
-#define DAPP_SPACE_ID 15
-#endif
-
-#ifndef DAPP_HISTORY_SPACE_ID
-#define DAPP_HISTORY_SPACE_ID 16
-#endif
-
-
-

@@ -13,8 +13,8 @@ namespace futurepia { namespace asset_storage {
 
    enum asset_by_key_object_type
    {
-      asset_object_type    = (DAPP_SPACE_ID << 8),
-      asset_event_type     = (DAPP_SPACE_ID << 8) + 1
+      asset_object_type    = (ASSET_SPACE_ID << 8),
+      asset_event_type     = (ASSET_SPACE_ID << 8) + 1
    };
 
    class asset_object : public object< asset_object_type, asset_object >
@@ -28,6 +28,7 @@ namespace futurepia { namespace asset_storage {
 
          id_type                 id;
          asset_name_type         asset_name;
+         shared_string           asset_title;
          account_name_type       owner;
          time_point_sec          created;
          transaction_id_type     created_tx;
@@ -45,7 +46,7 @@ namespace futurepia { namespace asset_storage {
          }
 
          id_type              id;
-         asset_object_id_type asset_id;
+         asset_name_type      asset;
          shared_string        title;
          shared_string        body;
          time_point_sec       created;
@@ -82,7 +83,7 @@ namespace futurepia { namespace asset_storage {
             , member< asset_event, asset_event_id_type, &asset_event::id > 
          >,
          ordered_non_unique < tag< by_asset_id >
-            , member< asset_event, asset_object_id_type, &asset_event::asset_id > 
+            , member< asset_event, asset_name_type, &asset_event::asset > 
          >
       > ,
       allocator< asset_event >

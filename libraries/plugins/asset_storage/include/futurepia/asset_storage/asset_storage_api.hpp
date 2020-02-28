@@ -12,12 +12,14 @@ namespace futurepia { namespace asset_storage {
       asset_storage_api_object() {}
       asset_storage_api_object( const asset_object& o ) 
          : asset_name( o.asset_name ),
+            asset_title( o.asset_title ),
             owner( o.owner ),
             created( o.created ),
             created_tx( o.created_tx )
             {}
 
       asset_name_type         asset_name;
+      shared_string           asset_title;
       account_name_type       owner;
       time_point_sec          created;
       transaction_id_type     created_tx;
@@ -34,7 +36,7 @@ namespace futurepia { namespace asset_storage {
             created_tx( o.created_tx )
             {}
 
-      asset_object_id_type asset_id;
+      asset_name_type      asset;
       shared_string        title;
       shared_string        body;
       time_point_sec       created;
@@ -58,7 +60,7 @@ namespace futurepia { namespace asset_storage {
           * @param limit max count to read from db. limit is 100 or less.
           * @return assets information
           * */
-         vector< asset_storage_api_object > get_assets_by_name( string asset_name, uint32_t limit ) const;
+         optional< asset_storage_api_object > get_asset_by_name( string asset_name, uint32_t limit ) const;
 
          /**
           * get list of assets owned by an owner
@@ -69,11 +71,11 @@ namespace futurepia { namespace asset_storage {
 
          /**
           * get list of asset events
-          * @param asset_id asset
+          * @param asset_name asset name
           * @param limit max count to read from db. limit is 100 or less.
           * @return list of events for asset
           * */
-         vector< asset_event_api_object > get_asset_events( string asset_id, uint32_t limit ) const;
+         vector< asset_event_api_object > get_asset_events( string asset_name ) const;
 
       private:
          std::shared_ptr< detail::asset_api_impl > _my;
@@ -97,7 +99,7 @@ FC_REFLECT( futurepia::asset_storage::asset_event_api_object,
 )
 
 FC_API( futurepia::asset_storage::asset_api,
-   ( get_assets_by_name )
+   ( get_asset_by_name )
    ( get_assets_by_owner )
    ( get_asset_events )
 )
