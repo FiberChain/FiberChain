@@ -381,7 +381,7 @@ namespace futurepia { namespace chain {
          void apply_transaction( const signed_transaction& trx, uint32_t skip = skip_nothing );
          void _apply_block( const signed_block& next_block );
          void _apply_transaction( const signed_transaction& trx );
-         void apply_operation( const operation& op );
+         void apply_operation( const operation& op, const signed_transaction& trx );
 
 
          ///Steps involved in applying a new block

@@ -58,7 +58,7 @@ namespace futurepia { namespace asset_storage {
    struct by_id;
    struct by_name;
    struct by_owner;
-   struct by_asset_id;
+   struct by_asset_name;
 
    typedef multi_index_container <
       asset_object,
@@ -82,7 +82,7 @@ namespace futurepia { namespace asset_storage {
          ordered_unique < tag< by_id >
             , member< asset_event, asset_event_id_type, &asset_event::id > 
          >,
-         ordered_non_unique < tag< by_asset_id >
+         ordered_non_unique < tag< by_asset_name >
             , member< asset_event, asset_name_type, &asset_event::asset > 
          >
       > ,

@@ -50,7 +50,7 @@ namespace futurepia { namespace asset_storage {
       {
          vector < asset_event_api_object > results;
 
-         const auto& asset_idx = _app.chain_database()->get_index< asset_event_index >().indices().get < by_asset_id >();
+         const auto& asset_idx = _app.chain_database()->get_index< asset_event_index >().indices().get < by_asset_name >();
          auto itr = asset_idx.find( asset_name );
          while( itr != asset_idx.end() && itr->asset == asset_name )
          {

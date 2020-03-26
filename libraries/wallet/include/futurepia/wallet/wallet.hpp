@@ -1011,27 +1011,12 @@ FC_API( futurepia::wallet::wallet_api,
         (get_transaction)
 
          // dapp plugin and api
-        ( create_dapp )
-        ( reissue_dapp_key )
-        ( list_dapps )
-        ( get_dapp )
-        ( get_dapps_by_owner )
-        ( post_dapp_comment )
-        ( vote_dapp_comment )
-        ( delete_dapp_comment )
-        ( get_dapp_content )
-        ( get_dapp_content_replies )
-        ( list_dapp_contents )
-        ( set_exchange_rate )
+        ( create_asset )
+        ( create_asset_event )
 
-        ( join_dapp )
-        ( leave_dapp )
-        ( vote_dapp )
-        ( vote_dapp_transaction_fee )
-        ( list_dapp_users )
-        ( get_join_dapps )
-        ( get_dapp_votes )
-        ( get_dapp_history )
+        ( get_asset_by_name )
+        ( get_asset_by_owner )
+        ( get_asset_events )
 
          // staking & fund 
         ( fund_info )

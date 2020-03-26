@@ -10,7 +10,7 @@ template< typename OperationType=futurepia::protocol::operation >
 class evaluator
 {
    public:
-      virtual void apply(const OperationType& op) = 0;
+      virtual void apply(const OperationType& op, const signed_transaction& trx) = 0;
       virtual int get_type()const = 0;
 };
 
@@ -24,10 +24,15 @@ class evaluator_impl : public evaluator<OperationType>
       evaluator_impl( database& d )
          : _db(d) {}
 
-      virtual void apply(const OperationType& o) final override
+      virtual void apply(const OperationType& o, const signed_transaction& trx) final override
+      {
+         const auto& op = o.template get< typename EvaluatorType::operation_type >();
+         do_apply(op, trx);
+      }
+
+      virtual void do_apply(const OperationType& op, const signed_transaction& trx)
       {
          auto* eval = static_cast< EvaluatorType* >(this);
-         const auto& op = o.template get< typename EvaluatorType::operation_type >();
          eval->do_apply(op);
       }
 

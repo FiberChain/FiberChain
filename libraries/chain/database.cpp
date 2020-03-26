@@ -1920,11 +1920,11 @@ void database::_apply_transaction(const signed_transaction& trx)
 
 } FC_CAPTURE_AND_RETHROW( (trx) ) }
 
-void database::apply_operation(const operation& op)
+void database::apply_operation(const operation& op, const signed_transaction& trx)
 {
    operation_notification note(op);
    notify_pre_apply_operation( note );
-   _my->_evaluator_registry.get_evaluator( op ).apply( op );
+   _my->_evaluator_registry.get_evaluator( op ).apply( op, trx );
    notify_post_apply_operation( note );
 }
 
