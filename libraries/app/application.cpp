@@ -957,7 +957,6 @@ void application::set_program_options(boost::program_options::options_descriptio
                                       boost::program_options::options_description& configuration_file_options) const
 {
    std::vector< std::string > default_seed_nodes;
-   default_seed_nodes.push_back( "testnet.futurepia.io:14001" );
    std::string str_default_seed_nodes = boost::algorithm::join( default_seed_nodes, " " );
 
    std::vector< std::string > default_apis;
