@@ -79,6 +79,7 @@ namespace futurepia {
       typedef fixed_string_32             dapp_name_type;
       typedef account_name_type           token_name_type;
       typedef fixed_string_32             fund_name_type;
+      typedef fixed_string_32             asset_name_type;
 
       struct public_key_type
       {

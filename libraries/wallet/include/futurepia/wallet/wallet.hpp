@@ -6,6 +6,7 @@
 #include <futurepia/dapp/dapp_api.hpp>
 #include <futurepia/dapp_history/dapp_history_api.hpp>
 #include <futurepia/app/futurepia_api_objects.hpp>
+#include <futurepia/asset_storage/asset_storage_api.hpp>
 
 #include <graphene/utilities/key_conversion.hpp>
 
@@ -26,6 +27,7 @@ using namespace futurepia::private_message;
 using namespace futurepia::token;
 using namespace futurepia::dapp;
 using namespace futurepia::dapp_history;
+using namespace futurepia::asset_storage;
 
 typedef uint16_t transaction_handle_type;
 
@@ -1271,6 +1273,49 @@ class wallet_api
        * @return SNAC rank list. If some accounts has same SNAC balance, is displayed accounts in the order of registration.
        */
       vector< account_balance_api_obj > get_snac_rank( int limit );
+
+
+      /**
+       * create an asset.
+       * @param owner owner name of asset
+       * @param name asset name
+       * @param title asset title
+       * @param broadcast true if you wish to broadcast the transaction
+       * */
+      annotated_signed_transaction create_asset ( string owner, string name, string title, bool broadcast );
+
+      /**
+       * create an asset event.
+       * @param author author name of event
+       * @param asset asset of the event
+       * @param title asset event title
+       * @param body asset event body
+       * @param broadcast true if you wish to broadcast the transaction
+       * */
+      annotated_signed_transaction create_asset_event ( string author, string asset, string title, string body, bool broadcast );
+
+      /**
+       * get list of assets
+       * @param asset_name search keyword
+       * @param limit max count to read from db. limit is 100 or less.
+       * @return assets information
+       * */
+      optional< asset_api_object > get_asset_by_name( string asset_name );
+
+      /**
+       * get list of assets owned by an owner
+       * @param owner owner name
+       * @return assets information
+       * */
+      vector< asset_api_object > get_assets_by_owner( string owner );
+
+      /**
+       * get list of asset events
+       * @param asset_name asset name
+       * @param limit max count to read from db. limit is 100 or less.
+       * @return list of events for asset
+       * */
+      vector< asset_event_api_object > get_asset_events( string asset_name );
 };
 
 struct plain_keys {
@@ -1434,6 +1479,14 @@ FC_API( futurepia::wallet::wallet_api,
 
         ( get_pia_rank )
         ( get_snac_rank )
+
+        // asset storage
+        ( create_asset )
+        ( create_asset_event )
+
+        ( get_asset_by_name )
+        ( get_assets_by_owner )
+        ( get_asset_events )
 
         // exchange
         ( exchange )

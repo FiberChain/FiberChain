@@ -47,5 +47,9 @@
 #define DAPP_HISTORY_SPACE_ID 16
 #endif
 
+#ifndef ASSET_STORAGE_SPACE_ID
+#define ASSET_STORAGE_SPACE_ID 20
+#endif
+
 
 

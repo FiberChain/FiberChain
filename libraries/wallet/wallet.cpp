@@ -9,6 +9,7 @@
 #include <futurepia/wallet/wallet.hpp>
 #include <futurepia/wallet/api_documentation.hpp>
 #include <futurepia/wallet/reflect_util.hpp>
+#include <futurepia/asset_storage/asset_storage_plugin.hpp>
 
 #include <futurepia/account_by_key/account_by_key_api.hpp>
 
@@ -830,6 +831,15 @@ public:
       catch( const fc::exception& e ) { elog( "Couldn't get account_by_key API" ); throw(e); }
    }
 
+   void use_asset_api()
+   {
+      if (_remote_asset_api.valid())
+         return;
+
+      try { _remote_asset_api = _remote_api->get_api_by_name("asset_api")->as< asset_storage::asset_api >(); }
+      catch (const fc::exception& e) { elog("Couldn't get asset API"); throw(e); }
+   }
+
    void network_add_nodes( const vector<string>& nodes )
    {
       use_network_node_api();
@@ -876,6 +886,7 @@ public:
    optional< fc::api< token::token_api > >                   _remote_token_api;
    optional< fc::api< dapp::dapp_api > >                     _remote_dapp_api;
    optional< fc::api< dapp_history::dapp_history_api > >     _remote_dapp_history_api;
+   optional< fc::api< asset_storage::asset_api > >           _remote_asset_api;
    uint32_t                                                  _tx_expiration_seconds = 30;
 
    flat_map<string, operation>                               _prototype_ops;
@@ -3016,6 +3027,89 @@ vector< account_balance_api_obj > wallet_api::get_pia_rank( int limit ){
 
 vector< account_balance_api_obj > wallet_api::get_snac_rank( int limit ){
    return my->_remote_db->get_snac_rank( limit );
+}
+
+annotated_signed_transaction wallet_api::create_asset ( string owner, string name, string title, bool broadcast )
+{
+   try
+   {
+      FC_ASSERT( !is_locked() );
+
+      create_asset_operation operation;
+      operation.owner = owner;
+
+      operation.asset_name = name;
+      operation.asset_title = title;
+
+      asset_storage_operation a_op = operation;
+
+      custom_json_hf2_operation custom_operation;
+      custom_operation.id = ASSET_PLUGIN_NAME;
+      custom_operation.json = fc::json::to_string( a_op );
+      custom_operation.required_active_auths.insert( owner );
+
+      signed_transaction trx;
+      trx.operations.push_back( custom_operation );
+      trx.validate();
+
+      annotated_signed_transaction signed_trx = my->sign_transaction( trx, broadcast );
+
+      return signed_trx;
+   } FC_CAPTURE_AND_RETHROW( ( owner )( name )( title )( broadcast ) )
+}
+
+annotated_signed_transaction wallet_api::create_asset_event ( string author, string asset, string title, string body, bool broadcast )
+{
+   try
+   {
+      FC_ASSERT( !is_locked() );
+
+      create_asset_event_operation operation;
+      operation.author = author;
+
+      operation.asset = asset;
+      operation.title = title;
+      operation.body = body;
+
+      asset_storage_operation a_op = operation;
+
+      custom_json_hf2_operation custom_operation;
+      custom_operation.id = ASSET_PLUGIN_NAME;
+      custom_operation.json = fc::json::to_string( a_op );
+      custom_operation.required_active_auths.insert( author );
+
+      signed_transaction trx;
+      trx.operations.push_back( custom_operation );
+      trx.validate();
+
+      annotated_signed_transaction signed_trx = my->sign_transaction( trx, broadcast );
+
+      return signed_trx;
+   } FC_CAPTURE_AND_RETHROW( ( author )( asset )( title )( body )( broadcast ) )
+}
+
+optional< asset_api_object > wallet_api::get_asset_by_name( string asset_name )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_asset_by_name( asset_name );
+   return result;
+}
+
+vector< asset_api_object > wallet_api::get_assets_by_owner( string owner )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_assets_by_owner( owner );
+   return result;
+}
+
+vector< asset_event_api_object > wallet_api::get_asset_events( string asset_name )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_asset_events( asset_name );
+   return result;
 }
 
 } } // futurepia::wallet

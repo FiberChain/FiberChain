@@ -10,3 +10,5 @@ services:
     build:
       context: ./
       dockerfile: ./docker/run.dockerfile
+    volumes:
+      - ./node_data:/var/program/node_data
