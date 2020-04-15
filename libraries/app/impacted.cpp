@@ -315,6 +315,7 @@ void get_impacted_account_from_custom( const custom_json_hf2_operation& op, flat
    auto var = fc::json::from_string( op.json );
 
    process_inner_operation< dapp_operation >( var, get_account_visitor_from_custom( result ) );
+   process_inner_operation< asset_storage_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< token_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< private_message_plugin_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< bobserver_plugin_operation >( var, get_account_visitor_from_custom( result ) );

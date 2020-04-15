@@ -91,7 +91,7 @@ namespace futurepia { namespace asset_storage {
 
    void asset_storage_plugin::plugin_startup()
    {
-      app().register_api_factory< asset_api >( "asset_api" );
+      app().register_api_factory< asset_api >( "asset_storage_api" );
    }
 
    const signed_transaction* asset_storage_plugin::get_current_tx() const

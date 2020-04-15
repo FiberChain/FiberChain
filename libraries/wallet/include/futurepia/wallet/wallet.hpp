@@ -1279,10 +1279,10 @@ class wallet_api
        * create an asset.
        * @param owner owner name of asset
        * @param name asset name
-       * @param title asset title
+       * @param data asset data
        * @param broadcast true if you wish to broadcast the transaction
        * */
-      annotated_signed_transaction create_asset ( string owner, string name, string title, bool broadcast );
+      annotated_signed_transaction create_asset ( string owner, string name, string data, bool broadcast );
 
       /**
        * create an asset event.

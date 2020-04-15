@@ -12,14 +12,14 @@ namespace futurepia { namespace asset_storage {
       asset_api_object() {}
       asset_api_object( const asset_object& o ) 
          : asset_name( o.asset_name ),
-            asset_title( to_string(o.asset_title) ),
+            asset_data( to_string(o.asset_data) ),
             owner( o.owner ),
             created( o.created ),
             created_tx( o.created_tx )
             {}
 
       asset_name_type         asset_name;
-      string                  asset_title;
+      string                  asset_data;
       account_name_type       owner;
       time_point_sec          created;
       transaction_id_type     created_tx;
@@ -85,6 +85,7 @@ namespace futurepia { namespace asset_storage {
 
 FC_REFLECT( futurepia::asset_storage::asset_api_object, 
    ( asset_name )
+   ( asset_data )
    ( owner )
    ( created )
    ( created_tx )

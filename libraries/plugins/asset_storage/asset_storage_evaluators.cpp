@@ -27,7 +27,7 @@ namespace futurepia { namespace asset_storage {
          _db.create< asset_object > ( [&]( asset_object& asset_obj ) {
                asset_obj.asset_name = op.asset_name;
                asset_obj.owner = op.owner;
-               from_string( asset_obj.asset_title, op.asset_title );
+               from_string( asset_obj.asset_data, op.asset_data );
                asset_obj.created = now_time;
                asset_obj.created_tx = trx->id();
             }

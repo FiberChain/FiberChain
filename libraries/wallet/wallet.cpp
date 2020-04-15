@@ -836,7 +836,7 @@ public:
       if (_remote_asset_api.valid())
          return;
 
-      try { _remote_asset_api = _remote_api->get_api_by_name("asset_api")->as< asset_storage::asset_api >(); }
+      try { _remote_asset_api = _remote_api->get_api_by_name("asset_storage_api")->as< asset_storage::asset_api >(); }
       catch (const fc::exception& e) { elog("Couldn't get asset API"); throw(e); }
    }
 
@@ -3029,7 +3029,7 @@ vector< account_balance_api_obj > wallet_api::get_snac_rank( int limit ){
    return my->_remote_db->get_snac_rank( limit );
 }
 
-annotated_signed_transaction wallet_api::create_asset ( string owner, string name, string title, bool broadcast )
+annotated_signed_transaction wallet_api::create_asset ( string owner, string name, string data, bool broadcast )
 {
    try
    {
@@ -3039,7 +3039,7 @@ annotated_signed_transaction wallet_api::create_asset ( string owner, string nam
       operation.owner = owner;
 
       operation.asset_name = name;
-      operation.asset_title = title;
+      operation.asset_data = data;
 
       asset_storage_operation a_op = operation;
 
@@ -3055,7 +3055,7 @@ annotated_signed_transaction wallet_api::create_asset ( string owner, string nam
       annotated_signed_transaction signed_trx = my->sign_transaction( trx, broadcast );
 
       return signed_trx;
-   } FC_CAPTURE_AND_RETHROW( ( owner )( name )( title )( broadcast ) )
+   } FC_CAPTURE_AND_RETHROW( ( owner )( name )( data )( broadcast ) )
 }
 
 annotated_signed_transaction wallet_api::create_asset_event ( string author, string asset, string title, string body, bool broadcast )

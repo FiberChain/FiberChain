@@ -16,7 +16,7 @@ namespace futurepia { namespace asset_storage {
    {
       account_name_type                owner;
       asset_name_type                  asset_name;
-      string                           asset_title;
+      string                           asset_data;
 
       void validate()const;
       void get_required_active_authorities( flat_set< account_name_type >& a )const { a.insert( owner );}
@@ -30,7 +30,7 @@ namespace futurepia { namespace asset_storage {
       string                  body;
 
       void validate()const;
-      void get_required_posting_authorities( flat_set< account_name_type >& a )const { a.insert( author );}
+      void get_required_active_authorities( flat_set< account_name_type >& a )const { a.insert( author );}
    };
 
    typedef fc::static_variant< 
@@ -46,7 +46,7 @@ namespace futurepia { namespace asset_storage {
 FC_REFLECT( futurepia::asset_storage::create_asset_operation,
    ( owner )
    ( asset_name )
-   ( asset_title )
+   ( asset_data )
    )
 
 FC_REFLECT( futurepia::asset_storage::create_asset_event_operation,

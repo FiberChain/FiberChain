@@ -10,7 +10,7 @@ namespace futurepia { namespace asset_storage {
       try {
          FC_ASSERT( is_valid_account_name( owner ), "Account name ${n} is invalid", ("n", owner) );
          FC_ASSERT( asset_name.size() > 0 );
-         FC_ASSERT( asset_title.size() > 0 );
+         FC_ASSERT( asset_data.size() > 0 );
       } FC_CAPTURE_AND_RETHROW( ( *this ) )
    }
 

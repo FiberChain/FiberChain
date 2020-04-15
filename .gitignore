@@ -36,3 +36,5 @@ object_database/*
 
 *.pyc
 *.pyo
+
+docker/devnet

@@ -41,7 +41,7 @@
 #define FUTUREPIA_APPOINTMENT_BPRODUSER_CYCLE                     fc::days(30)
 
 #define FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS                    1
-#define FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2                3
+#define FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2                1
 
 #define FUTUREPIA_MAX_TIME_UNTIL_EXPIRATION                       (60*60) // seconds,  aka: 1 hour
 #define FUTUREPIA_MAX_MEMO_SIZE                                   2048

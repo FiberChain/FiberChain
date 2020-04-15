@@ -32,6 +32,7 @@
 #include <futurepia/dapp/dapp_operations.hpp>
 #include <futurepia/private_message/private_message_operations.hpp>
 #include <futurepia/bobserver/bobserver_operations.hpp>
+#include <futurepia/asset_storage/asset_storage_operations.hpp>
 
 #include <fc/string.hpp>
 
@@ -42,6 +43,7 @@ using namespace futurepia::token;
 using namespace futurepia::dapp;
 using namespace futurepia::private_message;
 using namespace futurepia::bobserver;
+using namespace futurepia::asset_storage;
 
 template< typename OPERATION_TYPE, typename VISITOR >
 void process_inner_operation( const fc::variant var, VISITOR visitor );

@@ -22,14 +22,14 @@ namespace futurepia { namespace asset_storage {
       public:
          template< typename Constructor, typename Allocator >
          asset_object( Constructor&& c, allocator< Allocator > a )
-          : asset_title(a)
+          : asset_data(a)
          {
             c( *this );
          }
 
          id_type                 id;
          asset_name_type         asset_name;
-         shared_string           asset_title;
+         shared_string           asset_data;
          account_name_type       owner;
          time_point_sec          created;
          transaction_id_type     created_tx;
@@ -96,6 +96,7 @@ namespace futurepia { namespace asset_storage {
 FC_REFLECT( futurepia::asset_storage::asset_object,
    ( id )
    ( asset_name )
+   ( asset_data )
    ( owner )
    ( created )
    ( created_tx )
