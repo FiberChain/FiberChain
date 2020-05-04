@@ -7,7 +7,7 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
 
    struct token_api_object {
       token_api_object() {}
@@ -242,9 +242,9 @@ namespace futurepia { namespace token {
          std::shared_ptr< detail::token_api_impl > _my;
    };
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 
-FC_REFLECT( futurepia::token::token_api_object, 
+FC_REFLECT( fiberchain::token::token_api_object, 
    ( name )
    ( publisher ) 
    ( dapp_name )
@@ -252,7 +252,7 @@ FC_REFLECT( futurepia::token::token_api_object,
    ( total_balance )
 );
 
-FC_REFLECT( futurepia::token::token_balance_api_object, 
+FC_REFLECT( fiberchain::token::token_balance_api_object, 
    ( account )
    ( token )
    ( balance )
@@ -260,7 +260,7 @@ FC_REFLECT( futurepia::token::token_balance_api_object,
    ( last_updated )
 );
 
-FC_REFLECT( futurepia::token::token_fund_withdraw_api_obj, 
+FC_REFLECT( fiberchain::token::token_fund_withdraw_api_obj, 
    ( from )
    ( token )
    ( fund_name )
@@ -271,7 +271,7 @@ FC_REFLECT( futurepia::token::token_fund_withdraw_api_obj,
    ( created )
 );
 
-FC_REFLECT( futurepia::token::token_fund_api_obj, 
+FC_REFLECT( fiberchain::token::token_fund_api_obj, 
    ( token )
    ( fund_name )
    ( balance )
@@ -280,7 +280,7 @@ FC_REFLECT( futurepia::token::token_fund_api_obj,
    ( last_updated )
 );
 
-FC_REFLECT( futurepia::token::token_staking_interest_api_obj, 
+FC_REFLECT( fiberchain::token::token_staking_interest_api_obj, 
    ( token )
    ( month )
    ( percent_interest_rate )
@@ -288,7 +288,7 @@ FC_REFLECT( futurepia::token::token_staking_interest_api_obj,
    ( last_updated )
 );
 
-FC_REFLECT( futurepia::token::token_savings_withdraw_api_obj, 
+FC_REFLECT( fiberchain::token::token_savings_withdraw_api_obj, 
    ( from )
    ( to )
    ( token )
@@ -303,7 +303,7 @@ FC_REFLECT( futurepia::token::token_savings_withdraw_api_obj,
    ( last_updated )
 );
 
-FC_API( futurepia::token::token_api,
+FC_API( fiberchain::token::token_api,
    ( get_token_balance )
    ( get_token )
    ( lookup_tokens )

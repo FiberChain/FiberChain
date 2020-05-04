@@ -1,6 +1,6 @@
 #pragma once
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
    /**
     * @brief Contains per-node database configuration.
@@ -20,4 +20,4 @@ namespace futurepia { namespace chain {
 
          uint32_t skip_flags = 0;
    };
-} } // futurepia::chain
+} } // fiberchain::chain

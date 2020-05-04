@@ -8,7 +8,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/algorithm/string.hpp>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
 
    void create_token_evaluator::do_apply( const create_token_operation& op )
    {
@@ -16,7 +16,7 @@ namespace futurepia { namespace token {
       {
          database& _db = db();
          
-         const auto& dapp_idx = _db.get_index< futurepia::dapp::dapp_index >().indices().get< futurepia::dapp::by_name >();
+         const auto& dapp_idx = _db.get_index< fiberchain::dapp::dapp_index >().indices().get< fiberchain::dapp::by_name >();
          auto dapp_itr = dapp_idx.find( op.dapp_name );
          FC_ASSERT( dapp_itr != dapp_idx.end(), "There isn't ${name} dapp.", ( "name", op.dapp_name ) );
          FC_ASSERT( dapp_itr->owner == op.publisher, "token creator isn't owner of dapp." );
@@ -132,7 +132,7 @@ namespace futurepia { namespace token {
          auto token_itr  = token_idx.find( op.name );
          FC_ASSERT( token_itr != token_idx.end(), "There isn't ${token} token.", ( "token", op.name ) );
 
-         const auto& dapp_idx = _db.get_index< futurepia::dapp::dapp_index >().indices().get< futurepia::dapp::by_name >();
+         const auto& dapp_idx = _db.get_index< fiberchain::dapp::dapp_index >().indices().get< fiberchain::dapp::by_name >();
          auto dapp_itr = dapp_idx.find( token_itr->dapp_name );
          FC_ASSERT( dapp_itr != dapp_idx.end(), "There isn't ${name} dapp.", ( "name", token_itr->dapp_name ) );
          FC_ASSERT( dapp_itr->owner == op.publisher, "Token publisher isn't owner of dapp." );
@@ -230,7 +230,7 @@ namespace futurepia { namespace token {
          FC_ASSERT( token_itr != token_idx.end(), "There isn't token information about ${symbol}."
             , ( "symbol", op.amount.symbol_name() ) );
 
-         const auto& dapp_idx = _db.get_index< futurepia::dapp::dapp_index >().indices().get< futurepia::dapp::by_name >();
+         const auto& dapp_idx = _db.get_index< fiberchain::dapp::dapp_index >().indices().get< fiberchain::dapp::by_name >();
          auto dapp_itr = dapp_idx.find( token_itr->dapp_name );
          FC_ASSERT( dapp_itr != dapp_idx.end(), "There isn't dapp of ${token}", ( "token", token_itr->name ) );
          if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
@@ -639,5 +639,5 @@ namespace futurepia { namespace token {
       } FC_CAPTURE_AND_RETHROW( ( op ) )
    }
 
-}} //namespace futurepia::token
+}} //namespace fiberchain::token
 

@@ -1,7 +1,7 @@
 
 #include <futurepia/protocol/sign_state.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 bool sign_state::signed_by( const public_key_type& k )
 {
@@ -82,4 +82,4 @@ sign_state::sign_state(
    approved_by.insert( "temp"  );
 }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

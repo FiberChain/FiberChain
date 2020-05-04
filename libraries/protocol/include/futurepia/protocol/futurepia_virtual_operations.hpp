@@ -5,7 +5,7 @@
 
 #include <fc/utf8.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
    struct shutdown_bobserver_operation : public virtual_operation
    {
       shutdown_bobserver_operation(){}
@@ -118,16 +118,16 @@ namespace futurepia { namespace protocol {
    };
    
 
-} } //futurepia::protocol
+} } //fiberchain::protocol
 
-FC_REFLECT( futurepia::protocol::shutdown_bobserver_operation, (owner) )
-FC_REFLECT( futurepia::protocol::fill_transfer_savings_operation, (from)(to)(amount)(total_amount)(split_pay_order)(split_pay_month)(request_id)(memo) )
-FC_REFLECT( futurepia::protocol::hardfork_operation, (hardfork_id) )
-FC_REFLECT( futurepia::protocol::fill_staking_fund_operation, (from)(fund_name)(amount)(request_id)(memo) )
-FC_REFLECT( futurepia::protocol::fill_exchange_operation, (from)(amount)(request_id) )
-FC_REFLECT( futurepia::protocol::dapp_fee_virtual_operation, ( dapp_name )( reward ) )
-FC_REFLECT( futurepia::protocol::dapp_reward_virtual_operation, ( bo_name )( reward ) )
-FC_REFLECT( futurepia::protocol::fill_token_staking_fund_operation, 
+FC_REFLECT( fiberchain::protocol::shutdown_bobserver_operation, (owner) )
+FC_REFLECT( fiberchain::protocol::fill_transfer_savings_operation, (from)(to)(amount)(total_amount)(split_pay_order)(split_pay_month)(request_id)(memo) )
+FC_REFLECT( fiberchain::protocol::hardfork_operation, (hardfork_id) )
+FC_REFLECT( fiberchain::protocol::fill_staking_fund_operation, (from)(fund_name)(amount)(request_id)(memo) )
+FC_REFLECT( fiberchain::protocol::fill_exchange_operation, (from)(amount)(request_id) )
+FC_REFLECT( fiberchain::protocol::dapp_fee_virtual_operation, ( dapp_name )( reward ) )
+FC_REFLECT( fiberchain::protocol::dapp_reward_virtual_operation, ( bo_name )( reward ) )
+FC_REFLECT( fiberchain::protocol::fill_token_staking_fund_operation, 
             ( from )
             ( token ) 
             ( fund_name )
@@ -135,7 +135,7 @@ FC_REFLECT( futurepia::protocol::fill_token_staking_fund_operation,
             ( request_id )
             ( memo )
           )
-FC_REFLECT( futurepia::protocol::fill_transfer_token_savings_operation, 
+FC_REFLECT( fiberchain::protocol::fill_transfer_token_savings_operation, 
             ( from )
             ( to )
             ( token ) 

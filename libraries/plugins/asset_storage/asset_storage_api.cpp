@@ -3,22 +3,22 @@
 
 #include <functional>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
 
    namespace detail {
       class asset_api_impl
       {
          public:
-            asset_api_impl( futurepia::app::application& app ):_app( app ) {}
+            asset_api_impl( fiberchain::app::application& app ):_app( app ) {}
 
             optional< asset_api_object > get_asset_by_name( string asset_name ) const;
             vector< asset_api_object > get_assets_by_owner( string owner ) const;
             vector< asset_event_api_object > get_asset_events( string asset_name ) const;
 
-            futurepia::chain::database& database() { return *_app.chain_database(); }
+            fiberchain::chain::database& database() { return *_app.chain_database(); }
 
          private:
-            futurepia::app::application& _app;
+            fiberchain::app::application& _app;
       };
 
       optional< asset_api_object > asset_api_impl::get_asset_by_name( string asset_name ) const
@@ -61,9 +61,9 @@ namespace futurepia { namespace asset_storage {
          return results;
       }
 
-   } //namespace futurepia::asset_storage::detail
+   } //namespace fiberchain::asset_storage::detail
 
-   asset_api::asset_api( const futurepia::app::api_context& ctx )
+   asset_api::asset_api( const fiberchain::app::api_context& ctx )
    {
       _my = std::make_shared< detail::asset_api_impl >( ctx.app );
    }
@@ -94,4 +94,4 @@ namespace futurepia { namespace asset_storage {
       });
    }
 
-}} //namespace futurepia::asset_storage
+}} //namespace fiberchain::asset_storage

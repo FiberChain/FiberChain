@@ -3,7 +3,7 @@
 #include <futurepia/chain/database.hpp>
 #include <futurepia/chain/account_object.hpp>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
 
    void create_asset_evaluator::do_apply( const create_asset_operation& op )
    {
@@ -67,5 +67,5 @@ namespace futurepia { namespace asset_storage {
       FC_CAPTURE_AND_RETHROW( ( op ) )
    }
 
-} } // namespace futurepia::asset_storage
+} } // namespace fiberchain::asset_storage
 

@@ -7,15 +7,15 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::digest_type;
-   using futurepia::protocol::public_key_type;
-   using futurepia::protocol::version;
-   using futurepia::protocol::hardfork_version;
-   using futurepia::protocol::price;
-   using futurepia::protocol::asset;
-   using futurepia::protocol::asset_symbol_type;
+   using fiberchain::protocol::digest_type;
+   using fiberchain::protocol::public_key_type;
+   using fiberchain::protocol::version;
+   using fiberchain::protocol::hardfork_version;
+   using fiberchain::protocol::price;
+   using fiberchain::protocol::asset;
+   using fiberchain::protocol::asset_symbol_type;
 
    /**
     *  All bobservers with at least 1% net positive approval and
@@ -184,7 +184,7 @@ namespace futurepia { namespace chain {
 
 } }
 
-FC_REFLECT( futurepia::chain::bobserver_object,
+FC_REFLECT( fiberchain::chain::bobserver_object,
              (id)
              (account)
              (created)
@@ -198,12 +198,12 @@ FC_REFLECT( futurepia::chain::bobserver_object,
              (snac_exchange_rate)
              (last_snac_exchange_update)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::bobserver_object, futurepia::chain::bobserver_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::bobserver_object, fiberchain::chain::bobserver_index )
 
-FC_REFLECT( futurepia::chain::bobserver_vote_object, (id)(bobserver)(account) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::bobserver_vote_object, futurepia::chain::bobserver_vote_index )
+FC_REFLECT( fiberchain::chain::bobserver_vote_object, (id)(bobserver)(account) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::bobserver_vote_object, fiberchain::chain::bobserver_vote_index )
 
-FC_REFLECT( futurepia::chain::bobserver_schedule_object,
+FC_REFLECT( fiberchain::chain::bobserver_schedule_object,
              (id)(next_shuffle_block_num)(current_shuffled_bobservers)(num_scheduled_bobservers)
              (majority_version)
              (max_voted_bobservers)
@@ -211,4 +211,4 @@ FC_REFLECT( futurepia::chain::bobserver_schedule_object,
              (max_runner_bobservers)
              (hardfork_required_bobservers)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::bobserver_schedule_object, futurepia::chain::bobserver_schedule_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::bobserver_schedule_object, fiberchain::chain::bobserver_schedule_index )

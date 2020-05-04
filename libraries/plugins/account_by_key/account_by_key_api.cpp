@@ -1,7 +1,7 @@
 #include <futurepia/account_by_key/account_by_key_api.hpp>
 #include <futurepia/account_by_key/account_by_key_objects.hpp>
 
-namespace futurepia { namespace account_by_key {
+namespace fiberchain { namespace account_by_key {
 
 namespace detail
 {
@@ -9,12 +9,12 @@ namespace detail
 class account_by_key_api_impl
 {
    public:
-      account_by_key_api_impl( futurepia::app::application& app )
+      account_by_key_api_impl( fiberchain::app::application& app )
          :_app( app ) {}
 
       vector< vector< account_name_type > > get_key_references( vector< public_key_type >& keys )const;
 
-      futurepia::app::application& _app;
+      fiberchain::app::application& _app;
 };
 
 vector< vector< account_name_type > > account_by_key_api_impl::get_key_references( vector< public_key_type >& keys )const
@@ -43,7 +43,7 @@ vector< vector< account_name_type > > account_by_key_api_impl::get_key_reference
 
 } // detail
 
-account_by_key_api::account_by_key_api( const futurepia::app::api_context& ctx )
+account_by_key_api::account_by_key_api( const fiberchain::app::api_context& ctx )
 {
    my = std::make_shared< detail::account_by_key_api_impl >( ctx.app );
 }
@@ -58,4 +58,4 @@ vector< vector< account_name_type > > account_by_key_api::get_key_references( ve
    });
 }
 
-} } // futurepia::account_by_key
+} } // fiberchain::account_by_key

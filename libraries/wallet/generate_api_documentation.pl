@@ -19,7 +19,7 @@ my $fileHeader = <<'END';
 #include <futurepia/wallet/api_documentation.hpp>
 #include <futurepia/wallet/wallet.hpp>
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
    namespace detail
    {
       struct api_method_name_collector_visitor
@@ -41,7 +41,7 @@ $outFile->print($fileHeader);
 
 for my $class (@{$doxydocs->{classes}})
 {
-  if ($class->{name} eq 'futurepia::wallet::wallet_api')
+  if ($class->{name} eq 'fiberchain::wallet::wallet_api')
   {
     for my $member (@{$class->{public_methods}->{members}})
     {
@@ -87,7 +87,7 @@ my $fileFooter = <<'END';
           ++iter;
    }
 
-} } // end namespace futurepia::wallet
+} } // end namespace fiberchain::wallet
 END
 $outFile->print($fileFooter);
 $outFile->close();

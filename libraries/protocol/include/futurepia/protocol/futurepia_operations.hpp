@@ -6,7 +6,7 @@
 #include <fc/utf8.hpp>
 #include <fc/crypto/equihash.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    inline void validate_account_name( const string& name )
    {
@@ -568,19 +568,19 @@ namespace futurepia { namespace protocol {
       string            percent_interest;
    };
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-FC_REFLECT( futurepia::protocol::transfer_savings_operation, (from)(request_id)(to)(amount)(total_amount)(split_pay_order)(split_pay_month)(memo)(complete) )
-FC_REFLECT( futurepia::protocol::cancel_transfer_savings_operation, (from)(request_id) )
-FC_REFLECT( futurepia::protocol::conclusion_transfer_savings_operation, (from)(request_id) )
+FC_REFLECT( fiberchain::protocol::transfer_savings_operation, (from)(request_id)(to)(amount)(total_amount)(split_pay_order)(split_pay_month)(memo)(complete) )
+FC_REFLECT( fiberchain::protocol::cancel_transfer_savings_operation, (from)(request_id) )
+FC_REFLECT( fiberchain::protocol::conclusion_transfer_savings_operation, (from)(request_id) )
 
-FC_REFLECT( futurepia::protocol::reset_account_operation, (reset_account)(account_to_reset)(new_owner_authority) )
-FC_REFLECT( futurepia::protocol::set_reset_account_operation, (account)(current_reset_account)(reset_account) )
-FC_REFLECT( futurepia::protocol::convert_operation, (owner)(amount) )
-FC_REFLECT( futurepia::protocol::exchange_operation, (owner)(amount)(request_id) )
-FC_REFLECT( futurepia::protocol::cancel_exchange_operation, (owner)(request_id) )
+FC_REFLECT( fiberchain::protocol::reset_account_operation, (reset_account)(account_to_reset)(new_owner_authority) )
+FC_REFLECT( fiberchain::protocol::set_reset_account_operation, (account)(current_reset_account)(reset_account) )
+FC_REFLECT( fiberchain::protocol::convert_operation, (owner)(amount) )
+FC_REFLECT( fiberchain::protocol::exchange_operation, (owner)(amount)(request_id) )
+FC_REFLECT( fiberchain::protocol::cancel_exchange_operation, (owner)(request_id) )
 
-FC_REFLECT( futurepia::protocol::account_create_operation,
+FC_REFLECT( fiberchain::protocol::account_create_operation,
             (creator)
             (new_account_name)
             (owner)
@@ -589,7 +589,7 @@ FC_REFLECT( futurepia::protocol::account_create_operation,
             (memo_key)
             (json_metadata) )
 
-FC_REFLECT( futurepia::protocol::account_update_operation,
+FC_REFLECT( fiberchain::protocol::account_update_operation,
             (account)
             (owner)
             (active)
@@ -597,28 +597,28 @@ FC_REFLECT( futurepia::protocol::account_update_operation,
             (memo_key)
             (json_metadata) )
 
-FC_REFLECT( futurepia::protocol::transfer_operation, (from)(to)(amount)(memo) )
-FC_REFLECT( futurepia::protocol::bobserver_update_operation, (owner)(url)(block_signing_key) )
-FC_REFLECT( futurepia::protocol::account_bobserver_vote_operation, (account)(bobserver)(approve) )
-FC_REFLECT( futurepia::protocol::comment_operation, (parent_author)(parent_permlink)(author)(permlink)(title)(body)(json_metadata)(group_id) )
-FC_REFLECT( futurepia::protocol::comment_vote_operation, (voter)(author)(permlink)(vote_type)(voting_amount) )
-FC_REFLECT( futurepia::protocol::comment_betting_operation, (bettor)(author)(permlink)(round_no)(betting_type)(amount) )
-FC_REFLECT( futurepia::protocol::custom_operation, (required_auths)(id)(data) )
-FC_REFLECT( futurepia::protocol::custom_json_operation, (required_auths)(required_posting_auths)(id)(json) )
-FC_REFLECT( futurepia::protocol::custom_json_hf2_operation, (required_owner_auths)(required_active_auths)(required_posting_auths)(required_auths)(id)(json) )
-FC_REFLECT( futurepia::protocol::custom_binary_operation, (required_owner_auths)(required_active_auths)(required_posting_auths)(required_auths)(id)(data) )
-FC_REFLECT( futurepia::protocol::delete_comment_operation, (author)(permlink) );
-FC_REFLECT( futurepia::protocol::comment_betting_state_operation, (author)(permlink)(round_no)(allow_betting) )
-FC_REFLECT( futurepia::protocol::request_account_recovery_operation, (recovery_account)(account_to_recover)(new_owner_authority)(extensions) );
-FC_REFLECT( futurepia::protocol::recover_account_operation, (account_to_recover)(new_owner_authority)(recent_owner_authority)(extensions) );
-FC_REFLECT( futurepia::protocol::change_recovery_account_operation, (account_to_recover)(new_recovery_account)(extensions) );
-FC_REFLECT( futurepia::protocol::decline_voting_rights_operation, (account)(decline) );
-FC_REFLECT( futurepia::protocol::account_bproducer_appointment_operation, (bobserver)(approve) )
-FC_REFLECT( futurepia::protocol::except_bobserver_operation, (bobserver) )
-FC_REFLECT( futurepia::protocol::print_operation, (account)(amount) )
-FC_REFLECT( futurepia::protocol::burn_operation, (account)(amount) )
-FC_REFLECT( futurepia::protocol::exchange_rate_operation, (owner)(rate) )
-FC_REFLECT( futurepia::protocol::staking_fund_operation, (from)(fund_name)(request_id)(amount)(memo)(usertype)(month) )
-FC_REFLECT( futurepia::protocol::conclusion_staking_operation, (from)(fund_name)(request_id) )
-FC_REFLECT( futurepia::protocol::transfer_fund_operation, (from)(fund_name)(amount)(memo) )
-FC_REFLECT( futurepia::protocol::set_fund_interest_operation, (fund_name)(usertype)(month)(percent_interest) )
+FC_REFLECT( fiberchain::protocol::transfer_operation, (from)(to)(amount)(memo) )
+FC_REFLECT( fiberchain::protocol::bobserver_update_operation, (owner)(url)(block_signing_key) )
+FC_REFLECT( fiberchain::protocol::account_bobserver_vote_operation, (account)(bobserver)(approve) )
+FC_REFLECT( fiberchain::protocol::comment_operation, (parent_author)(parent_permlink)(author)(permlink)(title)(body)(json_metadata)(group_id) )
+FC_REFLECT( fiberchain::protocol::comment_vote_operation, (voter)(author)(permlink)(vote_type)(voting_amount) )
+FC_REFLECT( fiberchain::protocol::comment_betting_operation, (bettor)(author)(permlink)(round_no)(betting_type)(amount) )
+FC_REFLECT( fiberchain::protocol::custom_operation, (required_auths)(id)(data) )
+FC_REFLECT( fiberchain::protocol::custom_json_operation, (required_auths)(required_posting_auths)(id)(json) )
+FC_REFLECT( fiberchain::protocol::custom_json_hf2_operation, (required_owner_auths)(required_active_auths)(required_posting_auths)(required_auths)(id)(json) )
+FC_REFLECT( fiberchain::protocol::custom_binary_operation, (required_owner_auths)(required_active_auths)(required_posting_auths)(required_auths)(id)(data) )
+FC_REFLECT( fiberchain::protocol::delete_comment_operation, (author)(permlink) );
+FC_REFLECT( fiberchain::protocol::comment_betting_state_operation, (author)(permlink)(round_no)(allow_betting) )
+FC_REFLECT( fiberchain::protocol::request_account_recovery_operation, (recovery_account)(account_to_recover)(new_owner_authority)(extensions) );
+FC_REFLECT( fiberchain::protocol::recover_account_operation, (account_to_recover)(new_owner_authority)(recent_owner_authority)(extensions) );
+FC_REFLECT( fiberchain::protocol::change_recovery_account_operation, (account_to_recover)(new_recovery_account)(extensions) );
+FC_REFLECT( fiberchain::protocol::decline_voting_rights_operation, (account)(decline) );
+FC_REFLECT( fiberchain::protocol::account_bproducer_appointment_operation, (bobserver)(approve) )
+FC_REFLECT( fiberchain::protocol::except_bobserver_operation, (bobserver) )
+FC_REFLECT( fiberchain::protocol::print_operation, (account)(amount) )
+FC_REFLECT( fiberchain::protocol::burn_operation, (account)(amount) )
+FC_REFLECT( fiberchain::protocol::exchange_rate_operation, (owner)(rate) )
+FC_REFLECT( fiberchain::protocol::staking_fund_operation, (from)(fund_name)(request_id)(amount)(memo)(usertype)(month) )
+FC_REFLECT( fiberchain::protocol::conclusion_staking_operation, (from)(fund_name)(request_id) )
+FC_REFLECT( fiberchain::protocol::transfer_fund_operation, (from)(fund_name)(amount)(memo) )
+FC_REFLECT( fiberchain::protocol::set_fund_interest_operation, (fund_name)(usertype)(month)(percent_interest) )

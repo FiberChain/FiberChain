@@ -13,21 +13,21 @@
 #include <fc/real128.hpp>
 #include <fc/crypto/base58.hpp>
 
-using namespace futurepia::app;
-using namespace futurepia::chain;
+using namespace fiberchain::app;
+using namespace fiberchain::chain;
 using namespace graphene::utilities;
 using namespace std;
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 
-using futurepia::app::discussion;
+using fiberchain::app::discussion;
 using protocol::comment_vote_type;
 using protocol::comment_betting_type;
-using namespace futurepia::private_message;
-using namespace futurepia::token;
-using namespace futurepia::dapp;
-using namespace futurepia::dapp_history;
-using namespace futurepia::asset_storage;
+using namespace fiberchain::private_message;
+using namespace fiberchain::token;
+using namespace fiberchain::dapp;
+using namespace fiberchain::dapp_history;
+using namespace fiberchain::asset_storage;
 
 typedef uint16_t transaction_handle_type;
 
@@ -1323,25 +1323,25 @@ struct plain_keys {
    map<public_key_type,string> keys;
 };
 
-} // namespace futurepia::wallet 
-} // namespace futurepia
+} // namespace fiberchain::wallet 
+} // namespace fiberchain
 
-FC_REFLECT( futurepia::wallet::wallet_data,
+FC_REFLECT( fiberchain::wallet::wallet_data,
             (cipher_keys)
             (ws_server)
             (ws_user)
             (ws_password)
           )
 
-FC_REFLECT( futurepia::wallet::brain_key_info, (brain_priv_key)(wif_priv_key) (pub_key))
+FC_REFLECT( fiberchain::wallet::brain_key_info, (brain_priv_key)(wif_priv_key) (pub_key))
 
-FC_REFLECT( futurepia::wallet::plain_keys, (checksum)(keys) )
+FC_REFLECT( fiberchain::wallet::plain_keys, (checksum)(keys) )
 
-FC_REFLECT( futurepia::wallet::creating_dapp_result, (trx)(dapp_key) )
+FC_REFLECT( fiberchain::wallet::creating_dapp_result, (trx)(dapp_key) )
 
-FC_REFLECT_ENUM( futurepia::wallet::authority_type, (owner)(active)(posting) )
+FC_REFLECT_ENUM( fiberchain::wallet::authority_type, (owner)(active)(posting) )
 
-FC_API( futurepia::wallet::wallet_api,
+FC_API( fiberchain::wallet::wallet_api,
         /// wallet api
         (help)(gethelp)
         (about)(is_new)(is_locked)(lock)(unlock)(set_password)
@@ -1494,4 +1494,4 @@ FC_API( futurepia::wallet::wallet_api,
         ( get_exchange_from )
         ( get_exchange_list )
       )
-FC_REFLECT( futurepia::wallet::memo_data, (from)(to)(nonce)(check)(encrypted) )
+FC_REFLECT( fiberchain::wallet::memo_data, (from)(to)(nonce)(check)(encrypted) )

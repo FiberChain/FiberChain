@@ -34,7 +34,7 @@
 #include <fstream>
 #include <functional>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 //namespace db2 = graphene::db2;
 
@@ -60,11 +60,11 @@ struct db_schema
 
 } }
 
-FC_REFLECT( futurepia::chain::object_schema_repr, (space_type)(type) )
-FC_REFLECT( futurepia::chain::operation_schema_repr, (id)(type) )
-FC_REFLECT( futurepia::chain::db_schema, (types)(object_types)(operation_type)(custom_operation_types) )
+FC_REFLECT( fiberchain::chain::object_schema_repr, (space_type)(type) )
+FC_REFLECT( fiberchain::chain::operation_schema_repr, (id)(type) )
+FC_REFLECT( fiberchain::chain::db_schema, (types)(object_types)(operation_type)(custom_operation_types) )
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 using boost::container::flat_set;
 
@@ -2619,4 +2619,4 @@ const dapp_reward_fund_object& database::get_dapp_reward_fund()const
    return get(dapp_reward_fund_id_type());
 }
 
-} } //futurepia::chain
+} } //fiberchain::chain

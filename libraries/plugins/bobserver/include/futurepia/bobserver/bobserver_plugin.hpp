@@ -31,12 +31,12 @@
 #define RESERVE_RATIO_PRECISION ((int64_t)10000)
 #define RESERVE_RATIO_MIN_INCREMENT ((int64_t)5000)
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 using std::string;
 using protocol::public_key_type;
 using app::application;
-using futurepia::protocol::block_id_type;
+using fiberchain::protocol::block_id_type;
 
 namespace block_production_condition
 {
@@ -60,7 +60,7 @@ namespace detail
    class bobserver_plugin_impl;
 }
 
-class bobserver_plugin : public futurepia::app::plugin
+class bobserver_plugin : public fiberchain::app::plugin
 {
 public:
    bobserver_plugin( application* app );
@@ -87,7 +87,7 @@ private:
    boost::program_options::variables_map _options;
    bool _production_enabled = false;
    uint32_t _required_bobserver_participation = 33 * FUTUREPIA_1_PERCENT;
-   uint32_t _production_skip_flags = futurepia::chain::database::skip_nothing;
+   uint32_t _production_skip_flags = fiberchain::chain::database::skip_nothing;
 
    block_id_type    _head_block_id        = block_id_type();
    fc::time_point   _hash_start_time;
@@ -100,4 +100,4 @@ private:
    std::unique_ptr< detail::bobserver_plugin_impl > _my;
 };
 
-} } //futurepia::bobserver
+} } //fiberchain::bobserver

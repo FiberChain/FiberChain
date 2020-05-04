@@ -7,7 +7,7 @@
 #include <futurepia/chain/futurepia_objects.hpp>
 #include <futurepia/dapp/dapp_api.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
    using std::string;
    using std::vector;
    using protocol::comment_vote_type;
@@ -27,7 +27,7 @@ namespace futurepia { namespace app {
    struct vote_api_object
    {
       vote_api_object(){}
-      vote_api_object( const comment_vote_object o, const futurepia::chain::database& db) :
+      vote_api_object( const comment_vote_object o, const fiberchain::chain::database& db) :
          time( o.created )
          , amount( o.voting_amount )
       {
@@ -42,7 +42,7 @@ namespace futurepia { namespace app {
    struct account_vote_api_object
    {
       account_vote_api_object(){}
-      account_vote_api_object( const comment_vote_object o, const futurepia::chain::database& db) :
+      account_vote_api_object( const comment_vote_object o, const fiberchain::chain::database& db) :
          type( o.vote_type )
          , time( o.created )
          , amount( o.voting_amount )
@@ -62,7 +62,7 @@ namespace futurepia { namespace app {
    struct bet_api_object
    {
       bet_api_object(){}
-      bet_api_object( const comment_betting_object o, const futurepia::chain::database& db) :
+      bet_api_object( const comment_betting_object o, const fiberchain::chain::database& db) :
          type( o.betting_type )
          , round_no( o.round_no )
          , time( o.created )
@@ -81,7 +81,7 @@ namespace futurepia { namespace app {
    struct account_bet_api_object
    {
       account_bet_api_object(){}
-      account_bet_api_object( const comment_betting_object o, const futurepia::chain::database& db ) :
+      account_bet_api_object( const comment_betting_object o, const fiberchain::chain::database& db ) :
          type( o.betting_type )
          , round_no( o.round_no )
          , time( o.created )
@@ -103,7 +103,7 @@ namespace futurepia { namespace app {
    struct round_bet_api_object
    {
       round_bet_api_object(){}
-      round_bet_api_object( const comment_betting_object o, const futurepia::chain::database& db ):
+      round_bet_api_object( const comment_betting_object o, const fiberchain::chain::database& db ):
          type( o.betting_type )
          , time( o.created )
          , amount( o.betting_amount )
@@ -202,29 +202,29 @@ namespace futurepia { namespace app {
         bobserver_schedule_api_obj        bobserver_schedule;
         string                            error;
 
-        map<string, futurepia::dapp::dapp_discussion>  dapp_content;
+        map<string, fiberchain::dapp::dapp_discussion>  dapp_content;
    };
 
 } }
 
-FC_REFLECT_DERIVED( futurepia::app::extended_account,
-                   (futurepia::app::account_api_obj),
+FC_REFLECT_DERIVED( fiberchain::app::extended_account,
+                   (fiberchain::app::account_api_obj),
                    (transfer_history)(post_history)(vote_history)(other_history)(bobserver_votes)(comments)(recent_replies) )
 
 
-FC_REFLECT( futurepia::app::vote_api_object, (voter)(time)(amount) );
-FC_REFLECT( futurepia::app::account_vote_api_object, (author)(permlink)(type)(time)(amount) );
-FC_REFLECT( futurepia::app::bet_api_object, (bettor)(type)(round_no)(time)(amount) );
-FC_REFLECT( futurepia::app::account_bet_api_object, (author)(permlink)(type)(round_no)(time)(amount) );
-FC_REFLECT( futurepia::app::round_bet_api_object, (author)(permlink)(bettor)(type)(time)(amount) );
-FC_REFLECT( futurepia::app::betting_state, (round_no)(allow_betting)(betting_count)(recommend_count) );
+FC_REFLECT( fiberchain::app::vote_api_object, (voter)(time)(amount) );
+FC_REFLECT( fiberchain::app::account_vote_api_object, (author)(permlink)(type)(time)(amount) );
+FC_REFLECT( fiberchain::app::bet_api_object, (bettor)(type)(round_no)(time)(amount) );
+FC_REFLECT( fiberchain::app::account_bet_api_object, (author)(permlink)(type)(round_no)(time)(amount) );
+FC_REFLECT( fiberchain::app::round_bet_api_object, (author)(permlink)(bettor)(type)(time)(amount) );
+FC_REFLECT( fiberchain::app::betting_state, (round_no)(allow_betting)(betting_count)(recommend_count) );
 
-FC_REFLECT( futurepia::app::discussion_index, (created)(responses) )
-FC_REFLECT( futurepia::app::tag_name_index, (trending) )
-FC_REFLECT_DERIVED( futurepia::app::discussion, 
-                  (futurepia::app::comment_api_obj), 
+FC_REFLECT( fiberchain::app::discussion_index, (created)(responses) )
+FC_REFLECT( fiberchain::app::tag_name_index, (trending) )
+FC_REFLECT_DERIVED( fiberchain::app::discussion, 
+                  (fiberchain::app::comment_api_obj), 
                   (root_title)(betting_states)(like_votes)(dislike_votes)(recommend_votes)(betting_list)(replies)(body_length) )
 
-FC_REFLECT( futurepia::app::state, (current_route)(props)(discussion_idx)(content)(accounts)(bobservers)(bobserver_schedule)(error)(dapp_content) )
+FC_REFLECT( fiberchain::app::state, (current_route)(props)(discussion_idx)(content)(accounts)(bobservers)(bobserver_schedule)(error)(dapp_content) )
 
-FC_REFLECT( futurepia::app::candle_stick, (open_time)(period)(high)(low)(open)(close)(pia_volume)(snac_volume) );
+FC_REFLECT( fiberchain::app::candle_stick, (open_time)(period)(high)(low)(open)(close)(pia_volume)(snac_volume) );

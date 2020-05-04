@@ -2,7 +2,7 @@
 
 #include <futurepia/chain/evaluator.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 template< typename OperationType >
 class evaluator_registry

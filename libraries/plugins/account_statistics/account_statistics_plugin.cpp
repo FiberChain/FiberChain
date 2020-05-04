@@ -5,7 +5,7 @@
 
 #include <futurepia/chain/database.hpp>
 
-namespace futurepia { namespace account_statistics {
+namespace fiberchain { namespace account_statistics {
 
 namespace detail
 {
@@ -105,6 +105,6 @@ const flat_set< std::string >& account_statistics_plugin::get_tracked_accounts()
    return _my->_tracked_accounts;
 }
 
-} } // futurepia::account_statistics
+} } // fiberchain::account_statistics
 
-FUTUREPIA_DEFINE_PLUGIN( account_statistics, futurepia::account_statistics::account_statistics_plugin );
+FUTUREPIA_DEFINE_PLUGIN( account_statistics, fiberchain::account_statistics::account_statistics_plugin );

@@ -60,7 +60,7 @@
 
 #define BRAIN_KEY_WORD_COUNT 16
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 
 namespace detail {
 
@@ -400,7 +400,7 @@ public:
       fc::optional<fc::ecc::private_key> optional_private_key = wif_to_key(wif_key);
       if (!optional_private_key)
          FC_THROW("Invalid private key");
-      futurepia::chain::public_key_type wif_pub_key = optional_private_key->get_public_key();
+      fiberchain::chain::public_key_type wif_pub_key = optional_private_key->get_public_key();
 
       _keys[wif_pub_key] = wif_key;
       return true;
@@ -471,7 +471,7 @@ public:
       for (int key_index = 0; ; ++key_index)
       {
          fc::ecc::private_key derived_private_key = derive_private_key(key_to_wif(parent_key), key_index);
-         futurepia::chain::public_key_type derived_public_key = derived_private_key.get_public_key();
+         fiberchain::chain::public_key_type derived_public_key = derived_private_key.get_public_key();
          if( _keys.find(derived_public_key) == _keys.end() )
          {
             if (number_of_consecutive_unused_keys)
@@ -899,11 +899,11 @@ public:
    const string _wallet_filename_extension = ".wallet";
 };  // class wallet_api_impl
 
-} } } // futurepia::wallet::detail
+} } } // fiberchain::wallet::detail
 
 
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 wallet_api::wallet_api(const wallet_data& initial_data, fc::api<login_api> rapi)
    : my(new detail::wallet_api_impl(*this, initial_data, rapi))
 {}
@@ -3112,5 +3112,5 @@ vector< asset_event_api_object > wallet_api::get_asset_events( string asset_name
    return result;
 }
 
-} } // futurepia::wallet
+} } // fiberchain::wallet
 

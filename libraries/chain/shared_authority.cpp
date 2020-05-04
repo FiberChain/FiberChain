@@ -1,6 +1,6 @@
 #include <futurepia/chain/shared_authority.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 shared_authority::operator authority()const
 {
@@ -90,4 +90,4 @@ bool operator == ( const shared_authority& a, const authority& b )
    return authority( a ) == b;
 }
 
-} } // futurepia::chain
+} } // fiberchain::chain

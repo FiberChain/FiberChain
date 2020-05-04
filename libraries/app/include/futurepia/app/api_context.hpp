@@ -12,7 +12,7 @@ class websocket_api_connection;
 
 } }
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 class application;
 

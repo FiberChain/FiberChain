@@ -5,11 +5,11 @@
 
 #include <futurepia/plugins/block_info/block_info.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
    struct api_context;
 } }
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
 namespace detail {
 class block_info_api_impl;
@@ -24,7 +24,7 @@ struct get_block_info_args
 class block_info_api
 {
    public:
-      block_info_api( const futurepia::app::api_context& ctx );
+      block_info_api( const fiberchain::app::api_context& ctx );
 
       void on_api_startup();
 
@@ -37,12 +37,12 @@ class block_info_api
 
 } } }
 
-FC_REFLECT( futurepia::plugin::block_info::get_block_info_args,
+FC_REFLECT( fiberchain::plugin::block_info::get_block_info_args,
    (start_block_num)
    (count)
    )
 
-FC_API( futurepia::plugin::block_info::block_info_api,
+FC_API( fiberchain::plugin::block_info::block_info_api,
    (get_block_info)
    (get_blocks_with_info)
    )

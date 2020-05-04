@@ -3,7 +3,7 @@
 #include <futurepia/protocol/operation_util_impl.hpp>
 #include <futurepia/protocol/authority.hpp>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
    
    void create_asset_operation::validate()const
    {
@@ -26,6 +26,6 @@ namespace futurepia { namespace asset_storage {
       } FC_CAPTURE_AND_RETHROW( ( *this ) )
    }
 
-} } //namespace futurepia::asset_storage
+} } //namespace fiberchain::asset_storage
 
-DEFINE_OPERATION_TYPE( futurepia::asset_storage::asset_storage_operation )
+DEFINE_OPERATION_TYPE( fiberchain::asset_storage::asset_storage_operation )

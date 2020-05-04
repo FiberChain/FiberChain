@@ -36,14 +36,14 @@
 
 #include <fc/string.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 using namespace fc;
-using namespace futurepia::token;
-using namespace futurepia::dapp;
-using namespace futurepia::private_message;
-using namespace futurepia::bobserver;
-using namespace futurepia::asset_storage;
+using namespace fiberchain::token;
+using namespace fiberchain::dapp;
+using namespace fiberchain::private_message;
+using namespace fiberchain::bobserver;
+using namespace fiberchain::asset_storage;
 
 template< typename OPERATION_TYPE, typename VISITOR >
 void process_inner_operation( const fc::variant var, VISITOR visitor );
@@ -56,14 +56,14 @@ void get_impacted_account_from_custom( const custom_json_operation& op, fc::flat
 void get_impacted_account_from_custom( const custom_binary_operation& op, fc::flat_set< protocol::account_name_type >& result );
 
 void operation_get_impacted_accounts(
-   const futurepia::protocol::operation& op,
+   const fiberchain::protocol::operation& op,
    chain::database& db,
    fc::flat_set<protocol::account_name_type>& result );
 
 void transaction_get_impacted_accounts(
-   const futurepia::protocol::transaction& tx,
+   const fiberchain::protocol::transaction& tx,
    chain::database& db,
    fc::flat_set<protocol::account_name_type>& result
    );
 
-} } // futurepia::app
+} } // fiberchain::app

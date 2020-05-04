@@ -30,7 +30,7 @@ std::string wstring_to_utf8(const std::wstring& str)
 
 #include <limits>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
    using fc::uint128_t;
    using protocol::comment_vote_type;
    using protocol::comment_betting_type;
@@ -1214,4 +1214,4 @@ void set_fund_interest_evaluator::do_apply( const set_fund_interest_operation& o
    }
 }
 
-} } // futurepia::chain
+} } // fiberchain::chain

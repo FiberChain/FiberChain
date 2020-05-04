@@ -7,7 +7,7 @@
 
 namespace fc
 {
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    std::string name_from_type( const std::string& type_name );
 
@@ -39,7 +39,7 @@ namespace fc
    };
 }
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 struct operation_validate_visitor
 {
@@ -74,7 +74,7 @@ struct operation_get_required_auth_visitor
    }
 };
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
 //
 // Place DEFINE_OPERATION_TYPE in a .cpp file to define
@@ -118,11 +118,11 @@ void from_variant( const fc::variant& var,  OperationType& vo )            \
    }                                                                       \
 }                                                                          \
                                                                            \
-namespace futurepia { namespace protocol {                                      \
+namespace fiberchain { namespace protocol {                                      \
                                                                            \
 void operation_validate( const OperationType& op )                         \
 {                                                                          \
-   op.visit( futurepia::protocol::operation_validate_visitor() );               \
+   op.visit( fiberchain::protocol::operation_validate_visitor() );               \
 }                                                                          \
                                                                            \
 void operation_get_required_authorities( const OperationType& op,          \
@@ -131,7 +131,7 @@ void operation_get_required_authorities( const OperationType& op,          \
                                          flat_set< account_name_type >& posting,        \
                                          std::vector< authority >& other )     \
 {                                                                          \
-   op.visit( futurepia::protocol::operation_get_required_auth_visitor( active, owner, posting, other ) ); \
+   op.visit( fiberchain::protocol::operation_get_required_auth_visitor( active, owner, posting, other ) ); \
 }                                                                          \
                                                                            \
-} } /* futurepia::protocol */
+} } /* fiberchain::protocol */

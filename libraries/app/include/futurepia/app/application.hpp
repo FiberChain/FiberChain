@@ -35,7 +35,7 @@
 
 #include <boost/program_options.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
    namespace detail { class application_impl; }
    using std::string;
 
@@ -155,4 +155,4 @@ namespace futurepia { namespace app {
       } );
    }
 
-} } // futurepia::app
+} } // fiberchain::app

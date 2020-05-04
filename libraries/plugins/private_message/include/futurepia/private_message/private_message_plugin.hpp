@@ -31,7 +31,7 @@
 #include <fc/thread/future.hpp>
 #include <fc/api.hpp>
 
-namespace futurepia { namespace private_message {
+namespace fiberchain { namespace private_message {
 using namespace chain;
 using app::application;
 
@@ -153,7 +153,7 @@ typedef multi_index_container<
  *   by the posting key.
  *
  */
-class private_message_plugin : public futurepia::app::plugin
+class private_message_plugin : public fiberchain::app::plugin
 {
    public:
       private_message_plugin( application* app );
@@ -192,15 +192,15 @@ class private_message_api : public std::enable_shared_from_this<private_message_
       app::application* _app = nullptr;
 };
 
-} } //futurepia::private_message
+} } //fiberchain::private_message
 
-FC_API( futurepia::private_message::private_message_api, (get_inbox)(get_outbox) );
+FC_API( fiberchain::private_message::private_message_api, (get_inbox)(get_outbox) );
 
-FC_REFLECT( futurepia::private_message::message_body, (thread_start)(subject)(body)(json_meta)(cc) );
+FC_REFLECT( fiberchain::private_message::message_body, (thread_start)(subject)(body)(json_meta)(cc) );
 
-FC_REFLECT( futurepia::private_message::message_object, (id)(from)(to)(from_memo_key)(to_memo_key)(sent_time)(receive_time)(checksum)(encrypted_message) );
-CHAINBASE_SET_INDEX_TYPE( futurepia::private_message::message_object, futurepia::private_message::message_index );
+FC_REFLECT( fiberchain::private_message::message_object, (id)(from)(to)(from_memo_key)(to_memo_key)(sent_time)(receive_time)(checksum)(encrypted_message) );
+CHAINBASE_SET_INDEX_TYPE( fiberchain::private_message::message_object, fiberchain::private_message::message_index );
 
-FC_REFLECT( futurepia::private_message::message_api_obj, (id)(from)(to)(from_memo_key)(to_memo_key)(sent_time)(receive_time)(checksum)(encrypted_message) );
+FC_REFLECT( fiberchain::private_message::message_api_obj, (id)(from)(to)(from_memo_key)(to_memo_key)(sent_time)(receive_time)(checksum)(encrypted_message) );
 
-FC_REFLECT_DERIVED( futurepia::private_message::extended_message_object, (futurepia::private_message::message_api_obj), (message) );
+FC_REFLECT_DERIVED( fiberchain::private_message::extended_message_object, (fiberchain::private_message::message_api_obj), (message) );

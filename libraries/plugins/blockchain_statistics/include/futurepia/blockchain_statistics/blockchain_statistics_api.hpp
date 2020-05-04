@@ -4,11 +4,11 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
    struct api_context;
 } }
 
-namespace futurepia { namespace blockchain_statistics {
+namespace fiberchain { namespace blockchain_statistics {
 
 namespace detail
 {
@@ -56,7 +56,7 @@ struct statistics
 class blockchain_statistics_api
 {
    public:
-      blockchain_statistics_api( const futurepia::app::api_context& ctx );
+      blockchain_statistics_api( const fiberchain::app::api_context& ctx );
 
       void on_api_startup();
 
@@ -85,9 +85,9 @@ class blockchain_statistics_api
       std::shared_ptr< detail::blockchain_statistics_api_impl > my;
 };
 
-} } // futurepia::blockchain_statistics
+} } // fiberchain::blockchain_statistics
 
-FC_REFLECT( futurepia::blockchain_statistics::statistics,
+FC_REFLECT( fiberchain::blockchain_statistics::statistics,
    (blocks)
    (bandwidth)
    (operations)
@@ -122,7 +122,7 @@ FC_REFLECT( futurepia::blockchain_statistics::statistics,
    (pia_converted)
 )
 
-FC_API( futurepia::blockchain_statistics::blockchain_statistics_api,
+FC_API( fiberchain::blockchain_statistics::blockchain_statistics_api,
    (get_stats_for_time)
    (get_stats_for_interval)
    (get_lifetime_stats)

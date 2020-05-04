@@ -5,7 +5,7 @@
 #include <futurepia/chain/account_object.hpp>
 
 #include <fc/api.hpp>
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
 
    struct dapp_api_object
    {
@@ -108,7 +108,7 @@ namespace futurepia { namespace dapp {
    struct dapp_comment_vote_api_object
    {
       dapp_comment_vote_api_object(){}
-      dapp_comment_vote_api_object( const dapp_comment_vote_object& o, const futurepia::chain::database& db ) :
+      dapp_comment_vote_api_object( const dapp_comment_vote_object& o, const fiberchain::chain::database& db ) :
          time( o.last_update )
       {
          voter = db.get( o.voter ).name;
@@ -121,7 +121,7 @@ namespace futurepia { namespace dapp {
    struct dapp_account_vote_api_object
    {
       dapp_account_vote_api_object(){}
-      dapp_account_vote_api_object( const dapp_comment_vote_object o, const futurepia::chain::database& db) :
+      dapp_account_vote_api_object( const dapp_comment_vote_object o, const fiberchain::chain::database& db) :
          dapp_name( o.dapp_name )
          , type( o.vote_type )
          , time( o.last_update )
@@ -336,10 +336,10 @@ namespace futurepia { namespace dapp {
          std::shared_ptr< detail::dapp_api_impl > _my;
    };
 
-} } // namespace futurepia::dapp
+} } // namespace fiberchain::dapp
 
 
-FC_REFLECT( futurepia::dapp::dapp_api_object, 
+FC_REFLECT( fiberchain::dapp::dapp_api_object, 
    ( dapp_name )
    ( owner )
    ( dapp_key )
@@ -348,12 +348,12 @@ FC_REFLECT( futurepia::dapp::dapp_api_object,
    ( last_updated )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_comment_vote_api_object, 
+FC_REFLECT( fiberchain::dapp::dapp_comment_vote_api_object, 
    (voter)
    (time) 
 )
 
-FC_REFLECT( futurepia::dapp::dapp_account_vote_api_object, 
+FC_REFLECT( fiberchain::dapp::dapp_account_vote_api_object, 
    ( dapp_name )
    ( author )
    ( permlink )
@@ -361,7 +361,7 @@ FC_REFLECT( futurepia::dapp::dapp_account_vote_api_object,
    ( time )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_comment_api_obj,
+FC_REFLECT( fiberchain::dapp::dapp_comment_api_obj,
    (id)
    (dapp_name)
    (category)
@@ -385,7 +385,7 @@ FC_REFLECT( futurepia::dapp::dapp_comment_api_obj,
    (allow_votes)
 )
 
-FC_REFLECT_DERIVED( futurepia::dapp::dapp_discussion, (futurepia::dapp::dapp_comment_api_obj), 
+FC_REFLECT_DERIVED( fiberchain::dapp::dapp_discussion, (fiberchain::dapp::dapp_comment_api_obj), 
    ( root_title )
    ( like_votes )
    ( dislike_votes )
@@ -393,7 +393,7 @@ FC_REFLECT_DERIVED( futurepia::dapp::dapp_discussion, (futurepia::dapp::dapp_com
    ( body_length )
 )
 
-FC_REFLECT( futurepia::dapp::simple_dapp_discussion, 
+FC_REFLECT( fiberchain::dapp::simple_dapp_discussion, 
    ( id )
    ( dapp_name )
    ( author )
@@ -402,7 +402,7 @@ FC_REFLECT( futurepia::dapp::simple_dapp_discussion,
    ( created )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_user_api_object, 
+FC_REFLECT( fiberchain::dapp::dapp_user_api_object, 
    ( dapp_id )
    ( dapp_name )
    ( account_id )
@@ -410,14 +410,14 @@ FC_REFLECT( futurepia::dapp::dapp_user_api_object,
    ( join_date_time )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_vote_api_object, 
+FC_REFLECT( fiberchain::dapp::dapp_vote_api_object, 
    ( dapp_name )
    ( voter )
    ( vote )
    ( last_update )
 )
 
-FC_API( futurepia::dapp::dapp_api,
+FC_API( fiberchain::dapp::dapp_api,
    ( lookup_dapps )
    ( get_dapp )
    ( get_dapps_by_owner )

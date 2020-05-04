@@ -1,9 +1,9 @@
 #pragma once
 #include <futurepia/chain/futurepia_object_types.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::block_id_type;
+   using fiberchain::protocol::block_id_type;
 
    /**
     *  @brief tracks minimal information about past blocks to implement TaPOS
@@ -38,7 +38,7 @@ namespace futurepia { namespace chain {
       allocator< block_summary_object >
    > block_summary_index;
 
-} } // futurepia::chain
+} } // fiberchain::chain
 
-FC_REFLECT( futurepia::chain::block_summary_object, (id)(block_id) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::block_summary_object, futurepia::chain::block_summary_index )
+FC_REFLECT( fiberchain::chain::block_summary_object, (id)(block_id) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::block_summary_object, fiberchain::chain::block_summary_index )

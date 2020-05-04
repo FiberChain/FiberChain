@@ -9,12 +9,12 @@
 #include <futurepia/chain/index.hpp>
 #include <futurepia/chain/operation_notification.hpp>
 
-namespace futurepia { namespace blockchain_statistics {
+namespace fiberchain { namespace blockchain_statistics {
 
 namespace detail
 {
 
-using namespace futurepia::protocol;
+using namespace fiberchain::protocol;
 
 class blockchain_statistics_plugin_impl
 {
@@ -350,6 +350,6 @@ uint32_t blockchain_statistics_plugin::get_max_history_per_bucket() const
    return _my->_maximum_history_per_bucket_size;
 }
 
-} } // futurepia::blockchain_statistics
+} } // fiberchain::blockchain_statistics
 
-FUTUREPIA_DEFINE_PLUGIN( blockchain_statistics, futurepia::blockchain_statistics::blockchain_statistics_plugin );
+FUTUREPIA_DEFINE_PLUGIN( blockchain_statistics, fiberchain::blockchain_statistics::blockchain_statistics_plugin );

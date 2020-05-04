@@ -12,9 +12,9 @@
 
 #include <numeric>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::authority;
+   using fiberchain::protocol::authority;
 
    class account_object : public object< account_object_type, account_object >
    {
@@ -287,7 +287,7 @@ namespace futurepia { namespace chain {
    > change_recovery_account_request_index;
 } }
 
-FC_REFLECT( futurepia::chain::account_object,
+FC_REFLECT( fiberchain::chain::account_object,
              (id)(name)(memo_key)(json_metadata)(last_account_update)
              (created)(mined)
              (recovery_account)(last_account_recovery)(reset_account)
@@ -304,25 +304,25 @@ FC_REFLECT( futurepia::chain::account_object,
              (bobservers_voted_for)
              (last_post)(last_root_post)(post_bandwidth)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::account_object, futurepia::chain::account_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::account_object, fiberchain::chain::account_index )
 
-FC_REFLECT( futurepia::chain::account_authority_object,
+FC_REFLECT( fiberchain::chain::account_authority_object,
              (id)(account)(owner)(active)(posting)(last_owner_update)
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::account_authority_object, futurepia::chain::account_authority_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::account_authority_object, fiberchain::chain::account_authority_index )
 
 
-FC_REFLECT( futurepia::chain::owner_authority_history_object,
+FC_REFLECT( fiberchain::chain::owner_authority_history_object,
              (id)(account)(previous_owner_authority)(last_valid_time)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::owner_authority_history_object, futurepia::chain::owner_authority_history_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::owner_authority_history_object, fiberchain::chain::owner_authority_history_index )
 
-FC_REFLECT( futurepia::chain::account_recovery_request_object,
+FC_REFLECT( fiberchain::chain::account_recovery_request_object,
              (id)(account_to_recover)(new_owner_authority)(expires)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::account_recovery_request_object, futurepia::chain::account_recovery_request_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::account_recovery_request_object, fiberchain::chain::account_recovery_request_index )
 
-FC_REFLECT( futurepia::chain::change_recovery_account_request_object,
+FC_REFLECT( fiberchain::chain::change_recovery_account_request_object,
              (id)(account_to_recover)(recovery_account)(effective_on)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::change_recovery_account_request_object, futurepia::chain::change_recovery_account_request_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::change_recovery_account_request_object, fiberchain::chain::change_recovery_account_request_index )

@@ -7,11 +7,11 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace dapp_history {
+namespace fiberchain { namespace dapp_history {
    using namespace std;
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
    using namespace boost::multi_index;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    enum dapp_history_by_key_object_type
    {
@@ -56,8 +56,8 @@ namespace futurepia { namespace dapp_history {
       allocator< dapp_history_object >
    > dapp_history_index;
 
-} } //namespace futurepia::dapp_history
+} } //namespace fiberchain::dapp_history
 
-FC_REFLECT( futurepia::dapp_history::dapp_history_object, (id)(dapp_name)(sequence)(op) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp_history::dapp_history_object, futurepia::dapp_history::dapp_history_index )
+FC_REFLECT( fiberchain::dapp_history::dapp_history_object, (id)(dapp_name)(sequence)(op) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp_history::dapp_history_object, fiberchain::dapp_history::dapp_history_index )
 

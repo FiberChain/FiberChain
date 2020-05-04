@@ -6,7 +6,7 @@
 
 #include <fc/time.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    struct base_operation
    {
@@ -39,7 +39,7 @@ namespace futurepia { namespace protocol {
    typedef flat_set<future_extensions> extensions_type;
 
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-FC_REFLECT_TYPENAME( futurepia::protocol::block_header_extensions )
-FC_REFLECT_TYPENAME( futurepia::protocol::future_extensions )
+FC_REFLECT_TYPENAME( fiberchain::protocol::block_header_extensions )
+FC_REFLECT_TYPENAME( fiberchain::protocol::future_extensions )

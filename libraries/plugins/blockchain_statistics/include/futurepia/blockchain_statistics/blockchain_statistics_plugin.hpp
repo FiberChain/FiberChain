@@ -8,9 +8,9 @@
 #define BLOCKCHAIN_STATISTICS_PLUGIN_NAME "chain_stats"
 #endif
 
-namespace futurepia { namespace blockchain_statistics {
+namespace fiberchain { namespace blockchain_statistics {
 
-using namespace futurepia::chain;
+using namespace fiberchain::chain;
 using app::application;
 
 enum blockchain_statistics_object_type
@@ -23,7 +23,7 @@ namespace detail
    class blockchain_statistics_plugin_impl;
 }
 
-class blockchain_statistics_plugin : public futurepia::app::plugin
+class blockchain_statistics_plugin : public fiberchain::app::plugin
 {
    public:
       blockchain_statistics_plugin( application* app );
@@ -100,9 +100,9 @@ typedef multi_index_container<
    allocator< bucket_object >
 > bucket_index;
 
-} } // futurepia::blockchain_statistics
+} } // fiberchain::blockchain_statistics
 
-FC_REFLECT( futurepia::blockchain_statistics::bucket_object,
+FC_REFLECT( fiberchain::blockchain_statistics::bucket_object,
    (id)
    (open)
    (seconds)
@@ -131,4 +131,4 @@ FC_REFLECT( futurepia::blockchain_statistics::bucket_object,
    (snac_conversion_requests_filled)
    (pia_converted)
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::blockchain_statistics::bucket_object, futurepia::blockchain_statistics::bucket_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::blockchain_statistics::bucket_object, fiberchain::blockchain_statistics::bucket_index )

@@ -26,7 +26,7 @@
 #include <deque>
 #include <cstdint>
 
-namespace futurepia {
+namespace fiberchain {
 
    using                                    fc::uint128_t;
    typedef boost::multiprecision::uint256_t u256;
@@ -103,7 +103,7 @@ namespace futurepia {
             friend bool operator != ( const public_key_type& p1, const public_key_type& p2);
       };
 
-      #define FUTUREPIA_INIT_PUBLIC_KEY (futurepia::protocol::public_key_type(FUTUREPIA_INIT_PUBLIC_KEY_STR))
+      #define FUTUREPIA_INIT_PUBLIC_KEY (fiberchain::protocol::public_key_type(FUTUREPIA_INIT_PUBLIC_KEY_STR))
 
       struct extended_public_key_type
       {
@@ -167,39 +167,39 @@ namespace futurepia {
          APPROVAL       = 102,
          REJECTION      = 103
       };
-} }  // futurepia::protocol
+} }  // fiberchain::protocol
 
 namespace fc
 {
-    void to_variant( const futurepia::protocol::public_key_type& var,  fc::variant& vo );
-    void from_variant( const fc::variant& var,  futurepia::protocol::public_key_type& vo );
-    void to_variant( const futurepia::protocol::extended_public_key_type& var, fc::variant& vo );
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_public_key_type& vo );
-    void to_variant( const futurepia::protocol::extended_private_key_type& var, fc::variant& vo );
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_private_key_type& vo );
+    void to_variant( const fiberchain::protocol::public_key_type& var,  fc::variant& vo );
+    void from_variant( const fc::variant& var,  fiberchain::protocol::public_key_type& vo );
+    void to_variant( const fiberchain::protocol::extended_public_key_type& var, fc::variant& vo );
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_public_key_type& vo );
+    void to_variant( const fiberchain::protocol::extended_private_key_type& var, fc::variant& vo );
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_private_key_type& vo );
 }
 
-FC_REFLECT( futurepia::protocol::public_key_type, (key_data) )
-FC_REFLECT( futurepia::protocol::public_key_type::binary_key, (data)(check) )
-FC_REFLECT( futurepia::protocol::extended_public_key_type, (key_data) )
-FC_REFLECT( futurepia::protocol::extended_public_key_type::binary_key, (check)(data) )
-FC_REFLECT( futurepia::protocol::extended_private_key_type, (key_data) )
-FC_REFLECT( futurepia::protocol::extended_private_key_type::binary_key, (check)(data) )
+FC_REFLECT( fiberchain::protocol::public_key_type, (key_data) )
+FC_REFLECT( fiberchain::protocol::public_key_type::binary_key, (data)(check) )
+FC_REFLECT( fiberchain::protocol::extended_public_key_type, (key_data) )
+FC_REFLECT( fiberchain::protocol::extended_public_key_type::binary_key, (check)(data) )
+FC_REFLECT( fiberchain::protocol::extended_private_key_type, (key_data) )
+FC_REFLECT( fiberchain::protocol::extended_private_key_type::binary_key, (check)(data) )
 
-FC_REFLECT_TYPENAME( futurepia::protocol::share_type )
+FC_REFLECT_TYPENAME( fiberchain::protocol::share_type )
 
-FC_REFLECT_ENUM( futurepia::protocol::comment_vote_type, 
+FC_REFLECT_ENUM( fiberchain::protocol::comment_vote_type, 
                   ( LIKE )
                   ( DISLIKE ) 
                )
-FC_REFLECT_ENUM( futurepia::protocol::comment_betting_type, 
+FC_REFLECT_ENUM( fiberchain::protocol::comment_betting_type, 
                   ( RECOMMEND )
                   ( BETTING ) 
                )
-FC_REFLECT_ENUM( futurepia::protocol::dapp_state_type, 
+FC_REFLECT_ENUM( fiberchain::protocol::dapp_state_type, 
                   ( PENDING )
                   ( APPROVAL ) 
                   ( REJECTION )
                )
 
-FC_REFLECT( futurepia::void_t, )
+FC_REFLECT( fiberchain::void_t, )

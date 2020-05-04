@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 digest_type signed_transaction::merkle_digest()const
 {
@@ -39,7 +39,7 @@ void transaction::validate() const
       operation_validate(op);
 }
 
-futurepia::protocol::transaction_id_type futurepia::protocol::transaction::id() const
+fiberchain::protocol::transaction_id_type fiberchain::protocol::transaction::id() const
 {
    auto h = digest();
    transaction_id_type result;
@@ -47,14 +47,14 @@ futurepia::protocol::transaction_id_type futurepia::protocol::transaction::id() 
    return result;
 }
 
-const signature_type& futurepia::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)
+const signature_type& fiberchain::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)
 {
    digest_type h = sig_digest( chain_id );
    signatures.push_back(key.sign_compact(h));
    return signatures.back();
 }
 
-signature_type futurepia::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)const
+signature_type fiberchain::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)const
 {
    digest_type::encoder enc;
    fc::raw::pack( enc, chain_id );
@@ -262,7 +262,7 @@ set<public_key_type> signed_transaction::minimize_required_signatures(
       result.erase( k );
       try
       {
-         futurepia::protocol::verify_authority( operations, result, get_active, get_owner, get_posting, max_recursion );
+         fiberchain::protocol::verify_authority( operations, result, get_active, get_owner, get_posting, max_recursion );
          continue;  // element stays erased if verify_authority is ok
       }
       catch( const tx_missing_owner_auth& e ) {}
@@ -281,7 +281,7 @@ void signed_transaction::verify_authority(
    const authority_getter& get_posting,
    uint32_t max_recursion )const
 { try {
-   futurepia::protocol::verify_authority( operations, get_signature_keys( chain_id ), get_active, get_owner, get_posting, max_recursion );
+   fiberchain::protocol::verify_authority( operations, get_signature_keys( chain_id ), get_active, get_owner, get_posting, max_recursion );
 } FC_CAPTURE_AND_RETHROW( (*this) ) }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

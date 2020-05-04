@@ -5,11 +5,11 @@
 
 #include <futurepia/dapp/dapp_objects.hpp>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
    using namespace std;
-   using futurepia::protocol::base_operation;
-   using namespace futurepia::chain;
-   using namespace futurepia::protocol;
+   using fiberchain::protocol::base_operation;
+   using namespace fiberchain::chain;
+   using namespace fiberchain::protocol;
 
    class dapp_plugin;
 
@@ -129,21 +129,21 @@ namespace futurepia { namespace dapp {
    DEFINE_PLUGIN_EVALUATOR( dapp_plugin, dapp_operation, vote_dapp )
    DEFINE_PLUGIN_EVALUATOR( dapp_plugin, dapp_operation, vote_dapp_trx_fee )
 
-} } // namespace futurepia::dapp
+} } // namespace fiberchain::dapp
 
-FC_REFLECT( futurepia::dapp::create_dapp_operation,
+FC_REFLECT( fiberchain::dapp::create_dapp_operation,
    ( owner )
    ( dapp_name ) 
    ( dapp_key )
    )
 
-FC_REFLECT( futurepia::dapp::update_dapp_key_operation,
+FC_REFLECT( fiberchain::dapp::update_dapp_key_operation,
    ( owner )
    ( dapp_name ) 
    ( dapp_key )
    )
 
-FC_REFLECT( futurepia::dapp::comment_dapp_operation,
+FC_REFLECT( fiberchain::dapp::comment_dapp_operation,
    ( dapp_name )
    ( parent_author )
    ( parent_permlink )
@@ -154,7 +154,7 @@ FC_REFLECT( futurepia::dapp::comment_dapp_operation,
    ( json_metadata )
    )
 
-FC_REFLECT( futurepia::dapp::comment_vote_dapp_operation,
+FC_REFLECT( fiberchain::dapp::comment_vote_dapp_operation,
    ( dapp_name )
    ( voter )
    ( author )
@@ -162,34 +162,34 @@ FC_REFLECT( futurepia::dapp::comment_vote_dapp_operation,
    ( vote_type )
    )
 
-FC_REFLECT( futurepia::dapp::delete_comment_dapp_operation,
+FC_REFLECT( fiberchain::dapp::delete_comment_dapp_operation,
    ( dapp_name )
    ( author )
    ( permlink )
    )
 
-FC_REFLECT( futurepia::dapp::join_dapp_operation,
+FC_REFLECT( fiberchain::dapp::join_dapp_operation,
    ( account_name )
    ( dapp_name ) 
    )
 
-FC_REFLECT( futurepia::dapp::leave_dapp_operation,
+FC_REFLECT( fiberchain::dapp::leave_dapp_operation,
    ( account_name )
    ( dapp_name ) 
    )
 
-FC_REFLECT( futurepia::dapp::vote_dapp_operation,
+FC_REFLECT( fiberchain::dapp::vote_dapp_operation,
    ( voter )
    ( dapp_name ) 
    ( vote )
    )
 
-FC_REFLECT( futurepia::dapp::vote_dapp_trx_fee_operation,
+FC_REFLECT( fiberchain::dapp::vote_dapp_trx_fee_operation,
    ( voter )
    ( trx_fee ) 
    )
 
-DECLARE_OPERATION_TYPE( futurepia::dapp::dapp_operation )
+DECLARE_OPERATION_TYPE( fiberchain::dapp::dapp_operation )
 
-FC_REFLECT_TYPENAME( futurepia::dapp::dapp_operation )
+FC_REFLECT_TYPENAME( fiberchain::dapp::dapp_operation )
 

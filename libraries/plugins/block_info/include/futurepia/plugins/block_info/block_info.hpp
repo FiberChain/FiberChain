@@ -3,7 +3,7 @@
 
 #include <futurepia/chain/futurepia_object_types.hpp>
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
 struct block_info
 {
@@ -21,14 +21,14 @@ struct block_with_info
 
 } } }
 
-FC_REFLECT( futurepia::plugin::block_info::block_info,
+FC_REFLECT( fiberchain::plugin::block_info::block_info,
    (block_id)
    (block_size)
    (aslot)
    (last_irreversible_block_num)
    )
 
-FC_REFLECT( futurepia::plugin::block_info::block_with_info,
+FC_REFLECT( fiberchain::plugin::block_info::block_with_info,
    (block)
    (info)
    )

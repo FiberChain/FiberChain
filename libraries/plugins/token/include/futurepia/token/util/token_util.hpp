@@ -1,6 +1,6 @@
 #include <futurepia/token/token_objects.hpp>
 
-namespace futurepia { namespace token { namespace util {
+namespace fiberchain { namespace token { namespace util {
    class token_util{
       public:
       token_util( database& db ) : _db( db ){}
@@ -120,4 +120,4 @@ namespace futurepia { namespace token { namespace util {
       database& _db;
    };
 
-}}} //namespace futurepia::token::util
+}}} //namespace fiberchain::token::util

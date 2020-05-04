@@ -59,9 +59,9 @@
 
 
 using namespace graphene::utilities;
-using namespace futurepia::app;
-using namespace futurepia::chain;
-using namespace futurepia::wallet;
+using namespace fiberchain::app;
+using namespace fiberchain::chain;
+using namespace fiberchain::wallet;
 using namespace std;
 namespace bpo = boost::program_options;
 

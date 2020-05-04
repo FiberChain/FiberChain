@@ -8,7 +8,7 @@
 #include <fc/thread/future.hpp>
 #include <fc/api.hpp>
 
-namespace futurepia { namespace tags {
+namespace fiberchain { namespace tags {
 
 #define TAGS_PLUGIN_NAME "tags"
 
@@ -20,7 +20,7 @@ namespace detail { class tags_plugin_impl; }
  *  This plugin will scan all changes to posts and/or their meta data and
  *
  */
-class tags_plugin : public futurepia::app::plugin
+class tags_plugin : public fiberchain::app::plugin
 {
    public:
       tags_plugin( application* app );
@@ -37,7 +37,7 @@ class tags_plugin : public futurepia::app::plugin
       std::unique_ptr<detail::tags_plugin_impl> my;
 };
 
-} } //futurepia::tag
+} } //fiberchain::tag
 
 
 

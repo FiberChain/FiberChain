@@ -5,11 +5,11 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
    using namespace std;
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
    using namespace boost::multi_index;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    enum asset_by_key_object_type
    {
@@ -91,9 +91,9 @@ namespace futurepia { namespace asset_storage {
       chainbase::allocator< asset_event >
    > asset_event_index;
 
-} } // namespace futurepia::asset_storage
+} } // namespace fiberchain::asset_storage
 
-FC_REFLECT( futurepia::asset_storage::asset_object,
+FC_REFLECT( fiberchain::asset_storage::asset_object,
    ( id )
    ( asset_name )
    ( asset_data )
@@ -102,7 +102,7 @@ FC_REFLECT( futurepia::asset_storage::asset_object,
    ( created_tx )
 )
 
-FC_REFLECT(futurepia::asset_storage::asset_event,
+FC_REFLECT(fiberchain::asset_storage::asset_event,
    ( id )
    ( asset )
    ( title )
@@ -111,5 +111,5 @@ FC_REFLECT(futurepia::asset_storage::asset_event,
    ( created_tx )
 )
 
-CHAINBASE_SET_INDEX_TYPE( futurepia::asset_storage::asset_object, futurepia::asset_storage::asset_object_index )
-CHAINBASE_SET_INDEX_TYPE( futurepia::asset_storage::asset_event, futurepia::asset_storage::asset_event_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::asset_storage::asset_object, fiberchain::asset_storage::asset_object_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::asset_storage::asset_event, fiberchain::asset_storage::asset_event_index )

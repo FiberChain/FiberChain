@@ -3,6 +3,6 @@
 
 #include <fc/uint128.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-} } // futurepia::chain
+} } // fiberchain::chain

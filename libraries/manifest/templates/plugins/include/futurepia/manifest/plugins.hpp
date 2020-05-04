@@ -5,17 +5,17 @@
 #include <string>
 #include <vector>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 class abstract_plugin;
 class application;
 
 } }
 
-namespace futurepia { namespace plugin {
+namespace fiberchain { namespace plugin {
 
 void initialize_plugin_factories();
-std::shared_ptr< futurepia::app::abstract_plugin > create_plugin( const std::string& name, futurepia::app::application* app );
+std::shared_ptr< fiberchain::app::abstract_plugin > create_plugin( const std::string& name, fiberchain::app::application* app );
 std::vector< std::string > get_available_plugins();
 
 } }

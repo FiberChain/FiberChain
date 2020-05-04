@@ -3,11 +3,11 @@
 
 #include <futurepia/app/plugin.hpp>
 
-namespace futurepia { namespace plugin { namespace raw_block {
+namespace fiberchain { namespace plugin { namespace raw_block {
 
-using futurepia::app::application;
+using fiberchain::app::application;
 
-class raw_block_plugin : public futurepia::app::plugin
+class raw_block_plugin : public fiberchain::app::plugin
 {
    public:
       raw_block_plugin( application* app );

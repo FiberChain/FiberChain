@@ -9,7 +9,7 @@
 #include <boost/multi_index/composite_key.hpp>
 
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
    using protocol::comment_vote_type;
    using protocol::comment_betting_type;
 
@@ -328,9 +328,9 @@ namespace futurepia { namespace chain {
       allocator< comment_betting_object >
    > comment_betting_index;
 
-} } // futurepia::chain
+} } // fiberchain::chain
 
-FC_REFLECT( futurepia::chain::comment_object,
+FC_REFLECT( fiberchain::chain::comment_object,
              (id)
              (author)
              (permlink)
@@ -354,9 +354,9 @@ FC_REFLECT( futurepia::chain::comment_object,
              (allow_votes)
              (is_blocked)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::comment_object, futurepia::chain::comment_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::comment_object, fiberchain::chain::comment_index )
 
-FC_REFLECT( futurepia::chain::comment_betting_state_object,
+FC_REFLECT( fiberchain::chain::comment_betting_state_object,
             ( id )
             ( comment )
             ( round_no )
@@ -364,9 +364,9 @@ FC_REFLECT( futurepia::chain::comment_betting_state_object,
             ( betting_count )
             ( recommend_count )
          )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::comment_betting_state_object, futurepia::chain::comment_betting_state_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::comment_betting_state_object, fiberchain::chain::comment_betting_state_index )
 
-FC_REFLECT( futurepia::chain::comment_betting_object,
+FC_REFLECT( fiberchain::chain::comment_betting_object,
             ( id )
             ( bettor )
             ( comment )
@@ -375,9 +375,9 @@ FC_REFLECT( futurepia::chain::comment_betting_object,
             ( created )
             ( betting_amount )
          )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::comment_betting_object, futurepia::chain::comment_betting_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::comment_betting_object, fiberchain::chain::comment_betting_index )
 
-FC_REFLECT( futurepia::chain::comment_vote_object,
+FC_REFLECT( fiberchain::chain::comment_vote_object,
             ( id )
             ( voter )
             ( comment )
@@ -385,4 +385,4 @@ FC_REFLECT( futurepia::chain::comment_vote_object,
             ( created )
             ( voting_amount )
          )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::comment_vote_object, futurepia::chain::comment_vote_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::comment_vote_object, fiberchain::chain::comment_vote_index )

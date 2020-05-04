@@ -3,7 +3,7 @@
 #include <futurepia/protocol/authority.hpp>
 #include <futurepia/protocol/types.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 typedef std::function<authority(const string&)> authority_getter;
 
@@ -35,4 +35,4 @@ struct sign_state
       uint32_t                         max_recursion = FUTUREPIA_MAX_SIG_CHECK_DEPTH;
 };
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

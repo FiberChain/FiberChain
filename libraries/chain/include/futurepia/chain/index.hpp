@@ -2,7 +2,7 @@
 
 #include <futurepia/chain/database.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 template< typename MultiIndexType >
 void _add_index_impl( database& db )

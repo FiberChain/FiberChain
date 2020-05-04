@@ -5,11 +5,11 @@
 
 #include <futurepia/app/plugin.hpp>
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 using namespace std;
-using futurepia::protocol::base_operation;
-using futurepia::chain::database;
+using fiberchain::protocol::base_operation;
+using fiberchain::chain::database;
 
 class bobserver_plugin;
 
@@ -29,10 +29,10 @@ typedef fc::static_variant<
 
 DEFINE_PLUGIN_EVALUATOR( bobserver_plugin, bobserver_plugin_operation, enable_content_editing );
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver
 
-FC_REFLECT( futurepia::bobserver::enable_content_editing_operation, (account)(relock_time) )
+FC_REFLECT( fiberchain::bobserver::enable_content_editing_operation, (account)(relock_time) )
 
-FC_REFLECT_TYPENAME( futurepia::bobserver::bobserver_plugin_operation )
+FC_REFLECT_TYPENAME( fiberchain::bobserver::bobserver_plugin_operation )
 
-DECLARE_OPERATION_TYPE( futurepia::bobserver::bobserver_plugin_operation )
+DECLARE_OPERATION_TYPE( fiberchain::bobserver::bobserver_plugin_operation )

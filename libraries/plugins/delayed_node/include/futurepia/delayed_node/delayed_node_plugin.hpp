@@ -26,12 +26,12 @@
 #include <futurepia/app/plugin.hpp>
 #include <futurepia/chain/futurepia_objects.hpp>
 
-namespace futurepia { namespace delayed_node {
+namespace fiberchain { namespace delayed_node {
 namespace detail { struct delayed_node_plugin_impl; }
 
 using app::application;
 
-class delayed_node_plugin : public futurepia::app::plugin
+class delayed_node_plugin : public fiberchain::app::plugin
 {
    std::unique_ptr<detail::delayed_node_plugin_impl> my;
 public:
@@ -51,5 +51,5 @@ protected:
    void sync_with_trusted_node();
 };
 
-} } //futurepia::account_history
+} } //fiberchain::account_history
 

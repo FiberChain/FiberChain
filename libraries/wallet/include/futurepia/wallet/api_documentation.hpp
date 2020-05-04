@@ -31,7 +31,7 @@
 
 #include <fc/exception/exception.hpp>
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 
    struct method_description
    {
@@ -74,4 +74,4 @@ namespace futurepia { namespace wallet {
       }
    };
 
-} } // end namespace futurepia::wallet
+} } // end namespace fiberchain::wallet

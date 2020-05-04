@@ -4,11 +4,11 @@
 #include <futurepia/app/plugin.hpp>
 #include <futurepia/asset_storage/asset_storage_objects.hpp>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
    using namespace std;
-   using futurepia::protocol::base_operation;
-   using namespace futurepia::chain;
-   using namespace futurepia::protocol;
+   using fiberchain::protocol::base_operation;
+   using namespace fiberchain::chain;
+   using namespace fiberchain::protocol;
 
    class asset_storage_plugin;
 
@@ -41,21 +41,21 @@ namespace futurepia { namespace asset_storage {
    DEFINE_PLUGIN_EVALUATOR( asset_storage_plugin, asset_storage_operation, create_asset )
    DEFINE_PLUGIN_EVALUATOR( asset_storage_plugin, asset_storage_operation, create_asset_event )
 
-} } // namespace futurepia::asset_storage
+} } // namespace fiberchain::asset_storage
 
-FC_REFLECT( futurepia::asset_storage::create_asset_operation,
+FC_REFLECT( fiberchain::asset_storage::create_asset_operation,
    ( owner )
    ( asset_name )
    ( asset_data )
    )
 
-FC_REFLECT( futurepia::asset_storage::create_asset_event_operation,
+FC_REFLECT( fiberchain::asset_storage::create_asset_event_operation,
    ( asset )
    ( author ) 
    ( title )
    ( body )
    )
 
-DECLARE_OPERATION_TYPE( futurepia::asset_storage::asset_storage_operation )
+DECLARE_OPERATION_TYPE( fiberchain::asset_storage::asset_storage_operation )
 
-FC_REFLECT_TYPENAME( futurepia::asset_storage::asset_storage_operation )
+FC_REFLECT_TYPENAME( fiberchain::asset_storage::asset_storage_operation )

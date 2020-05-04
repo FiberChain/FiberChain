@@ -11,7 +11,7 @@
 #define FUTUREPIA_BLOCKCHAIN_SNAC_PRECISION_DIGITS                3
 
 #define FUTUREPIA_INIT_PRIVATE_KEY                                (fc::ecc::private_key::regenerate(fc::sha256::hash(std::string("futurepia"))))
-#define FUTUREPIA_INIT_PUBLIC_KEY_STR                             (std::string( futurepia::protocol::public_key_type(FUTUREPIA_INIT_PRIVATE_KEY.get_public_key()) ))
+#define FUTUREPIA_INIT_PUBLIC_KEY_STR                             (std::string( fiberchain::protocol::public_key_type(FUTUREPIA_INIT_PRIVATE_KEY.get_public_key()) ))
 #define FUTUREPIA_CHAIN_ID                                        (fc::sha256::hash("futurepia_testnet"))
 #define PIA_SYMBOL                                                (uint64_t(FUTUREPIA_BLOCKCHAIN_PRECISION_DIGITS) | (uint64_t('T') << 8) | (uint64_t('I') << 16) | (uint64_t('A') << 24) )///< PIA with 8 digits of precision
 #define SNAC_SYMBOL                                               (uint64_t(FUTUREPIA_BLOCKCHAIN_SNAC_PRECISION_DIGITS) | (uint64_t('T') << 8) | (uint64_t('N') << 16) | (uint64_t('A') << 24) | (uint64_t('C') << 32) ) ///< SNAC with 8 digits of precision

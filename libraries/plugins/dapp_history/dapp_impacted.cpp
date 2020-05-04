@@ -31,9 +31,9 @@
 
 #include <fc/utility.hpp>
 
-namespace futurepia { namespace dapp_history {
+namespace fiberchain { namespace dapp_history {
    using namespace fc;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    struct get_dapp_name_visitor {
       flat_set< dapp_name_type >& _impacted;
@@ -289,4 +289,4 @@ namespace futurepia { namespace dapp_history {
       get_dapp_name_visitor visitor = get_dapp_name_visitor( db, result );
       op.visit( visitor );
    }
-} } //namespace futurepia::dapp_history
+} } //namespace fiberchain::dapp_history

@@ -7,6 +7,6 @@
 
 #include <fc/uint128.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 } }

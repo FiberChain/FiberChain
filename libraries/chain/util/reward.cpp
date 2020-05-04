@@ -2,7 +2,7 @@
 #include <futurepia/chain/util/reward.hpp>
 #include <futurepia/chain/util/uint256.hpp>
 
-namespace futurepia { namespace chain { namespace util {
+namespace fiberchain { namespace chain { namespace util {
 
 uint8_t find_msb( const uint128_t& u )
 {
@@ -35,4 +35,4 @@ uint64_t approx_sqrt( const uint128_t& x )
    return result;
 }
 
-} } } // futurepia::chain::util
+} } } // fiberchain::chain::util

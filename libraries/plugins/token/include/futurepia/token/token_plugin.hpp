@@ -7,12 +7,12 @@
 
 #define TOKEN_PLUGIN_NAME "token"
 
-namespace futurepia { namespace token {
-   using futurepia::app::application;
+namespace fiberchain { namespace token {
+   using fiberchain::app::application;
 
    namespace detail { class token_plugin_impl; }
 
-   class token_plugin : public futurepia::app::plugin
+   class token_plugin : public fiberchain::app::plugin
    {
       public:
          token_plugin( application* app );
@@ -27,5 +27,5 @@ namespace futurepia { namespace token {
          std::unique_ptr<detail::token_plugin_impl> _my;
    };
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 

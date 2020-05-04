@@ -1,6 +1,6 @@
 #include <futurepia/protocol/authority.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 // authority methods
 void authority::add_authority( const public_key_type& k, weight_type w )
@@ -116,4 +116,4 @@ bool operator == ( const authority& a, const authority& b )
             ( a.key_auths      == b.key_auths );
 }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

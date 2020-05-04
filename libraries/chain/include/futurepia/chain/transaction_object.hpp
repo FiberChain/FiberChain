@@ -5,9 +5,9 @@
 
 #include <boost/multi_index/hashed_index.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::signed_transaction;
+   using fiberchain::protocol::signed_transaction;
 
    /**
     * The purpose of this object is to enable the detection of duplicate transactions. When a transaction is included
@@ -45,7 +45,7 @@ namespace futurepia { namespace chain {
       allocator< transaction_object >
    > transaction_index;
 
-} } // futurepia::chain
+} } // fiberchain::chain
 
-FC_REFLECT( futurepia::chain::transaction_object, (id)(packed_trx)(trx_id)(expiration) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::transaction_object, futurepia::chain::transaction_index )
+FC_REFLECT( fiberchain::chain::transaction_object, (id)(packed_trx)(trx_id)(expiration) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::transaction_object, fiberchain::chain::transaction_index )

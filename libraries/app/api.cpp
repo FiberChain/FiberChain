@@ -40,7 +40,7 @@
 #include <fc/crypto/hex.hpp>
 #include <fc/smart_ref_impl.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
     login_api::login_api(const api_context& ctx)
     :_ctx(ctx)
@@ -327,4 +327,4 @@ namespace futurepia { namespace app {
        return _app.p2p_node()->set_advanced_node_parameters(params);
     }
 
-} } // futurepia::app
+} } // fiberchain::app

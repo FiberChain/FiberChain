@@ -28,7 +28,7 @@
 
 #include <fc/thread/future.hpp>
 
-namespace futurepia { namespace account_history {
+namespace fiberchain { namespace account_history {
 using namespace chain;
 using app::application;
 
@@ -59,7 +59,7 @@ namespace detail
  *  This plugin is designed to track a range of operations by account so that one node
  *  doesn't need to hold the full operation history in memory.
  */
-class account_history_plugin : public futurepia::app::plugin
+class account_history_plugin : public fiberchain::app::plugin
 {
    public:
       account_history_plugin( application* app );
@@ -79,5 +79,5 @@ class account_history_plugin : public futurepia::app::plugin
       std::unique_ptr<detail::account_history_plugin_impl> my;
 };
 
-} } //futurepia::account_history
+} } //fiberchain::account_history
 

@@ -11,11 +11,11 @@
 #include <boost/multiprecision/cpp_int.hpp>
 
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::asset;
-   using futurepia::protocol::price;
-   using futurepia::protocol::asset_symbol_type;
+   using fiberchain::protocol::asset;
+   using fiberchain::protocol::price;
+   using fiberchain::protocol::asset_symbol_type;
 
    typedef protocol::fixed_string_16 common_fund_name_type;
 
@@ -280,19 +280,19 @@ namespace futurepia { namespace chain {
       allocator< dapp_reward_fund_object >
    > dapp_reward_fund_index;
 
-} } // futurepia::chain
+} } // fiberchain::chain
 
 
 
-FC_REFLECT( futurepia::chain::savings_withdraw_object,
+FC_REFLECT( fiberchain::chain::savings_withdraw_object,
              (id)(from)(to)(memo)(request_id)(amount)(total_amount)(split_pay_order)(split_pay_month)(complete) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::savings_withdraw_object, futurepia::chain::savings_withdraw_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::savings_withdraw_object, fiberchain::chain::savings_withdraw_index )
 
-FC_REFLECT( futurepia::chain::decline_voting_rights_request_object,
+FC_REFLECT( fiberchain::chain::decline_voting_rights_request_object,
              (id)(account)(effective_date) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::decline_voting_rights_request_object, futurepia::chain::decline_voting_rights_request_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::decline_voting_rights_request_object, fiberchain::chain::decline_voting_rights_request_index )
 
-FC_REFLECT( futurepia::chain::common_fund_object,
+FC_REFLECT( fiberchain::chain::common_fund_object,
             (id)
             (name)
             (fund_balance)
@@ -300,19 +300,19 @@ FC_REFLECT( futurepia::chain::common_fund_object,
             (percent_interest)
             (last_update)
          )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::common_fund_object, futurepia::chain::common_fund_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::common_fund_object, fiberchain::chain::common_fund_index )
 
-FC_REFLECT( futurepia::chain::dapp_reward_fund_object,
+FC_REFLECT( fiberchain::chain::dapp_reward_fund_object,
             (id)
             (fund_balance)
             (last_update)
          )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::dapp_reward_fund_object, futurepia::chain::dapp_reward_fund_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::dapp_reward_fund_object, fiberchain::chain::dapp_reward_fund_index )
 
-FC_REFLECT( futurepia::chain::fund_withdraw_object,
+FC_REFLECT( fiberchain::chain::fund_withdraw_object,
              (from)(fund_name)(memo)(request_id)(amount)(complete) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::fund_withdraw_object, futurepia::chain::fund_withdraw_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::fund_withdraw_object, fiberchain::chain::fund_withdraw_index )
 
-FC_REFLECT( futurepia::chain::exchange_withdraw_object,
+FC_REFLECT( fiberchain::chain::exchange_withdraw_object,
              (from)(request_id)(amount)(complete) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::exchange_withdraw_object, futurepia::chain::exchange_withdraw_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::exchange_withdraw_object, fiberchain::chain::exchange_withdraw_index )

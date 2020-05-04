@@ -21,14 +21,14 @@
 
 #define GET_REQUIRED_FEES_MAX_RECURSION 4
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 class database_api_impl;
 
 class database_api_impl : public std::enable_shared_from_this<database_api_impl>
 {
    public:
-      database_api_impl( const futurepia::app::api_context& ctx  );
+      database_api_impl( const fiberchain::app::api_context& ctx  );
       ~database_api_impl();
 
       // Subscriptions
@@ -79,13 +79,13 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
 
       std::function<void(const fc::variant&)> _block_applied_callback;
 
-      futurepia::chain::database&                _db;
+      fiberchain::chain::database&                _db;
 
       boost::signals2::scoped_connection       _block_applied_connection;
 
       bool _disable_get_block = false;
 
-      std::shared_ptr< futurepia::dapp::dapp_api > _dapp_api;
+      std::shared_ptr< fiberchain::dapp::dapp_api > _dapp_api;
 
 };
 
@@ -145,12 +145,12 @@ void database_api_impl::set_block_applied_callback( std::function<void(const var
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 
-database_api::database_api( const futurepia::app::api_context& ctx )
+database_api::database_api( const fiberchain::app::api_context& ctx )
    : my( new database_api_impl( ctx ) ) {}
 
 database_api::~database_api() {}
 
-database_api_impl::database_api_impl( const futurepia::app::api_context& ctx )
+database_api_impl::database_api_impl( const fiberchain::app::api_context& ctx )
    : _db( *ctx.app.chain_database() )
 {
    wlog("creating database api ${x}", ("x",int64_t(this)) );
@@ -159,8 +159,8 @@ database_api_impl::database_api_impl( const futurepia::app::api_context& ctx )
 
    try
    {
-      ctx.app.get_plugin< futurepia::dapp::dapp_plugin>( DAPP_PLUGIN_NAME );
-      _dapp_api = std::make_shared< futurepia::dapp::dapp_api >(ctx);
+      ctx.app.get_plugin< fiberchain::dapp::dapp_plugin>( DAPP_PLUGIN_NAME );
+      _dapp_api = std::make_shared< fiberchain::dapp::dapp_api >(ctx);
    }
    catch (fc::assert_exception) { ilog("dapp Pugin not loaded"); }
 }
@@ -252,7 +252,7 @@ fc::variant_object database_api::get_config()const
 
 fc::variant_object database_api_impl::get_config()const
 {
-   return futurepia::protocol::get_config();
+   return fiberchain::protocol::get_config();
 }
 
 dynamic_global_property_api_obj database_api::get_dynamic_global_properties()const
@@ -394,7 +394,7 @@ vector<account_id_type> database_api_impl::get_account_references( account_id_ty
 {
    /*const auto& idx = _db.get_index<account_index>();
    const auto& aidx = dynamic_cast<const primary_index<account_index>&>(idx);
-   const auto& refs = aidx.get_secondary_index<futurepia::chain::account_member_index>();
+   const auto& refs = aidx.get_secondary_index<fiberchain::chain::account_member_index>();
    auto itr = refs.account_to_account_memberships.find(account_id);
    vector<account_id_type> result;
 
@@ -1791,4 +1791,4 @@ annotated_signed_transaction database_api::get_transaction( transaction_id_type 
 #endif
 }
 
-} } // futurepia::app
+} } // fiberchain::app

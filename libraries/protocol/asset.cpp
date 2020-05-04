@@ -12,7 +12,7 @@ index : field
    7  : \0
 */
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
       typedef boost::multiprecision::int128_t  int128_t;
 
       uint8_t asset::decimals()const
@@ -210,4 +210,4 @@ namespace futurepia { namespace protocol {
       } FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
 
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

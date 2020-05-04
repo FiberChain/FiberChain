@@ -5,10 +5,10 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 using namespace std;
-using namespace futurepia::chain;
+using namespace fiberchain::chain;
 
 enum bobserver_plugin_object_type
 {
@@ -97,15 +97,15 @@ typedef multi_index_container <
    allocator< reserve_ratio_object >
 > reserve_ratio_index;
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver
 
-FC_REFLECT_ENUM( futurepia::bobserver::bandwidth_type, (post))
+FC_REFLECT_ENUM( fiberchain::bobserver::bandwidth_type, (post))
 
 
-FC_REFLECT( futurepia::bobserver::content_edit_lock_object,
+FC_REFLECT( fiberchain::bobserver::content_edit_lock_object,
             (id)(account)(lock_time) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::bobserver::content_edit_lock_object, futurepia::bobserver::content_edit_lock_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::bobserver::content_edit_lock_object, fiberchain::bobserver::content_edit_lock_index )
 
-FC_REFLECT( futurepia::bobserver::reserve_ratio_object,
+FC_REFLECT( fiberchain::bobserver::reserve_ratio_object,
             (id)(average_block_size)(current_reserve_ratio) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::bobserver::reserve_ratio_object, futurepia::bobserver::reserve_ratio_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::bobserver::reserve_ratio_object, fiberchain::bobserver::reserve_ratio_index )

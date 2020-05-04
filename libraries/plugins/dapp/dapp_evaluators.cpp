@@ -12,7 +12,7 @@ using boost::locale::conv::utf_to_utf;
 #endif
 
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
 
    std::wstring utf8_to_wstring(const std::string& str)
    {
@@ -655,5 +655,5 @@ namespace futurepia { namespace dapp {
    }
 
 
-} } // namespace futurepia::dapp
+} } // namespace fiberchain::dapp
 

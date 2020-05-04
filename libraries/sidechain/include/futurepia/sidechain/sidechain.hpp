@@ -1,6 +1,6 @@
 #pragma once
 
-namespace futurepia { namespace sidechain {
+namespace fiberchain { namespace sidechain {
   using std::string;
 
 #define side_ids 10
@@ -44,7 +44,7 @@ namespace futurepia { namespace sidechain {
         asset    snac_balance;
   };
 
-  FC_REFLECT_DERIVED( futurepia::sidechain::side_account, (graphene::db::object),
+  FC_REFLECT_DERIVED( fiberchain::sidechain::side_account, (graphene::db::object),
                       (sidechain)(name)(pia_balance)(snac_balance)
                      );
 

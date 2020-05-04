@@ -3,7 +3,7 @@
 
 #include <futurepia/chain/comment_object.hpp>
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 void enable_content_editing_evaluator::do_apply( const enable_content_editing_operation& o )
 {
@@ -30,4 +30,4 @@ void enable_content_editing_evaluator::do_apply( const enable_content_editing_op
    FC_CAPTURE_AND_RETHROW( (o) )
 }
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver

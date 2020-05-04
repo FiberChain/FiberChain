@@ -4,7 +4,7 @@
 #include <futurepia/protocol/types.hpp>
 #include <futurepia/protocol/version.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 fc::variant_object get_config()
 {
@@ -85,4 +85,4 @@ fc::variant_object get_config()
    return result;
 }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

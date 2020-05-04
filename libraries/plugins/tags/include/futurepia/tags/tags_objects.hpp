@@ -3,12 +3,12 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia{ namespace tags{
+namespace fiberchain{ namespace tags{
 
-using namespace futurepia::chain;
+using namespace fiberchain::chain;
 using namespace boost::multi_index;
 
-using futurepia::app::application;
+using fiberchain::app::application;
 using chainbase::object;
 using chainbase::oid;
 using chainbase::allocator;
@@ -222,17 +222,17 @@ typedef multi_index_container<
  */
 struct comment_metadata { set< string > tags; };
 
-} } // namespace futurepia::tags
+} } // namespace fiberchain::tags
 
-FC_REFLECT( futurepia::tags::tag_object,
+FC_REFLECT( fiberchain::tags::tag_object,
    ( id )
    ( tag ) 
    ( created )
    ( used_count )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::tags::tag_object, futurepia::tags::tag_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::tags::tag_object, fiberchain::tags::tag_index )
 
-FC_REFLECT( futurepia::tags::comment_tag_object,
+FC_REFLECT( fiberchain::tags::comment_tag_object,
    ( id )
    ( tag )
    ( created )
@@ -242,7 +242,7 @@ FC_REFLECT( futurepia::tags::comment_tag_object,
    ( parent )
    ( comment ) 
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::tags::comment_tag_object, futurepia::tags::comment_tag_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::tags::comment_tag_object, fiberchain::tags::comment_tag_index )
 
-FC_REFLECT( futurepia::tags::comment_metadata, ( tags ) )
+FC_REFLECT( fiberchain::tags::comment_metadata, ( tags ) )
 

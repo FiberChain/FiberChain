@@ -4,7 +4,7 @@
 
 #include <futurepia/chain/futurepia_object_types.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 struct operation_notification
 {

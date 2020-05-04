@@ -11,11 +11,11 @@
 
 #include <fc/uint128.hpp>
 
-namespace futurepia { namespace chain { namespace util {
+namespace fiberchain { namespace chain { namespace util {
 
-using futurepia::protocol::asset;
-using futurepia::protocol::price;
-using futurepia::protocol::share_type;
+using fiberchain::protocol::asset;
+using fiberchain::protocol::price;
+using fiberchain::protocol::share_type;
 
 using fc::uint128_t;
 
@@ -25,9 +25,9 @@ struct comment_reward_context
    price      current_pia_price;
 };
 
-} } } // futurepia::chain::util
+} } } // fiberchain::chain::util
 
-FC_REFLECT( futurepia::chain::util::comment_reward_context,
+FC_REFLECT( fiberchain::chain::util::comment_reward_context,
    (max_snac)
    (current_pia_price)
    )

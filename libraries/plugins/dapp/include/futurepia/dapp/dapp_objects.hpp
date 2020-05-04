@@ -5,11 +5,11 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
    using namespace std;
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
    using namespace boost::multi_index;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    struct strcmp_less
    {
@@ -398,9 +398,9 @@ namespace futurepia { namespace dapp {
       allocator < dapp_trx_fee_vote_object >
    > dapp_trx_fee_vote_index;
 
-} } // namespace futurepia::dapp
+} } // namespace fiberchain::dapp
 
-FC_REFLECT( futurepia::dapp::dapp_object,
+FC_REFLECT( fiberchain::dapp::dapp_object,
    ( id )
    ( dapp_name )
    ( owner )
@@ -410,7 +410,7 @@ FC_REFLECT( futurepia::dapp::dapp_object,
    ( last_updated )
 )
 
-FC_REFLECT(futurepia::dapp::dapp_comment_object,
+FC_REFLECT(fiberchain::dapp::dapp_comment_object,
    ( id )
    ( dapp_name )
    ( author )
@@ -434,7 +434,7 @@ FC_REFLECT(futurepia::dapp::dapp_comment_object,
    ( allow_votes )
 )
 
-FC_REFLECT(futurepia::dapp::dapp_comment_vote_object,
+FC_REFLECT(fiberchain::dapp::dapp_comment_vote_object,
    (id)
    (dapp_name)
    (voter)
@@ -443,7 +443,7 @@ FC_REFLECT(futurepia::dapp::dapp_comment_vote_object,
    (last_update)
 )
 
-FC_REFLECT( futurepia::dapp::dapp_user_object,
+FC_REFLECT( fiberchain::dapp::dapp_user_object,
    ( id )
    ( dapp_id )
    ( dapp_name )
@@ -452,7 +452,7 @@ FC_REFLECT( futurepia::dapp::dapp_user_object,
    ( join_date_time )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_vote_object,
+FC_REFLECT( fiberchain::dapp::dapp_vote_object,
    ( id )
    ( dapp_name )
    ( voter )
@@ -460,18 +460,18 @@ FC_REFLECT( futurepia::dapp::dapp_vote_object,
    ( last_update )
 )
 
-FC_REFLECT( futurepia::dapp::dapp_trx_fee_vote_object,
+FC_REFLECT( fiberchain::dapp::dapp_trx_fee_vote_object,
    ( id )
    ( voter )
    ( trx_fee )
    ( last_update )
 )
 
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_object, futurepia::dapp::dapp_index )
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_comment_object, futurepia::dapp::dapp_comment_index)
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_comment_vote_object, futurepia::dapp::dapp_comment_vote_index)
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_user_object, futurepia::dapp::dapp_user_index )
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_vote_object, futurepia::dapp::dapp_vote_index )
-CHAINBASE_SET_INDEX_TYPE( futurepia::dapp::dapp_trx_fee_vote_object, futurepia::dapp::dapp_trx_fee_vote_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_object, fiberchain::dapp::dapp_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_comment_object, fiberchain::dapp::dapp_comment_index)
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_comment_vote_object, fiberchain::dapp::dapp_comment_vote_index)
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_user_object, fiberchain::dapp::dapp_user_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_vote_object, fiberchain::dapp::dapp_vote_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::dapp::dapp_trx_fee_vote_object, fiberchain::dapp::dapp_trx_fee_vote_index )
 
 

@@ -5,7 +5,7 @@
 
 #include <futurepia/protocol/config.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 void update_bobserver_schedule4( database& db )
 {

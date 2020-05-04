@@ -1,6 +1,6 @@
 #pragma once
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 class database;
 

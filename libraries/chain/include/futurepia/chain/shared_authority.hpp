@@ -2,11 +2,11 @@
 #include <futurepia/protocol/authority.hpp>
 #include <boost/interprocess/managed_mapped_file.hpp>
 
-namespace futurepia { namespace chain {
-   using futurepia::protocol::authority;
-   using futurepia::protocol::public_key_type;
-   using futurepia::protocol::account_name_type;
-   using futurepia::protocol::weight_type;
+namespace fiberchain { namespace chain {
+   using fiberchain::protocol::authority;
+   using fiberchain::protocol::public_key_type;
+   using fiberchain::protocol::account_name_type;
+   using fiberchain::protocol::weight_type;
 
    namespace bip = boost::interprocess;
 
@@ -98,7 +98,7 @@ namespace futurepia { namespace chain {
    bool operator == ( const authority& a, const shared_authority& b );
    bool operator == ( const shared_authority& a, const authority& b );
 
-} } //futurepia::chain
+} } //fiberchain::chain
 
-FC_REFLECT_TYPENAME( futurepia::chain::shared_authority::account_authority_map)
-FC_REFLECT( futurepia::chain::shared_authority, (weight_threshold)(account_auths)(key_auths) )
+FC_REFLECT_TYPENAME( fiberchain::chain::shared_authority::account_authority_map)
+FC_REFLECT( fiberchain::chain::shared_authority, (weight_threshold)(account_auths)(key_auths) )

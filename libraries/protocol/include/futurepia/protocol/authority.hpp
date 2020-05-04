@@ -2,7 +2,7 @@
 #include <futurepia/protocol/types.hpp>
 #include <fc/interprocess/container.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    struct authority
    {
@@ -98,10 +98,10 @@ bool is_valid_account_name( const string& name );
 
 bool operator == ( const authority& a, const authority& b );
 
-} } // namespace futurepia::protocol
+} } // namespace fiberchain::protocol
 
 
-FC_REFLECT_TYPENAME( futurepia::protocol::authority::account_authority_map)
-FC_REFLECT_TYPENAME( futurepia::protocol::authority::key_authority_map)
-FC_REFLECT( futurepia::protocol::authority, (weight_threshold)(account_auths)(key_auths) )
-FC_REFLECT_ENUM( futurepia::protocol::authority::classification, (owner)(active)(key)(posting) )
+FC_REFLECT_TYPENAME( fiberchain::protocol::authority::account_authority_map)
+FC_REFLECT_TYPENAME( fiberchain::protocol::authority::key_authority_map)
+FC_REFLECT( fiberchain::protocol::authority, (weight_threshold)(account_auths)(key_auths) )
+FC_REFLECT_ENUM( fiberchain::protocol::authority::classification, (owner)(active)(key)(posting) )

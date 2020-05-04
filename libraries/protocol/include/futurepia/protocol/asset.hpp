@@ -2,7 +2,7 @@
 #include <futurepia/protocol/types.hpp>
 #include <futurepia/protocol/config.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    typedef uint64_t asset_symbol_type;
 
@@ -120,13 +120,13 @@ namespace futurepia { namespace protocol {
    asset operator *  ( const asset& a, const price& b );
 
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
 namespace fc {
-    inline void to_variant( const futurepia::protocol::asset& var,  fc::variant& vo ) { vo = var.to_string(); }
-    inline void from_variant( const fc::variant& var,  futurepia::protocol::asset& vo ) { vo = futurepia::protocol::asset::from_string( var.as_string() ); }
+    inline void to_variant( const fiberchain::protocol::asset& var,  fc::variant& vo ) { vo = var.to_string(); }
+    inline void from_variant( const fc::variant& var,  fiberchain::protocol::asset& vo ) { vo = fiberchain::protocol::asset::from_string( var.as_string() ); }
 }
 
-FC_REFLECT( futurepia::protocol::asset, (amount)(symbol) )
-FC_REFLECT( futurepia::protocol::price, (base)(quote) )
+FC_REFLECT( fiberchain::protocol::asset, (amount)(symbol) )
+FC_REFLECT( fiberchain::protocol::price, (base)(quote) )
 

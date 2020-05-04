@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 class database;
 

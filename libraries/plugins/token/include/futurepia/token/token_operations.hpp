@@ -5,9 +5,9 @@
 #include <futurepia/token/token_plugin.hpp>
 #include <futurepia/token/token_objects.hpp>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
    using namespace std;
-   using futurepia::protocol::base_operation;
+   using fiberchain::protocol::base_operation;
 
    struct create_token_operation : base_operation
    {
@@ -160,9 +160,9 @@ namespace futurepia { namespace token {
    DEFINE_PLUGIN_EVALUATOR(token_plugin, token_operation, transfer_token_savings)
    DEFINE_PLUGIN_EVALUATOR(token_plugin, token_operation, cancel_transfer_token_savings)
    DEFINE_PLUGIN_EVALUATOR(token_plugin, token_operation, conclude_transfer_token_savings)
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 
-FC_REFLECT( futurepia::token::create_token_operation,
+FC_REFLECT( fiberchain::token::create_token_operation,
    ( name )
    ( symbol_name )
    ( publisher )
@@ -170,42 +170,42 @@ FC_REFLECT( futurepia::token::create_token_operation,
    ( dapp_name )
    ( init_supply_amount ) )
 
-FC_REFLECT( futurepia::token::issue_token_operation,
+FC_REFLECT( fiberchain::token::issue_token_operation,
    ( name )
    ( publisher )
    ( dapp_key )
    ( reissue_amount ) )
 
-FC_REFLECT( futurepia::token::transfer_token_operation,
+FC_REFLECT( fiberchain::token::transfer_token_operation,
    ( from )
    ( to )
    ( amount )
    ( memo ) )
 
-FC_REFLECT(futurepia::token::burn_token_operation,
+FC_REFLECT(fiberchain::token::burn_token_operation,
    ( account )
    ( amount ) )
 
-FC_REFLECT(futurepia::token::setup_token_fund_operation,
+FC_REFLECT(fiberchain::token::setup_token_fund_operation,
    ( token_publisher )
    ( token ) 
    ( fund_name )
    ( init_fund_balance) )
 
-FC_REFLECT(futurepia::token::set_token_staking_interest_operation,
+FC_REFLECT(fiberchain::token::set_token_staking_interest_operation,
    ( token_publisher )
    ( token ) 
    ( month )
    ( percent_interest_rate) )
 
-FC_REFLECT(futurepia::token::transfer_token_fund_operation,
+FC_REFLECT(fiberchain::token::transfer_token_fund_operation,
    ( from )
    ( token ) 
    ( fund_name )
    ( amount)
    ( memo ) )
 
-FC_REFLECT(futurepia::token::staking_token_fund_operation,
+FC_REFLECT(fiberchain::token::staking_token_fund_operation,
    ( from )
    ( token ) 
    ( fund_name )
@@ -214,7 +214,7 @@ FC_REFLECT(futurepia::token::staking_token_fund_operation,
    ( memo ) 
    ( month ) )
 
-FC_REFLECT(futurepia::token::transfer_token_savings_operation,
+FC_REFLECT(fiberchain::token::transfer_token_savings_operation,
    ( token )
    ( from )
    ( to )
@@ -224,20 +224,20 @@ FC_REFLECT(futurepia::token::transfer_token_savings_operation,
    ( memo ) 
    ( next_date ) )
 
-FC_REFLECT(futurepia::token::cancel_transfer_token_savings_operation,
+FC_REFLECT(fiberchain::token::cancel_transfer_token_savings_operation,
    ( token )
    ( from )
    ( to )
    ( request_id )
    )
 
-FC_REFLECT(futurepia::token::conclude_transfer_token_savings_operation,
+FC_REFLECT(fiberchain::token::conclude_transfer_token_savings_operation,
    ( token )
    ( from )
    ( to )
    ( request_id )
    )
 
-DECLARE_OPERATION_TYPE( futurepia::token::token_operation )
+DECLARE_OPERATION_TYPE( fiberchain::token::token_operation )
 
-FC_REFLECT_TYPENAME( futurepia::token::token_operation )
+FC_REFLECT_TYPENAME( fiberchain::token::token_operation )

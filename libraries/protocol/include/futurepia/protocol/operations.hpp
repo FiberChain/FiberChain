@@ -4,7 +4,7 @@
 #include <futurepia/protocol/futurepia_operations.hpp>
 #include <futurepia/protocol/futurepia_virtual_operations.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    /** NOTE: do not change the order of any operations prior to the virtual operations
     * or it will trigger a hardfork.
@@ -62,7 +62,7 @@ namespace futurepia { namespace protocol {
    bool is_virtual_operation( const operation& op );
    string get_op_name( const operation& op );
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-DECLARE_OPERATION_TYPE( futurepia::protocol::operation )
-FC_REFLECT_TYPENAME( futurepia::protocol::operation )
+DECLARE_OPERATION_TYPE( fiberchain::protocol::operation )
+FC_REFLECT_TYPENAME( fiberchain::protocol::operation )

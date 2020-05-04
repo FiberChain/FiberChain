@@ -5,12 +5,12 @@
 
 #define ASSET_PLUGIN_NAME "asset_storage"
 
-namespace futurepia { namespace asset_storage {
-   using futurepia::app::application;
+namespace fiberchain { namespace asset_storage {
+   using fiberchain::app::application;
 
    namespace detail { class asset_storage_plugin_impl; }
 
-   class asset_storage_plugin : public futurepia::app::plugin
+   class asset_storage_plugin : public fiberchain::app::plugin
    {
       public:
          asset_storage_plugin( application* app );
@@ -26,5 +26,5 @@ namespace futurepia { namespace asset_storage {
          std::unique_ptr<detail::asset_storage_plugin_impl> _my;
    };
 
-} } //namespace futurepia::asset_storage
+} } //namespace fiberchain::asset_storage
 

@@ -41,8 +41,8 @@
 #include <string>
 #include <vector>
 
-namespace futurepia { namespace app {
-   using namespace futurepia::chain;
+namespace fiberchain { namespace app {
+   using namespace fiberchain::chain;
    using namespace fc::ecc;
    using namespace std;
 
@@ -212,22 +212,22 @@ namespace futurepia { namespace app {
          api_context _ctx;
    };
 
-}}  // futurepia::app
+}}  // fiberchain::app
 
-FC_REFLECT( futurepia::app::network_broadcast_api::transaction_confirmation,
+FC_REFLECT( fiberchain::app::network_broadcast_api::transaction_confirmation,
         (id)(block_num)(trx_num)(expired) )
-FC_REFLECT( futurepia::app::futurepia_version_info, (blockchain_version) )
+FC_REFLECT( fiberchain::app::futurepia_version_info, (blockchain_version) )
 //FC_REFLECT_TYPENAME( fc::ecc::compact_signature );
 //FC_REFLECT_TYPENAME( fc::ecc::commitment_type );
 
-FC_API(futurepia::app::network_broadcast_api,
+FC_API(fiberchain::app::network_broadcast_api,
        (broadcast_transaction)
        (broadcast_transaction_with_callback)
        (broadcast_transaction_synchronous)
        (broadcast_block)
        (set_max_block_age)
      )
-FC_API(futurepia::app::network_node_api,
+FC_API(fiberchain::app::network_node_api,
        (get_info)
        (add_node)
        (get_connected_peers)
@@ -235,7 +235,7 @@ FC_API(futurepia::app::network_node_api,
        (get_advanced_node_parameters)
        (set_advanced_node_parameters)
      )
-FC_API(futurepia::app::login_api,
+FC_API(fiberchain::app::login_api,
        (login)
        (get_api_by_name)
        (get_version)

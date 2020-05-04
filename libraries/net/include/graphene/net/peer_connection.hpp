@@ -203,7 +203,7 @@ namespace graphene { namespace net
       std::string      user_agent;
       fc::optional<std::string> platform;
       fc::optional<uint32_t> bitness;
-      fc::optional<futurepia::protocol::chain_id_type> chain_id;
+      fc::optional<fiberchain::protocol::chain_id_type> chain_id;
 
       // for inbound connections, these fields record what the peer sent us in
       // its hello message.  For outbound, they record what we sent the peer

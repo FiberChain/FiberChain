@@ -5,11 +5,11 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
    struct api_context;
 } }
 
-namespace futurepia { namespace plugin { namespace raw_block {
+namespace fiberchain { namespace plugin { namespace raw_block {
 
 namespace detail {
 class raw_block_api_impl;
@@ -31,7 +31,7 @@ struct get_raw_block_result
 class raw_block_api
 {
    public:
-      raw_block_api( const futurepia::app::api_context& ctx );
+      raw_block_api( const fiberchain::app::api_context& ctx );
 
       void on_api_startup();
 
@@ -44,18 +44,18 @@ class raw_block_api
 
 } } }
 
-FC_REFLECT( futurepia::plugin::raw_block::get_raw_block_args,
+FC_REFLECT( fiberchain::plugin::raw_block::get_raw_block_args,
    (block_num)
    )
 
-FC_REFLECT( futurepia::plugin::raw_block::get_raw_block_result,
+FC_REFLECT( fiberchain::plugin::raw_block::get_raw_block_result,
    (block_id)
    (previous)
    (timestamp)
    (raw_block)
    )
 
-FC_API( futurepia::plugin::raw_block::raw_block_api,
+FC_API( fiberchain::plugin::raw_block::raw_block_api,
    (get_raw_block)
    (push_raw_block)
    )

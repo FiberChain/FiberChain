@@ -2,8 +2,8 @@
 
 #include <fc/variant_object.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 fc::variant_object get_config();
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

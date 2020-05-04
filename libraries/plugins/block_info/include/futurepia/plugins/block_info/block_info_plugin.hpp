@@ -7,15 +7,15 @@
 #include <string>
 #include <vector>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 struct signed_block;
 } }
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
-using futurepia::app::application;
+using fiberchain::app::application;
 
-class block_info_plugin : public futurepia::app::plugin
+class block_info_plugin : public fiberchain::app::plugin
 {
    public:
       block_info_plugin( application* app );

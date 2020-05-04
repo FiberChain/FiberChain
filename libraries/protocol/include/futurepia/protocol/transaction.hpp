@@ -5,7 +5,7 @@
 
 #include <numeric>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    struct transaction
    {
@@ -114,8 +114,8 @@ namespace futurepia { namespace protocol {
 
    /// @} transactions group
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-FC_REFLECT( futurepia::protocol::transaction, (ref_block_num)(ref_block_prefix)(expiration)(operations)(extensions) )
-FC_REFLECT_DERIVED( futurepia::protocol::signed_transaction, (futurepia::protocol::transaction), (signatures) )
-FC_REFLECT_DERIVED( futurepia::protocol::annotated_signed_transaction, (futurepia::protocol::signed_transaction), (transaction_id)(block_num)(transaction_num) );
+FC_REFLECT( fiberchain::protocol::transaction, (ref_block_num)(ref_block_prefix)(expiration)(operations)(extensions) )
+FC_REFLECT_DERIVED( fiberchain::protocol::signed_transaction, (fiberchain::protocol::transaction), (signatures) )
+FC_REFLECT_DERIVED( fiberchain::protocol::annotated_signed_transaction, (fiberchain::protocol::signed_transaction), (transaction_id)(block_num)(transaction_num) );

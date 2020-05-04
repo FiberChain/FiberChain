@@ -56,14 +56,14 @@ for k, v in name2members_doxygen.items():
 
 re_reflect = re.compile(r"""
 FC_REFLECT\s*[(]
-\s*(futurepia::[a-zA-Z0-9_:]+)
+\s*(fiberchain::[a-zA-Z0-9_:]+)
 \s*,
 ((?:\s*[(]\s*[a-zA-Z0-9_]+\s*[)])*)
 """, re.VERBOSE)
 
 re_reflect_derived = re.compile(r"""
 FC_REFLECT_DERIVED\s*[(]
-\s*(futurepia::[a-zA-Z0-9_:]+)
+\s*(fiberchain::[a-zA-Z0-9_:]+)
 \s*,
 \s*[(]\s*((?:graphene|futurepia)::[a-zA-Z0-9_:]+)\s*[)]
 \s*,

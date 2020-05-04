@@ -9,11 +9,11 @@
 #include <boost/multi_index/composite_key.hpp>
 
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
    using namespace std;
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
    using namespace boost::multi_index;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    enum token_by_key_object_type
    {
@@ -341,10 +341,10 @@ namespace futurepia { namespace token {
       allocator< token_savings_withdraw_object >
    > token_savings_withdraw_index;
 
-} } // namespace futurepia::token
+} } // namespace fiberchain::token
 
 
-FC_REFLECT( futurepia::token::token_object, 
+FC_REFLECT( fiberchain::token::token_object, 
             ( id )
             ( name )
             ( symbol )
@@ -355,9 +355,9 @@ FC_REFLECT( futurepia::token::token_object,
             ( created )
             ( last_updated )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_object, futurepia::token::token_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_object, fiberchain::token::token_index )
 
-FC_REFLECT( futurepia::token::token_balance_object, 
+FC_REFLECT( fiberchain::token::token_balance_object, 
             ( id )
             ( account )
             ( token )
@@ -365,9 +365,9 @@ FC_REFLECT( futurepia::token::token_balance_object,
             ( savings_balance )
             ( last_updated )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_balance_object, futurepia::token::token_balance_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_balance_object, fiberchain::token::token_balance_index )
 
-FC_REFLECT( futurepia::token::token_fund_object, 
+FC_REFLECT( fiberchain::token::token_fund_object, 
             ( id )
             ( token )
             ( fund_name )
@@ -376,9 +376,9 @@ FC_REFLECT( futurepia::token::token_fund_object,
             ( created )
             ( last_updated )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_fund_object, futurepia::token::token_fund_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_fund_object, fiberchain::token::token_fund_index )
 
-FC_REFLECT( futurepia::token::token_staking_interest_object, 
+FC_REFLECT( fiberchain::token::token_staking_interest_object, 
             ( id )
             ( token )
             ( month )
@@ -386,9 +386,9 @@ FC_REFLECT( futurepia::token::token_staking_interest_object,
             ( created )
             ( last_updated )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_staking_interest_object, futurepia::token::token_staking_interest_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_staking_interest_object, fiberchain::token::token_staking_interest_index )
 
-FC_REFLECT( futurepia::token::token_fund_withdraw_object, 
+FC_REFLECT( fiberchain::token::token_fund_withdraw_object, 
             ( id )
             ( from )
             ( token )
@@ -399,9 +399,9 @@ FC_REFLECT( futurepia::token::token_fund_withdraw_object,
             ( complete )
             ( created )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_fund_withdraw_object, futurepia::token::token_fund_withdraw_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_fund_withdraw_object, fiberchain::token::token_fund_withdraw_index )
 
-FC_REFLECT( futurepia::token::token_savings_withdraw_object, 
+FC_REFLECT( fiberchain::token::token_savings_withdraw_object, 
             ( id )
             ( from )
             ( to )
@@ -416,4 +416,4 @@ FC_REFLECT( futurepia::token::token_savings_withdraw_object,
             ( created )
             ( last_updated )
 )
-CHAINBASE_SET_INDEX_TYPE( futurepia::token::token_savings_withdraw_object, futurepia::token::token_savings_withdraw_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::token::token_savings_withdraw_object, fiberchain::token::token_savings_withdraw_index )

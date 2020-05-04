@@ -8,9 +8,9 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia { namespace dapp_history {
-   using namespace futurepia::chain;
-   using namespace futurepia::app;
+namespace fiberchain { namespace dapp_history {
+   using namespace fiberchain::chain;
+   using namespace fiberchain::app;
 
    namespace detail 
    { 
@@ -36,8 +36,8 @@ namespace futurepia { namespace dapp_history {
          std::shared_ptr< detail::dapp_history_api_impl > _my;
    };
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 
-FC_API( futurepia::dapp_history::dapp_history_api,
+FC_API( fiberchain::dapp_history::dapp_history_api,
    ( get_dapp_history )
 )

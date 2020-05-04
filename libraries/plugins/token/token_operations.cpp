@@ -5,7 +5,7 @@
 
 #include <boost/algorithm/string.hpp>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
 
    void create_token_operation::validate()const
    {
@@ -141,6 +141,6 @@ namespace futurepia { namespace token {
       } FC_CAPTURE_AND_RETHROW( ( *this ) )
    }
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 
-DEFINE_OPERATION_TYPE( futurepia::token::token_operation )
+DEFINE_OPERATION_TYPE( fiberchain::token::token_operation )

@@ -37,12 +37,12 @@
 
 #include <fc/string.hpp>
 
-namespace futurepia { namespace dapp_history {
+namespace fiberchain { namespace dapp_history {
    using namespace fc;
-   using namespace futurepia::token;
-   using namespace futurepia::dapp;
-   using namespace futurepia::private_message;
-   using namespace futurepia::bobserver;
+   using namespace fiberchain::token;
+   using namespace fiberchain::dapp;
+   using namespace fiberchain::private_message;
+   using namespace fiberchain::bobserver;
 
    template< typename OPERATION_TYPE, typename VISITOR >
    void process_inner_operation( const fc::variant var, VISITOR visitor );
@@ -55,8 +55,8 @@ namespace futurepia { namespace dapp_history {
    void get_imapcted_dapp_from_custom( const custom_binary_operation& op, chain::database& db, fc::flat_set< protocol::dapp_name_type >& result );
 
    void operation_get_impacted_dapp(
-      const futurepia::protocol::operation& op,
+      const fiberchain::protocol::operation& op,
       chain::database& db,
       fc::flat_set< protocol::dapp_name_type >& result );
 
-} } // futurepia::dapp_history
+} } // fiberchain::dapp_history

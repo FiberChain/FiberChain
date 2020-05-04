@@ -4,11 +4,11 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia{ namespace app {
+namespace fiberchain{ namespace app {
    struct api_context;
 } }
 
-namespace futurepia { namespace account_statistics {
+namespace fiberchain { namespace account_statistics {
 
 namespace detail
 {
@@ -18,7 +18,7 @@ namespace detail
 class account_statistics_api
 {
    public:
-      account_statistics_api( const futurepia::app::api_context& ctx );
+      account_statistics_api( const fiberchain::app::api_context& ctx );
 
       void on_api_startup();
 
@@ -26,6 +26,6 @@ class account_statistics_api
       std::shared_ptr< detail::account_statistics_api_impl > _my;
 };
 
-} } // futurepia::account_statistics
+} } // fiberchain::account_statistics
 
-FC_API( futurepia::account_statistics::account_statistics_api, )
+FC_API( fiberchain::account_statistics::account_statistics_api, )

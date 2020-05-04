@@ -26,12 +26,12 @@
 
 #include <futurepia/dapp/dapp_api.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
-using namespace futurepia::chain;
-using namespace futurepia::protocol;
+using namespace fiberchain::chain;
+using namespace fiberchain::protocol;
 using namespace std;
-using futurepia::dapp::dapp_discussion;
+using fiberchain::dapp::dapp_discussion;
 
 struct api_context;
 
@@ -71,7 +71,7 @@ struct discussion_query {
 class database_api
 {
    public:
-      database_api(const futurepia::app::api_context& ctx);
+      database_api(const fiberchain::app::api_context& ctx);
       ~database_api();
 
       ///////////////////
@@ -434,9 +434,9 @@ class database_api
 
 } }
 
-FC_REFLECT( futurepia::app::scheduled_hardfork, (hf_version)(live_time) );
+FC_REFLECT( fiberchain::app::scheduled_hardfork, (hf_version)(live_time) );
 
-FC_REFLECT( futurepia::app::discussion_query, 
+FC_REFLECT( fiberchain::app::discussion_query, 
    (tag)
    (truncate_body)
    (start_author)
@@ -447,7 +447,7 @@ FC_REFLECT( futurepia::app::discussion_query,
    (group_id) 
 );
 
-FC_API(futurepia::app::database_api,
+FC_API(fiberchain::app::database_api,
    // Subscriptions
    (set_block_applied_callback)
 

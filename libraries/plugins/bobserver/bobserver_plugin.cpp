@@ -48,7 +48,7 @@
 #define DISTANCE_CALC_PRECISION (10000)
 
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 namespace bpo = boost::program_options;
 
@@ -58,7 +58,7 @@ using std::vector;
 using protocol::signed_transaction;
 using chain::account_object;
 
-void new_chain_banner( const futurepia::chain::database& db )
+void new_chain_banner( const fiberchain::chain::database& db )
 {
    std::cerr << "\n"
       "************************************\n"
@@ -74,7 +74,7 @@ void new_chain_banner( const futurepia::chain::database& db )
 
 namespace detail
 {
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
 
 
    class bobserver_plugin_impl
@@ -85,7 +85,7 @@ namespace detail
 
          void plugin_initialize();
 
-         void pre_apply_block( const futurepia::protocol::signed_block& blk );
+         void pre_apply_block( const fiberchain::protocol::signed_block& blk );
          void pre_operation( const operation_notification& note );
          void post_operation( const chain::operation_notification& note );
          void on_block( const signed_block& b );
@@ -93,7 +93,7 @@ namespace detail
          bobserver_plugin& _self;
          std::shared_ptr< generic_custom_operation_interpreter< bobserver_plugin_operation > > _custom_operation_interpreter;
 
-         std::set< futurepia::protocol::account_name_type >                     _dupe_customs;
+         std::set< fiberchain::protocol::account_name_type >                     _dupe_customs;
    };
 
    void bobserver_plugin_impl::plugin_initialize()
@@ -105,7 +105,7 @@ namespace detail
       _self.database().set_custom_operation_interpreter( _self.plugin_name(), _custom_operation_interpreter );
    }
 
-   void bobserver_plugin_impl::pre_apply_block( const futurepia::protocol::signed_block& b )
+   void bobserver_plugin_impl::pre_apply_block( const fiberchain::protocol::signed_block& b )
    {
       _dupe_customs.clear();
    }
@@ -400,7 +400,7 @@ void bobserver_plugin::plugin_startup()
       {
          if( d.head_block_num() == 0 )
             new_chain_banner(d);
-         _production_skip_flags |= futurepia::chain::database::skip_undo_history_check;
+         _production_skip_flags |= fiberchain::chain::database::skip_undo_history_check;
       }
       schedule_production_loop();
    }
@@ -452,7 +452,7 @@ block_production_condition::block_production_condition_enum bobserver_plugin::bl
       //We're trying to exit. Go ahead and let this one out.
       throw;
    }
-   catch( const futurepia::chain::unknown_hardfork_exception& e )
+   catch( const fiberchain::chain::unknown_hardfork_exception& e )
    {
       // Hit a hardfork that the current node know nothing about, stop production and inform user
       elog( "${e}\nNode may be out of date...", ("e", e.to_detail_string()) );
@@ -546,7 +546,7 @@ block_production_condition::block_production_condition_enum bobserver_plugin::ma
    auto itr = bobserver_by_name.find( scheduled_bobserver );
 
    fc::time_point_sec scheduled_time = db.get_slot_time( slot );
-   futurepia::protocol::public_key_type scheduled_key = itr->signing_key;
+   fiberchain::protocol::public_key_type scheduled_key = itr->signing_key;
    auto private_key_itr = _private_keys.find( scheduled_key );
 
    if( private_key_itr == _private_keys.end() )
@@ -605,6 +605,6 @@ block_production_condition::block_production_condition_enum bobserver_plugin::ma
    return block_production_condition::exception_producing_block;
 }
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver
 
-FUTUREPIA_DEFINE_PLUGIN( bobserver, futurepia::bobserver::bobserver_plugin )
+FUTUREPIA_DEFINE_PLUGIN( bobserver, fiberchain::bobserver::bobserver_plugin )

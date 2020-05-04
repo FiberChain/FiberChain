@@ -6,7 +6,7 @@
 #define ACCOUNT_STATISTICS_PLUGIN_NAME "account_stats"
 #endif
 
-namespace futurepia { namespace account_statistics {
+namespace fiberchain { namespace account_statistics {
 
 using namespace chain;
 using app::application;
@@ -84,7 +84,7 @@ namespace detail
    class account_statistics_plugin_impl;
 }
 
-class account_statistics_plugin : public futurepia::app::plugin
+class account_statistics_plugin : public fiberchain::app::plugin
 {
    public:
       account_statistics_plugin( application* app );
@@ -106,9 +106,9 @@ class account_statistics_plugin : public futurepia::app::plugin
       std::unique_ptr< detail::account_statistics_plugin_impl > _my;
 };
 
-} } // futurepia::account_statistics
+} } // fiberchain::account_statistics
 
-FC_REFLECT( futurepia::account_statistics::account_stats_bucket_object,
+FC_REFLECT( fiberchain::account_statistics::account_stats_bucket_object,
    (id)
    (open)
    (seconds)
@@ -139,10 +139,10 @@ FC_REFLECT( futurepia::account_statistics::account_stats_bucket_object,
    (snac_conversion_requests_filled)
    (pia_converted)
 )
-//SET_INDEX_TYPE( futurepia::account_statistics::account_stats_bucket_object,)
+//SET_INDEX_TYPE( fiberchain::account_statistics::account_stats_bucket_object,)
 
 FC_REFLECT(
-   futurepia::account_statistics::account_activity_bucket_object,
+   fiberchain::account_statistics::account_activity_bucket_object,
    (id)
    (open)
    (seconds)

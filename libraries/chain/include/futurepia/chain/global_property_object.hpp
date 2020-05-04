@@ -5,10 +5,10 @@
 
 #include <futurepia/protocol/asset.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::asset;
-   using futurepia::protocol::price;
+   using fiberchain::protocol::asset;
+   using fiberchain::protocol::price;
 
    /**
     * @class dynamic_global_property_object
@@ -93,9 +93,9 @@ namespace futurepia { namespace chain {
       allocator< dynamic_global_property_object >
    > dynamic_global_property_index;
 
-} } // futurepia::chain
+} } // fiberchain::chain
 
-FC_REFLECT( futurepia::chain::dynamic_global_property_object,
+FC_REFLECT( fiberchain::chain::dynamic_global_property_object,
              (id)
              (head_block_number)
              (head_block_id)
@@ -118,4 +118,4 @@ FC_REFLECT( futurepia::chain::dynamic_global_property_object,
              (last_update_bproducer_time)
              (last_dapp_voting_aggregation_time)
           )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::dynamic_global_property_object, futurepia::chain::dynamic_global_property_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::dynamic_global_property_object, fiberchain::chain::dynamic_global_property_index )

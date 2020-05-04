@@ -2,7 +2,7 @@
 #include <futurepia/protocol/block_header.hpp>
 #include <futurepia/protocol/transaction.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    struct signed_block : public signed_block_header
    {
@@ -10,6 +10,6 @@ namespace futurepia { namespace protocol {
       vector<signed_transaction> transactions;
    };
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-FC_REFLECT_DERIVED( futurepia::protocol::signed_block, (futurepia::protocol::signed_block_header), (transactions) )
+FC_REFLECT_DERIVED( fiberchain::protocol::signed_block, (fiberchain::protocol::signed_block_header), (transactions) )

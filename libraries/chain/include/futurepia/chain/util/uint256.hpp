@@ -4,7 +4,7 @@
 
 #include <fc/uint128.hpp>
 
-namespace futurepia { namespace chain { namespace util {
+namespace fiberchain { namespace chain { namespace util {
 
 inline u256 to256( const fc::uint128& t )
 {

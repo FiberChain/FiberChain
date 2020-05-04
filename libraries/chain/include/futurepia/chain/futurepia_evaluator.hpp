@@ -4,9 +4,9 @@
 
 #include <futurepia/chain/evaluator.hpp>
 
-namespace futurepia{ namespace chain {
+namespace fiberchain{ namespace chain {
 
-using namespace futurepia::protocol;
+using namespace fiberchain::protocol;
 
 DEFINE_EVALUATOR( account_create )
 DEFINE_EVALUATOR( account_update )
@@ -43,4 +43,4 @@ DEFINE_EVALUATOR( transfer_fund )
 DEFINE_EVALUATOR( set_fund_interest )
 DEFINE_EVALUATOR( exchange )
 DEFINE_EVALUATOR( cancel_exchange )
-} } // futurepia::chain
+} } // fiberchain::chain

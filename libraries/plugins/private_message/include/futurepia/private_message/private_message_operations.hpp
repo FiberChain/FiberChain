@@ -10,9 +10,9 @@
 #include <string>
 #include <vector>
 
-namespace futurepia { namespace private_message {
+namespace fiberchain { namespace private_message {
 
-struct private_message_operation : public futurepia::protocol::base_operation
+struct private_message_operation : public fiberchain::protocol::base_operation
 {
     protocol::account_name_type  from;
     protocol::account_name_type  to;
@@ -29,7 +29,7 @@ typedef fc::static_variant< private_message_operation > private_message_plugin_o
 
 } }
 
-FC_REFLECT( futurepia::private_message::private_message_operation, (from)(to)(from_memo_key)(to_memo_key)(sent_time)(checksum)(encrypted_message) )
+FC_REFLECT( fiberchain::private_message::private_message_operation, (from)(to)(from_memo_key)(to_memo_key)(sent_time)(checksum)(encrypted_message) )
 
-DECLARE_OPERATION_TYPE( futurepia::private_message::private_message_plugin_operation )
-FC_REFLECT_TYPENAME( futurepia::private_message::private_message_plugin_operation )
+DECLARE_OPERATION_TYPE( fiberchain::private_message::private_message_plugin_operation )
+FC_REFLECT_TYPENAME( fiberchain::private_message::private_message_plugin_operation )

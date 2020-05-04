@@ -8,12 +8,12 @@
 #include <boost/multi_index/mem_fun.hpp>
 
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
    using boost::multi_index_container;
    using namespace boost::multi_index;
 
-   using futurepia::protocol::signed_block;
-   using futurepia::protocol::block_id_type;
+   using fiberchain::protocol::signed_block;
+   using fiberchain::protocol::block_id_type;
 
    struct fork_item
    {
@@ -104,4 +104,4 @@ namespace futurepia { namespace chain {
          shared_ptr<fork_item>    _head;
    };
 
-} } // futurepia::chain
+} } // fiberchain::chain

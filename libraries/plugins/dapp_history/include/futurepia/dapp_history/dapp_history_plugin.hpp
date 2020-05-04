@@ -7,14 +7,14 @@
 
 #define DAPP_HISTORY_PLUGIN_NAME "dapp_history"
 
-namespace futurepia { namespace dapp_history {
-   using futurepia::app::application;
+namespace fiberchain { namespace dapp_history {
+   using fiberchain::app::application;
    using namespace chain;
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    namespace detail { class dapp_history_plugin_impl; }
 
-   class dapp_history_plugin : public futurepia::app::plugin
+   class dapp_history_plugin : public fiberchain::app::plugin
    {
       public:
          dapp_history_plugin( application* app );
@@ -29,4 +29,4 @@ namespace futurepia { namespace dapp_history {
          std::unique_ptr<detail::dapp_history_plugin_impl> _my;
    };
 
-} } //namespace futurepia::dapp_history
+} } //namespace fiberchain::dapp_history

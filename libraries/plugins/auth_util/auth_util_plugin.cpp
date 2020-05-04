@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace futurepia { namespace plugin { namespace auth_util {
+namespace fiberchain { namespace plugin { namespace auth_util {
 
 auth_util_plugin::auth_util_plugin( application* app ) : plugin( app ) {}
 auth_util_plugin::~auth_util_plugin() {}
@@ -28,6 +28,6 @@ void auth_util_plugin::plugin_shutdown()
 {
 }
 
-} } } // futurepia::plugin::auth_util
+} } } // fiberchain::plugin::auth_util
 
-FUTUREPIA_DEFINE_PLUGIN( auth_util, futurepia::plugin::auth_util::auth_util_plugin )
+FUTUREPIA_DEFINE_PLUGIN( auth_util, fiberchain::plugin::auth_util::auth_util_plugin )

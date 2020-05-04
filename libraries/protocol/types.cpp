@@ -6,7 +6,7 @@
 #include <fc/exception/exception.hpp>
 #include <fc/io/raw.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
     public_key_type::public_key_type():key_data(){};
 
@@ -174,38 +174,38 @@ namespace futurepia { namespace protocol {
        return p1.key_data != p2.key_data;
     }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
 namespace fc
 {
     using namespace std;
-    void to_variant( const futurepia::protocol::public_key_type& var,  fc::variant& vo )
+    void to_variant( const fiberchain::protocol::public_key_type& var,  fc::variant& vo )
     {
         vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var,  futurepia::protocol::public_key_type& vo )
+    void from_variant( const fc::variant& var,  fiberchain::protocol::public_key_type& vo )
     {
-        vo = futurepia::protocol::public_key_type( var.as_string() );
+        vo = fiberchain::protocol::public_key_type( var.as_string() );
     }
 
-    void to_variant( const futurepia::protocol::extended_public_key_type& var, fc::variant& vo )
+    void to_variant( const fiberchain::protocol::extended_public_key_type& var, fc::variant& vo )
     {
        vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_public_key_type& vo )
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_public_key_type& vo )
     {
-       vo = futurepia::protocol::extended_public_key_type( var.as_string() );
+       vo = fiberchain::protocol::extended_public_key_type( var.as_string() );
     }
 
-    void to_variant( const futurepia::protocol::extended_private_key_type& var, fc::variant& vo )
+    void to_variant( const fiberchain::protocol::extended_private_key_type& var, fc::variant& vo )
     {
        vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_private_key_type& vo )
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_private_key_type& vo )
     {
-       vo = futurepia::protocol::extended_private_key_type( var.as_string() );
+       vo = fiberchain::protocol::extended_private_key_type( var.as_string() );
     }
 } // fc

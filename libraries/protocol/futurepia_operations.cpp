@@ -3,7 +3,7 @@
 
 #include <locale>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    bool inline is_asset_type( asset as, asset_symbol_type symbol )
    {
@@ -297,4 +297,4 @@ namespace futurepia { namespace protocol {
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    } FC_CAPTURE_AND_RETHROW( (*this) ) }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

@@ -1,7 +1,7 @@
 #pragma once
 #include <futurepia/protocol/base.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
    struct block_header
    {
@@ -27,7 +27,7 @@ namespace futurepia { namespace protocol {
    };
 
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-FC_REFLECT( futurepia::protocol::block_header, (previous)(timestamp)(bobserver)(transaction_merkle_root)(extensions) )
-FC_REFLECT_DERIVED( futurepia::protocol::signed_block_header, (futurepia::protocol::block_header), (bobserver_signature) )
+FC_REFLECT( fiberchain::protocol::block_header, (previous)(timestamp)(bobserver)(transaction_merkle_root)(extensions) )
+FC_REFLECT_DERIVED( fiberchain::protocol::signed_block_header, (fiberchain::protocol::block_header), (bobserver_signature) )

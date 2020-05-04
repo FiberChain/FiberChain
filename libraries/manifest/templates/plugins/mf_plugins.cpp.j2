@@ -3,29 +3,29 @@
 
 #include <futurepia/manifest/plugins.hpp>
 
-namespace futurepia { namespace plugin {
+namespace fiberchain { namespace plugin {
 
 {% for plugin in plugins %}
-std::shared_ptr< futurepia::app::abstract_plugin > create_{{ plugin["plugin_name"] }}_plugin( futurepia::app::application* app );
+std::shared_ptr< fiberchain::app::abstract_plugin > create_{{ plugin["plugin_name"] }}_plugin( fiberchain::app::application* app );
 {% endfor %}
 
-boost::container::flat_map< std::string, std::function< std::shared_ptr< futurepia::app::abstract_plugin >( futurepia::app::application* app ) > > plugin_factories_by_name;
+boost::container::flat_map< std::string, std::function< std::shared_ptr< fiberchain::app::abstract_plugin >( fiberchain::app::application* app ) > > plugin_factories_by_name;
 
 void initialize_plugin_factories()
 {
    {% for plugin in plugins %}
-   plugin_factories_by_name[ "{{ plugin["plugin_name"] }}" ] = []( futurepia::app::application* app ) -> std::shared_ptr< futurepia::app::abstract_plugin >
+   plugin_factories_by_name[ "{{ plugin["plugin_name"] }}" ] = []( fiberchain::app::application* app ) -> std::shared_ptr< fiberchain::app::abstract_plugin >
    {
       return create_{{ plugin["plugin_name"] }}_plugin( app );
    };
    {% endfor %}
 }
 
-std::shared_ptr< futurepia::app::abstract_plugin > create_plugin( const std::string& name, futurepia::app::application* app )
+std::shared_ptr< fiberchain::app::abstract_plugin > create_plugin( const std::string& name, fiberchain::app::application* app )
 {
    auto it = plugin_factories_by_name.find( name );
    if( it == plugin_factories_by_name.end() )
-      return std::shared_ptr< futurepia::app::abstract_plugin >();
+      return std::shared_ptr< fiberchain::app::abstract_plugin >();
    return it->second( app );
 }
 

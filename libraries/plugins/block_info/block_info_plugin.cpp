@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
 block_info_plugin::block_info_plugin( application* app ) : plugin( app ) {}
 block_info_plugin::~block_info_plugin() {}
@@ -52,6 +52,6 @@ void block_info_plugin::on_applied_block( const chain::signed_block& b )
    return;
 }
 
-} } } // futurepia::plugin::block_info
+} } } // fiberchain::plugin::block_info
 
-FUTUREPIA_DEFINE_PLUGIN( block_info, futurepia::plugin::block_info::block_info_plugin )
+FUTUREPIA_DEFINE_PLUGIN( block_info, fiberchain::plugin::block_info::block_info_plugin )

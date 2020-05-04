@@ -19,14 +19,14 @@
 
 #include <map>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using futurepia::protocol::signed_transaction;
-   using futurepia::protocol::operation;
-   using futurepia::protocol::authority;
-   using futurepia::protocol::asset;
-   using futurepia::protocol::asset_symbol_type;
-   using futurepia::protocol::price;
+   using fiberchain::protocol::signed_transaction;
+   using fiberchain::protocol::operation;
+   using fiberchain::protocol::authority;
+   using fiberchain::protocol::asset;
+   using fiberchain::protocol::asset_symbol_type;
+   using fiberchain::protocol::price;
 
    class database_impl;
    class custom_operation_interpreter;

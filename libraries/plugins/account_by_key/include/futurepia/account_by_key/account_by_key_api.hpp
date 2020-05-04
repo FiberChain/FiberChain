@@ -6,7 +6,7 @@
 
 #include <fc/api.hpp>
 
-namespace futurepia { namespace account_by_key {
+namespace fiberchain { namespace account_by_key {
 
 namespace detail
 {
@@ -26,6 +26,6 @@ class account_by_key_api
       std::shared_ptr< detail::account_by_key_api_impl > my;
 };
 
-} } // futurepia::account_by_key
+} } // fiberchain::account_by_key
 
-FC_API( futurepia::account_by_key::account_by_key_api, (get_key_references) )
+FC_API( fiberchain::account_by_key::account_by_key_api, (get_key_references) )

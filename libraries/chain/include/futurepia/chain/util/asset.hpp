@@ -2,10 +2,10 @@
 
 #include <futurepia/protocol/asset.hpp>
 
-namespace futurepia { namespace chain { namespace util {
+namespace fiberchain { namespace chain { namespace util {
 
-using futurepia::protocol::asset;
-using futurepia::protocol::price;
+using fiberchain::protocol::asset;
+using fiberchain::protocol::price;
 
 inline asset to_snac( const price& p, const asset& pia )
 {

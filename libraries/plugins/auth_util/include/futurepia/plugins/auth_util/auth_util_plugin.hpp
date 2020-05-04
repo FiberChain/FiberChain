@@ -3,11 +3,11 @@
 
 #include <futurepia/app/plugin.hpp>
 
-namespace futurepia { namespace plugin { namespace auth_util {
+namespace fiberchain { namespace plugin { namespace auth_util {
 
-using futurepia::app::application;
+using fiberchain::app::application;
 
-class auth_util_plugin : public futurepia::app::plugin
+class auth_util_plugin : public fiberchain::app::plugin
 {
    public:
       auth_util_plugin( application* app ) ;

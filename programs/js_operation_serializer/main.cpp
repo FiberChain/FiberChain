@@ -26,8 +26,8 @@
 #include <fc/smart_ref_impl.hpp>
 #include <iostream>
 
-using namespace futurepia::chain;
-using namespace futurepia::protocol;
+using namespace fiberchain::chain;
+using namespace fiberchain::protocol;
 
 using std::string;
 using std::map;
@@ -57,7 +57,7 @@ string remove_namespace( string str )
    str = remove_tail_if( str, '_', "t" );
    str = remove_tail_if( str, '_', "object" );
    str = remove_tail_if( str, '_', "type" );
-   str = remove_namespace_if( str, "futurepia::chain" );
+   str = remove_namespace_if( str, "fiberchain::chain" );
    str = remove_namespace_if( str, "chainbase" );
    str = remove_namespace_if( str, "std" );
    str = remove_namespace_if( str, "fc" );
@@ -77,7 +77,7 @@ void register_serializer();
 
 
 map<string, size_t >                st;
-futurepia::vector<std::function<void()>>       serializers;
+fiberchain::vector<std::function<void()>>       serializers;
 
 bool register_serializer( const string& name, std::function<void()> sr )
 {

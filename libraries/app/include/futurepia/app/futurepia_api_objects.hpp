@@ -12,9 +12,9 @@
 
 #include <futurepia/bobserver/bobserver_objects.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
-using namespace futurepia::chain;
+using namespace fiberchain::chain;
 
 typedef chain::change_recovery_account_request_object  change_recovery_account_request_api_obj;
 typedef chain::block_summary_object                    block_summary_api_obj;
@@ -369,9 +369,9 @@ struct dynamic_global_property_api_obj : public dynamic_global_property_object
    uint64_t    average_block_size = 0;
 };
 
-} } // futurepia::app
+} } // fiberchain::app
 
-FC_REFLECT( futurepia::app::comment_api_obj,
+FC_REFLECT( fiberchain::app::comment_api_obj,
              (id)(author)(permlink)(group_id)
              (category)(parent_author)(parent_permlink)
              (title)(body)(json_metadata)(last_update)(created)(active)
@@ -383,7 +383,7 @@ FC_REFLECT( futurepia::app::comment_api_obj,
              (is_blocked)
           )
 
-FC_REFLECT( futurepia::app::account_api_obj,
+FC_REFLECT( fiberchain::app::account_api_obj,
              (id)(name)(owner)(active)(posting)(memo_key)(json_metadata)(last_owner_update)(last_account_update)
              (created)(mined)
              (recovery_account)(last_account_recovery)(reset_account)
@@ -401,26 +401,26 @@ FC_REFLECT( futurepia::app::account_api_obj,
              (last_post)(last_root_post)
           )
 
-FC_REFLECT( futurepia::app::owner_authority_history_api_obj,
+FC_REFLECT( fiberchain::app::owner_authority_history_api_obj,
              (id)
              (account)
              (previous_owner_authority)
              (last_valid_time)
           )
 
-FC_REFLECT( futurepia::app::account_recovery_request_api_obj,
+FC_REFLECT( fiberchain::app::account_recovery_request_api_obj,
              (id)
              (account_to_recover)
              (new_owner_authority)
              (expires)
           )
 
-FC_REFLECT( futurepia::app::account_balance_api_obj,
+FC_REFLECT( fiberchain::app::account_balance_api_obj,
             (account)
             (balance)
          )
 
-FC_REFLECT( futurepia::app::savings_withdraw_api_obj,
+FC_REFLECT( fiberchain::app::savings_withdraw_api_obj,
              (id)
              (from)
              (to)
@@ -433,7 +433,7 @@ FC_REFLECT( futurepia::app::savings_withdraw_api_obj,
              (complete)
           )
 
-FC_REFLECT( futurepia::app::fund_withdraw_api_obj,
+FC_REFLECT( fiberchain::app::fund_withdraw_api_obj,
              (id)
              (from)
              (fund_name)
@@ -443,7 +443,7 @@ FC_REFLECT( futurepia::app::fund_withdraw_api_obj,
              (complete)
           )
 
-FC_REFLECT( futurepia::app::exchange_withdraw_api_obj,
+FC_REFLECT( fiberchain::app::exchange_withdraw_api_obj,
              (id)
              (from)
              (request_id)
@@ -451,7 +451,7 @@ FC_REFLECT( futurepia::app::exchange_withdraw_api_obj,
              (complete)
           )
 
-FC_REFLECT( futurepia::app::bobserver_api_obj,
+FC_REFLECT( fiberchain::app::bobserver_api_obj,
              (id)
              (account)
              (created)
@@ -466,13 +466,13 @@ FC_REFLECT( futurepia::app::bobserver_api_obj,
              (last_snac_exchange_update)
           )
 
-FC_REFLECT_DERIVED( futurepia::app::signed_block_api_obj, (futurepia::protocol::signed_block),
+FC_REFLECT_DERIVED( fiberchain::app::signed_block_api_obj, (fiberchain::protocol::signed_block),
              (block_id)
              (signing_key)
              (transaction_ids)
           )
 
-FC_REFLECT_DERIVED( futurepia::app::dynamic_global_property_api_obj, (futurepia::chain::dynamic_global_property_object),
+FC_REFLECT_DERIVED( fiberchain::app::dynamic_global_property_api_obj, (fiberchain::chain::dynamic_global_property_object),
              (current_reserve_ratio)
              (average_block_size)
           )

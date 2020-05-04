@@ -2,9 +2,9 @@
 #include <fc/filesystem.hpp>
 #include <futurepia/protocol/block.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
-   using namespace futurepia::protocol;
+   using namespace fiberchain::protocol;
 
    namespace detail { class block_log_impl; }
 

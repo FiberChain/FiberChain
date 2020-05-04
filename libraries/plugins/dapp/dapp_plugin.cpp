@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
    namespace detail {
       class dapp_plugin_impl
       {
@@ -17,7 +17,7 @@ namespace futurepia { namespace dapp {
 
             void plugin_initialize();
 
-            futurepia::chain::database& database()
+            fiberchain::chain::database& database()
             {
                return _self.database();
             }
@@ -26,16 +26,16 @@ namespace futurepia { namespace dapp {
             void on_apply_block( const signed_block& b );
 
          private:
-            void aggregate_dapp_approve_vote( futurepia::chain::database& _db );
-            void aggregate_trx_fee_vote( futurepia::chain::database& _db );
+            void aggregate_dapp_approve_vote( fiberchain::chain::database& _db );
+            void aggregate_trx_fee_vote( fiberchain::chain::database& _db );
 
             dapp_plugin&  _self;
-            std::shared_ptr< generic_custom_operation_interpreter< futurepia::dapp::dapp_operation > > _custom_op_interpreter;
+            std::shared_ptr< generic_custom_operation_interpreter< fiberchain::dapp::dapp_operation > > _custom_op_interpreter;
       };
 
       void dapp_plugin_impl::plugin_initialize() 
       {
-         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< futurepia::dapp::dapp_operation > >( database() );
+         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< fiberchain::dapp::dapp_operation > >( database() );
          _custom_op_interpreter->register_evaluator< create_dapp_evaluator >( &_self );
          _custom_op_interpreter->register_evaluator< update_dapp_key_evaluator >( &_self );
          _custom_op_interpreter->register_evaluator< comment_dapp_evaluator >( &_self );
@@ -91,7 +91,7 @@ namespace futurepia { namespace dapp {
          }
       }
 
-      void dapp_plugin_impl::aggregate_dapp_approve_vote( futurepia::chain::database& _db ) {
+      void dapp_plugin_impl::aggregate_dapp_approve_vote( fiberchain::chain::database& _db ) {
          auto now = _db.head_block_time();
          
          const auto& dapp_idx = _db.get_index < dapp_index >().indices().get < by_id >();
@@ -153,7 +153,7 @@ namespace futurepia { namespace dapp {
          }
       }
 
-      void dapp_plugin_impl::aggregate_trx_fee_vote ( futurepia::chain::database& _db ) {
+      void dapp_plugin_impl::aggregate_trx_fee_vote ( fiberchain::chain::database& _db ) {
          auto now = _db.head_block_time();
          const dynamic_global_property_object& dgp = _db.get_dynamic_global_properties();
 
@@ -240,8 +240,8 @@ namespace futurepia { namespace dapp {
       app().register_api_factory< dapp_api >( "dapp_api" );
    }
 
-} } //namespace futurepia::dapp
+} } //namespace fiberchain::dapp
 
-FUTUREPIA_DEFINE_PLUGIN( dapp, futurepia::dapp::dapp_plugin )
+FUTUREPIA_DEFINE_PLUGIN( dapp, fiberchain::dapp::dapp_plugin )
 
 

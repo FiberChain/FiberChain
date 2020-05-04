@@ -2,7 +2,7 @@
 
 #include <futurepia/protocol/operation_util_impl.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 struct is_vop_visitor
 {
@@ -30,6 +30,6 @@ string get_op_name( const operation& op )
    return op.visit( get_opname_visitor() );
 }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
-DEFINE_OPERATION_TYPE( futurepia::protocol::operation )
+DEFINE_OPERATION_TYPE( fiberchain::protocol::operation )

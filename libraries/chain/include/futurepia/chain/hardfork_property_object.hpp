@@ -1,7 +1,7 @@
 #include <futurepia/protocol/version.hpp>
 #include <futurepia/chain/futurepia_object_types.hpp>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 class hardfork_property_object : public object< hardfork_property_object_type, hardfork_property_object >
 {
@@ -30,9 +30,9 @@ typedef multi_index_container<
    allocator< hardfork_property_object >
 > hardfork_property_index;
 
-} } // namespace futurepia::chain
+} } // namespace fiberchain::chain
 
-FC_REFLECT( futurepia::chain::hardfork_property_object,
+FC_REFLECT( fiberchain::chain::hardfork_property_object,
    (id)(processed_hardforks)(last_hardfork)(current_hardfork_version)
    (next_hardfork)(next_hardfork_time) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::hardfork_property_object, futurepia::chain::hardfork_property_index )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::hardfork_property_object, fiberchain::chain::hardfork_property_index )

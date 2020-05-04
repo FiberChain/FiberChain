@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
    namespace detail {
       class asset_storage_plugin_impl
       {
@@ -17,7 +17,7 @@ namespace futurepia { namespace asset_storage {
 
             void plugin_initialize();
 
-            futurepia::chain::database& database()
+            fiberchain::chain::database& database()
             {
                return _self.database();
             }
@@ -29,13 +29,13 @@ namespace futurepia { namespace asset_storage {
             const signed_transaction* get_current_tx() const;
          private:
             asset_storage_plugin&  _self;
-            std::shared_ptr< generic_custom_operation_interpreter< futurepia::asset_storage::asset_storage_operation > > _custom_op_interpreter;
+            std::shared_ptr< generic_custom_operation_interpreter< fiberchain::asset_storage::asset_storage_operation > > _custom_op_interpreter;
             const signed_transaction* _currentTx;
       };
 
       void asset_storage_plugin_impl::plugin_initialize() 
       {
-         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< futurepia::asset_storage::asset_storage_operation > >( database() );
+         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< fiberchain::asset_storage::asset_storage_operation > >( database() );
          _custom_op_interpreter->register_evaluator< create_asset_evaluator >( &_self );
          _custom_op_interpreter->register_evaluator< create_asset_event_evaluator >( &_self );
 
@@ -99,6 +99,6 @@ namespace futurepia { namespace asset_storage {
       return _my->get_current_tx();
    }
 
-} } //namespace futurepia::asset_storage
+} } //namespace fiberchain::asset_storage
 
-FUTUREPIA_DEFINE_PLUGIN( asset_storage, futurepia::asset_storage::asset_storage_plugin )
+FUTUREPIA_DEFINE_PLUGIN( asset_storage, fiberchain::asset_storage::asset_storage_plugin )

@@ -38,7 +38,7 @@
 
 #include <memory>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 using fc::static_variant;
 using fc::unique_ptr;
@@ -137,26 +137,26 @@ T dejsonify(const string& s)
 #define LOAD_VALUE_SET(options, name, container, type) \
 if( options.count(name) ) { \
       const std::vector<std::string>& ops = options[name].as<std::vector<std::string>>(); \
-      std::transform(ops.begin(), ops.end(), std::inserter(container, container.end()), &futurepia::app::dejsonify<type>); \
+      std::transform(ops.begin(), ops.end(), std::inserter(container, container.end()), &fiberchain::app::dejsonify<type>); \
 }
 /// @}
 
-} } //futurepia::app
+} } //fiberchain::app
 
 #define FUTUREPIA_DEFINE_PLUGIN( plugin_name, plugin_class ) \
-   namespace futurepia { namespace plugin { \
-   std::shared_ptr< futurepia::app::abstract_plugin > create_ ## plugin_name ## _plugin( app::application* app )  \
+   namespace fiberchain { namespace plugin { \
+   std::shared_ptr< fiberchain::app::abstract_plugin > create_ ## plugin_name ## _plugin( app::application* app )  \
    { return std::make_shared< plugin_class >( app ); } \
    } }
 
 #define DEFINE_PLUGIN_EVALUATOR( PLUGIN, OPERATION, X )                     \
-class X ## _evaluator : public futurepia::chain::evaluator_impl< X ## _evaluator, OPERATION > \
+class X ## _evaluator : public fiberchain::chain::evaluator_impl< X ## _evaluator, OPERATION > \
 {                                                                           \
    public:                                                                  \
       typedef X ## _operation operation_type;                               \
                                                                             \
       X ## _evaluator( database& db, PLUGIN* plugin )                       \
-         : futurepia::chain::evaluator_impl< X ## _evaluator, OPERATION >( db ), \
+         : fiberchain::chain::evaluator_impl< X ## _evaluator, OPERATION >( db ), \
            _plugin( plugin )                                                \
       {}                                                                    \
                                                                             \

@@ -10,7 +10,7 @@
 #include <boost/multi_index/composite_key.hpp>
 
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
    class operation_object : public object< operation_object_type, operation_object >
    {
@@ -97,8 +97,8 @@ namespace futurepia { namespace chain {
    > account_history_index;
 } }
 
-FC_REFLECT( futurepia::chain::operation_object, (id)(trx_id)(block)(trx_in_block)(op_in_trx)(virtual_op)(timestamp)(serialized_op) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::operation_object, futurepia::chain::operation_index )
+FC_REFLECT( fiberchain::chain::operation_object, (id)(trx_id)(block)(trx_in_block)(op_in_trx)(virtual_op)(timestamp)(serialized_op) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::operation_object, fiberchain::chain::operation_index )
 
-FC_REFLECT( futurepia::chain::account_history_object, (id)(account)(sequence)(op) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::chain::account_history_object, futurepia::chain::account_history_index )
+FC_REFLECT( fiberchain::chain::account_history_object, (id)(account)(sequence)(op) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::chain::account_history_object, fiberchain::chain::account_history_index )

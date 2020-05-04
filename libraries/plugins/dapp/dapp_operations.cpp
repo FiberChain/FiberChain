@@ -3,7 +3,7 @@
 #include <futurepia/protocol/operation_util_impl.hpp>
 #include <futurepia/protocol/authority.hpp>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
    
    void create_dapp_operation::validate()const
    {
@@ -122,6 +122,6 @@ namespace futurepia { namespace dapp {
       } FC_CAPTURE_AND_RETHROW( ( *this ) )
    }
 
-} } //namespace futurepia::dapp
+} } //namespace fiberchain::dapp
 
-DEFINE_OPERATION_TYPE( futurepia::dapp::dapp_operation )
+DEFINE_OPERATION_TYPE( fiberchain::dapp::dapp_operation )

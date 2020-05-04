@@ -4,10 +4,10 @@
 
 #include <boost/multi_index/composite_key.hpp>
 
-namespace futurepia { namespace account_by_key {
+namespace fiberchain { namespace account_by_key {
 
 using namespace std;
-using namespace futurepia::chain;
+using namespace fiberchain::chain;
 
 enum account_by_key_object_types
 {
@@ -64,8 +64,8 @@ typedef multi_index_container<
    allocator< key_lookup_object >
 > key_lookup_index;
 
-} } // futurepia::account_by_key
+} } // fiberchain::account_by_key
 
 
-FC_REFLECT( futurepia::account_by_key::key_lookup_object, (id)(key)(account) )
-CHAINBASE_SET_INDEX_TYPE( futurepia::account_by_key::key_lookup_object, futurepia::account_by_key::key_lookup_index )
+FC_REFLECT( fiberchain::account_by_key::key_lookup_object, (id)(key)(account) )
+CHAINBASE_SET_INDEX_TYPE( fiberchain::account_by_key::key_lookup_object, fiberchain::account_by_key::key_lookup_index )

@@ -5,7 +5,7 @@
 #include <futurepia/chain/account_object.hpp>
 
 #include <fc/api.hpp>
-namespace futurepia { namespace asset_storage {
+namespace fiberchain { namespace asset_storage {
 
    struct asset_api_object
    {
@@ -81,9 +81,9 @@ namespace futurepia { namespace asset_storage {
          std::shared_ptr< detail::asset_api_impl > _my;
    };
 
-} } // namespace futurepia::asset_storage
+} } // namespace fiberchain::asset_storage
 
-FC_REFLECT( futurepia::asset_storage::asset_api_object, 
+FC_REFLECT( fiberchain::asset_storage::asset_api_object, 
    ( asset_name )
    ( asset_data )
    ( owner )
@@ -91,7 +91,7 @@ FC_REFLECT( futurepia::asset_storage::asset_api_object,
    ( created_tx )
 )
 
-FC_REFLECT( futurepia::asset_storage::asset_event_api_object, 
+FC_REFLECT( fiberchain::asset_storage::asset_event_api_object, 
    ( asset )
    ( title ) 
    ( body )
@@ -99,7 +99,7 @@ FC_REFLECT( futurepia::asset_storage::asset_event_api_object,
    ( created_tx )
 )
 
-FC_API( futurepia::asset_storage::asset_api,
+FC_API( fiberchain::asset_storage::asset_api,
    ( get_asset_by_name )
    ( get_assets_by_owner )
    ( get_asset_events )
