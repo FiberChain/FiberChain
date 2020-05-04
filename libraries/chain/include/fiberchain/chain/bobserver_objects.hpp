@@ -57,12 +57,12 @@ namespace fiberchain { namespace chain {
          share_type        votes;
 
          /**
-          * This field represents the Futurepia blockchain version the bobserver is running.
+          * This field represents the Fiberchain blockchain version the bobserver is running.
           */
          version           running_version;
 
          hardfork_version  hardfork_version_vote;
-         time_point_sec    hardfork_time_vote = FUTUREPIA_GENESIS_TIME;
+         time_point_sec    hardfork_time_vote = FIBERCHAIN_GENESIS_TIME;
          bool              is_bproducer = false;
          bool              is_excepted = false;
          
@@ -102,14 +102,14 @@ namespace fiberchain { namespace chain {
          id_type                                                           id;
 
          uint32_t                                                          next_shuffle_block_num = 1;
-         fc::array< account_name_type, FUTUREPIA_MAX_BOBSERVERS >          current_shuffled_bobservers;
+         fc::array< account_name_type, FIBERCHAIN_MAX_BOBSERVERS >          current_shuffled_bobservers;
          uint8_t                                                           num_scheduled_bobservers = 1;
          version                                                           majority_version;
 
-         uint8_t max_voted_bobservers            = FUTUREPIA_MAX_VOTED_BOBSERVERS_HF0;
-         uint8_t max_miner_bobservers            = FUTUREPIA_MAX_MINER_BOBSERVERS_HF0;
-         uint8_t max_runner_bobservers           = FUTUREPIA_MAX_RUNNER_BOBSERVERS_HF0;
-         uint8_t hardfork_required_bobservers    = FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS;
+         uint8_t max_voted_bobservers            = FIBERCHAIN_MAX_VOTED_BOBSERVERS_HF0;
+         uint8_t max_miner_bobservers            = FIBERCHAIN_MAX_MINER_BOBSERVERS_HF0;
+         uint8_t max_runner_bobservers           = FIBERCHAIN_MAX_RUNNER_BOBSERVERS_HF0;
+         uint8_t hardfork_required_bobservers    = FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS;
    };
 
 

@@ -2,7 +2,7 @@
 
 #include <fiberchain/protocol/exceptions.hpp>
 
-#define FUTUREPIA_DECLARE_OP_BASE_EXCEPTIONS( op_name )                \
+#define FIBERCHAIN_DECLARE_OP_BASE_EXCEPTIONS( op_name )                \
    FC_DECLARE_DERIVED_EXCEPTION(                                      \
       op_name ## _validate_exception,                                 \
       fiberchain::chain::operation_validate_exception,                  \
@@ -16,7 +16,7 @@
       #op_name "_operation evaluation exception"                      \
       )
 
-#define FUTUREPIA_DECLARE_OP_VALIDATE_EXCEPTION( exc_name, op_name, seqnum, msg ) \
+#define FIBERCHAIN_DECLARE_OP_VALIDATE_EXCEPTION( exc_name, op_name, seqnum, msg ) \
    FC_DECLARE_DERIVED_EXCEPTION(                                      \
       op_name ## _ ## exc_name,                                       \
       fiberchain::chain::op_name ## _validate_exception,                \
@@ -25,7 +25,7 @@
       msg                                                             \
       )
 
-#define FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( exc_name, op_name, seqnum, msg ) \
+#define FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( exc_name, op_name, seqnum, msg ) \
    FC_DECLARE_DERIVED_EXCEPTION(                                      \
       op_name ## _ ## exc_name,                                       \
       fiberchain::chain::op_name ## _evaluate_exception,                \
@@ -34,7 +34,7 @@
       msg                                                             \
       )
 
-#define FUTUREPIA_DECLARE_INTERNAL_EXCEPTION( exc_name, seqnum, msg )  \
+#define FIBERCHAIN_DECLARE_INTERNAL_EXCEPTION( exc_name, seqnum, msg )  \
    FC_DECLARE_DERIVED_EXCEPTION(                                      \
       internal_ ## exc_name,                                          \
       fiberchain::chain::internal_exception,                            \
@@ -42,7 +42,7 @@
       msg                                                             \
       )
 
-#define FUTUREPIA_TRY_NOTIFY( signal, ... )                                     \
+#define FIBERCHAIN_TRY_NOTIFY( signal, ... )                                     \
    try                                                                        \
    {                                                                          \
       signal( __VA_ARGS__ );                                                  \
@@ -80,21 +80,21 @@ namespace fiberchain { namespace chain {
 
    FC_DECLARE_DERIVED_EXCEPTION( pop_empty_chain,                   fiberchain::chain::undo_database_exception, 4070001, "there are no blocks to pop" )
 
-   FUTUREPIA_DECLARE_OP_BASE_EXCEPTIONS( transfer );
-//   FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( from_account_not_whitelisted, transfer, 1, "owner mismatch" )
+   FIBERCHAIN_DECLARE_OP_BASE_EXCEPTIONS( transfer );
+//   FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( from_account_not_whitelisted, transfer, 1, "owner mismatch" )
 
-   FUTUREPIA_DECLARE_OP_BASE_EXCEPTIONS( account_create );
-   FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( max_auth_exceeded, account_create, 1, "Exceeds max authority fan-out" )
-   FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( auth_account_not_found, account_create, 2, "Auth account not found" )
+   FIBERCHAIN_DECLARE_OP_BASE_EXCEPTIONS( account_create );
+   FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( max_auth_exceeded, account_create, 1, "Exceeds max authority fan-out" )
+   FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( auth_account_not_found, account_create, 2, "Auth account not found" )
 
-   FUTUREPIA_DECLARE_OP_BASE_EXCEPTIONS( account_update );
-   FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( max_auth_exceeded, account_update, 1, "Exceeds max authority fan-out" )
-   FUTUREPIA_DECLARE_OP_EVALUATE_EXCEPTION( auth_account_not_found, account_update, 2, "Auth account not found" )
+   FIBERCHAIN_DECLARE_OP_BASE_EXCEPTIONS( account_update );
+   FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( max_auth_exceeded, account_update, 1, "Exceeds max authority fan-out" )
+   FIBERCHAIN_DECLARE_OP_EVALUATE_EXCEPTION( auth_account_not_found, account_update, 2, "Auth account not found" )
 
    FC_DECLARE_DERIVED_EXCEPTION( internal_exception, fiberchain::chain::chain_exception, 4990000, "internal exception" )
 
-   FUTUREPIA_DECLARE_INTERNAL_EXCEPTION( verify_auth_max_auth_exceeded, 1, "Exceeds max authority fan-out" )
-   FUTUREPIA_DECLARE_INTERNAL_EXCEPTION( verify_auth_account_not_found, 2, "Auth account not found" )
+   FIBERCHAIN_DECLARE_INTERNAL_EXCEPTION( verify_auth_max_auth_exceeded, 1, "Exceeds max authority fan-out" )
+   FIBERCHAIN_DECLARE_INTERNAL_EXCEPTION( verify_auth_account_not_found, 2, "Auth account not found" )
 
 } } // fiberchain::chain
 

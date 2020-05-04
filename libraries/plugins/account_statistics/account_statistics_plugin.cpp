@@ -107,4 +107,4 @@ const flat_set< std::string >& account_statistics_plugin::get_tracked_accounts()
 
 } } // fiberchain::account_statistics
 
-FUTUREPIA_DEFINE_PLUGIN( account_statistics, fiberchain::account_statistics::account_statistics_plugin );
+FIBERCHAIN_DEFINE_PLUGIN( account_statistics, fiberchain::account_statistics::account_statistics_plugin );

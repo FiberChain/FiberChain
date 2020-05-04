@@ -116,7 +116,7 @@ namespace fiberchain { namespace chain {
          common_fund_name_type               name;
          asset                               fund_balance = asset( 0, PIA_SYMBOL );
          asset                               fund_withdraw_ready = asset( 0, PIA_SYMBOL );
-         fc::array<fc::array<double,FUTUREPIA_MAX_STAKING_MONTH>,FUTUREPIA_MAX_USER_TYPE>   percent_interest;
+         fc::array<fc::array<double,FIBERCHAIN_MAX_STAKING_MONTH>,FIBERCHAIN_MAX_USER_TYPE>   percent_interest;
          time_point_sec                      last_update;
    };
 

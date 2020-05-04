@@ -9,7 +9,7 @@ if( GPERFTOOLS_FOUND )
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
-if( FUTUREPIA_STATIC_BUILD )
+if( FIBERCHAIN_STATIC_BUILD )
    # I don't know why fiberchain_app is required twice in the following line, I just know the linker breaks if it isn't.
    target_link_libraries( cli_wallet PRIVATE
                           "-static-libstdc++ -static-libgcc -lreadline"
@@ -22,12 +22,12 @@ target_link_libraries( cli_wallet PRIVATE
                           fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
                           fiberchain_wallet fiberchain_private_message fiberchain_app fiberchain_token 
                           fiberchain_dapp fiberchain_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-else( FUTUREPIA_STATIC_BUILD )
+else( FIBERCHAIN_STATIC_BUILD )
    target_link_libraries( cli_wallet PRIVATE
                           fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
                           fiberchain_wallet fiberchain_private_message fiberchain_app fiberchain_token 
                           fiberchain_dapp fiberchain_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-endif( FUTUREPIA_STATIC_BUILD )
+endif( FIBERCHAIN_STATIC_BUILD )
 
 if(MSVC)
   set_source_files_properties( main.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )

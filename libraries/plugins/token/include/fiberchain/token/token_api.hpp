@@ -93,7 +93,7 @@ namespace fiberchain { namespace token {
          created( o.created ),
          last_updated( o.last_updated )
       {
-         int64_t prec = FUTUREPIA_STAKING_INTEREST_PRECISION;
+         int64_t prec = FIBERCHAIN_STAKING_INTEREST_PRECISION;
          percent_interest_rate = fc::to_string( o.percent_interest_rate / prec );
          auto fract = o.percent_interest_rate % prec;
          percent_interest_rate += "." + fc::to_string( prec + fract ).erase(0,1);

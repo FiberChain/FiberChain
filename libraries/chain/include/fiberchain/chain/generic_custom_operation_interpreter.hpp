@@ -78,7 +78,7 @@ class generic_custom_operation_interpreter
       {
          try
          {
-            if( !this->_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ){
+            if( !this->_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ){
                FC_ASSERT( false, "custom_json_hf2_operation do not use in version 0.1.0." );
             }
             std::vector< CustomOperationType > custom_operations;

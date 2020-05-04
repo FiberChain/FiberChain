@@ -21,19 +21,19 @@ namespace fiberchain { namespace token {
          FC_ASSERT( dapp_itr != dapp_idx.end(), "There isn't ${name} dapp.", ( "name", op.dapp_name ) );
          FC_ASSERT( dapp_itr->owner == op.publisher, "token creator isn't owner of dapp." );
          FC_ASSERT( dapp_itr->dapp_key == op.dapp_key, "Dapp key is invalid.");
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )
             FC_ASSERT( dapp_itr->dapp_state == dapp_state_type::APPROVAL, "The state of ${dapp} dapp is ${state}, not APPROVAL"
                      , ( "dapp", op.dapp_name )("state", dapp_itr->dapp_state) );
 
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( dapp_itr->owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", dapp_itr->owner) );
          }
 
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             const auto& index_by_dapp = _db.get_index< token_index >().indices().get< by_dapp_name >();
             auto token_itr_by_dapp  = index_by_dapp.find( op.dapp_name );
             FC_ASSERT( token_itr_by_dapp == index_by_dapp.end(), "\"${dapp name}\" dapp is already had a token.", ( "dapp name", op.dapp_name ) );
@@ -43,7 +43,7 @@ namespace fiberchain { namespace token {
          auto token_name_itr = token_name_idx.find( op.name );
          FC_ASSERT( token_name_itr == token_name_idx.end(), "${name} token is exist.", ( "name", op.name ) );
 
-         uint64_t symbol = uint64_t(FUTUREPIA_BLOCKCHAIN_PRECISION_DIGITS);
+         uint64_t symbol = uint64_t(FIBERCHAIN_BLOCKCHAIN_PRECISION_DIGITS);
          string upper_symbol = boost::to_upper_copy( op.symbol_name );
          const char* temp_symbol = upper_symbol.c_str();
          for( unsigned int i = 0; i < op.symbol_name.length(); i++ ) 
@@ -106,7 +106,7 @@ namespace fiberchain { namespace token {
          }
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -122,7 +122,7 @@ namespace fiberchain { namespace token {
       {
          dlog( "issue_token_evaluator::do_apply" );
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "issue_token_operation is not available in versions lower than 0.2.0.." );
          }
 
@@ -146,7 +146,7 @@ namespace fiberchain { namespace token {
 
          FC_ASSERT( token_itr->symbol == op.reissue_amount.symbol, "Token symbol error" );
 
-         asset max_token = asset( FUTUREPIA_TOKEN_MAX * op.reissue_amount.precision(), op.reissue_amount.symbol );
+         asset max_token = asset( FIBERCHAIN_TOKEN_MAX * op.reissue_amount.precision(), op.reissue_amount.symbol );
          asset total_balance = op.reissue_amount + token_itr->total_balance;
          FC_ASSERT( total_balance <= max_token
             , "The sum of total supply and reissue amount is over max. Max is ${max} and the sum is ${total}."
@@ -202,7 +202,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
          }
@@ -211,7 +211,7 @@ namespace fiberchain { namespace token {
          utils.adjust_token_balance( op.to, token_itr->name, op.amount );
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -233,14 +233,14 @@ namespace fiberchain { namespace token {
          const auto& dapp_idx = _db.get_index< fiberchain::dapp::dapp_index >().indices().get< fiberchain::dapp::by_name >();
          auto dapp_itr = dapp_idx.find( token_itr->dapp_name );
          FC_ASSERT( dapp_itr != dapp_idx.end(), "There isn't dapp of ${token}", ( "token", token_itr->name ) );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( dapp_itr->owner == op.account, "${account} isn't owner of DApp", ( "account", op.account ) );
          }
 
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( dapp_itr->owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", dapp_itr->owner) );
          }
@@ -254,7 +254,7 @@ namespace fiberchain { namespace token {
          });
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -268,7 +268,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "setup_token_fund_operation is not available in versions lower than 0.2.0.." );
          }
 
@@ -287,7 +287,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher) );
          }
@@ -309,7 +309,7 @@ namespace fiberchain { namespace token {
          }
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -323,7 +323,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "set_token_staking_interest_operation is not available in versions lower than 0.2.0.." );
          }
 
@@ -337,21 +337,21 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
          }
 
          int64_t percent_interest_rate;
          auto dot_pos = op.percent_interest_rate.find( "." );
-         int64_t precision = FUTUREPIA_STAKING_INTEREST_PRECISION;
+         int64_t precision = FIBERCHAIN_STAKING_INTEREST_PRECISION;
 
          if( dot_pos != std::string::npos ) {
             auto intpart = op.percent_interest_rate.substr( 0, dot_pos );
             auto temp_frac = op.percent_interest_rate.substr( dot_pos + 1 );
 
-            if( temp_frac.size() - 1 < FUTUREPIA_STAKING_INTEREST_PRECISION_DIGITS ){
-               temp_frac.insert( temp_frac.size(), ( FUTUREPIA_STAKING_INTEREST_PRECISION_DIGITS - temp_frac.size() ), '0' );
+            if( temp_frac.size() - 1 < FIBERCHAIN_STAKING_INTEREST_PRECISION_DIGITS ){
+               temp_frac.insert( temp_frac.size(), ( FIBERCHAIN_STAKING_INTEREST_PRECISION_DIGITS - temp_frac.size() ), '0' );
             }
 
             auto fracpart = "1" + temp_frac;
@@ -367,7 +367,7 @@ namespace fiberchain { namespace token {
          const auto& interest_idx = _db.get_index< token_staking_interest_index >().indices().get< by_token_and_month >();
          auto interest_itr = interest_idx.find( boost::make_tuple( op.token, op.month ) );
 
-         if( percent_interest_rate == ( -1 * FUTUREPIA_STAKING_INTEREST_PRECISION ) ) {
+         if( percent_interest_rate == ( -1 * FIBERCHAIN_STAKING_INTEREST_PRECISION ) ) {
             //remove
             FC_ASSERT( interest_itr != interest_idx.end(), "No staking interest to remove" );
             _db.remove( *interest_itr );
@@ -393,7 +393,7 @@ namespace fiberchain { namespace token {
          }
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -406,7 +406,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "transfer_token_fund_operation is not available in versions lower than 0.2.0.." );
          }
 
@@ -418,7 +418,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
          }
@@ -428,7 +428,7 @@ namespace fiberchain { namespace token {
          utils.adjust_token_fund_balance( op.token, op.fund_name, op.amount, asset(0, op.amount.symbol) );
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -442,7 +442,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "staking_token_fund_operation is not available in versions lower than 0.2.0.." );
          }
 
@@ -453,7 +453,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
          }
@@ -466,7 +466,7 @@ namespace fiberchain { namespace token {
          auto interest_itr = interest_idx.find( boost::make_tuple( op.token, op.month ) );
          FC_ASSERT( interest_itr != interest_idx.end(), "${n}-month staking is not possible", ("n", op.month) );
          
-         auto temp_amount = (op.amount.amount.value * ( interest_itr->percent_interest_rate / FUTUREPIA_STAKING_INTEREST_PRECISION ) ) / 100.0;
+         auto temp_amount = (op.amount.amount.value * ( interest_itr->percent_interest_rate / FIBERCHAIN_STAKING_INTEREST_PRECISION ) ) / 100.0;
          auto amount = op.amount + asset( temp_amount , token_itr->symbol);
 
          util::token_util utils(_db);
@@ -489,7 +489,7 @@ namespace fiberchain { namespace token {
          });
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -503,7 +503,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
          
-         FC_ASSERT( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 )
+         FC_ASSERT( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 )
             , "transfer_token_savings_operation is not available in versions lower than 0.2.0.." );
 
          const auto& token_idx = _db.get_index< token_index >().indices().get< by_name >();
@@ -513,7 +513,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee
                , "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
@@ -544,7 +544,7 @@ namespace fiberchain { namespace token {
          });
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -558,7 +558,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         FC_ASSERT( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 )
+         FC_ASSERT( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 )
             , "cancel_transfer_token_savings_operation is not available in versions lower than 0.2.0.." );
 
          const auto& token_idx = _db.get_index< token_index >().indices().get< by_name >();
@@ -568,7 +568,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee
                , "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
@@ -586,7 +586,7 @@ namespace fiberchain { namespace token {
          _db.remove( *withdraw_itr );
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );
@@ -599,7 +599,7 @@ namespace fiberchain { namespace token {
       try {
          database& _db = db();
 
-         FC_ASSERT( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 )
+         FC_ASSERT( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 )
             , "conclude_transfer_token_savings_operation is not available in versions lower than 0.2.0.." );
 
          const auto& token_idx = _db.get_index< token_index >().indices().get< by_name >();
@@ -609,7 +609,7 @@ namespace fiberchain { namespace token {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( token_itr->publisher );  // token publisher is owner of dapp
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee
                , "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", token_itr->publisher ) );
@@ -631,7 +631,7 @@ namespace fiberchain { namespace token {
          _db.remove( *withdraw_itr );
 
          // process transferring fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
             _db.push_virtual_operation( dapp_fee_virtual_operation( token_itr->dapp_name, dapp_transaction_fee ) );

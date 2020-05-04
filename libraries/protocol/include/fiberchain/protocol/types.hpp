@@ -103,7 +103,7 @@ namespace fiberchain {
             friend bool operator != ( const public_key_type& p1, const public_key_type& p2);
       };
 
-      #define FUTUREPIA_INIT_PUBLIC_KEY (fiberchain::protocol::public_key_type(FUTUREPIA_INIT_PUBLIC_KEY_STR))
+      #define FIBERCHAIN_INIT_PUBLIC_KEY (fiberchain::protocol::public_key_type(FIBERCHAIN_INIT_PUBLIC_KEY_STR))
 
       struct extended_public_key_type
       {

@@ -208,4 +208,4 @@ void account_by_key_plugin::plugin_startup()
 
 } } // fiberchain::account_by_key
 
-FUTUREPIA_DEFINE_PLUGIN( account_by_key, fiberchain::account_by_key::account_by_key_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( account_by_key, fiberchain::account_by_key::account_by_key_plugin )

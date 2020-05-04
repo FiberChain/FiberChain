@@ -35,7 +35,7 @@ namespace fiberchain { namespace private_message {
 using namespace chain;
 using app::application;
 
-#define FUTUREPIA_PRIVATE_MESSAGE_COP_ID 777
+#define FIBERCHAIN_PRIVATE_MESSAGE_COP_ID 777
 
 enum private_message_object_type
 {

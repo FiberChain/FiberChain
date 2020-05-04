@@ -220,7 +220,7 @@ void {plugin_name}_plugin::plugin_shutdown()
 
 }} }} }} // {plugin_provider}::plugin::{plugin_name}
 
-FUTUREPIA_DEFINE_PLUGIN( {plugin_name}, {plugin_provider}::plugin::{plugin_name}::{plugin_name}_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( {plugin_name}, {plugin_provider}::plugin::{plugin_name}::{plugin_name}_plugin )
 """,
 }
 
@@ -230,7 +230,7 @@ import sys
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument("provider", help="Name of plugin provider (fiberchain for plugins developed by Futurepia)")
+    parser.add_argument("provider", help="Name of plugin provider (fiberchain for plugins developed by Fiberchain)")
     parser.add_argument("name", help="Name of plugin to create")
     args = parser.parse_args(argv[1:])
     ctx = {

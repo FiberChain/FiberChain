@@ -327,8 +327,8 @@ public:
    variant_object about() const
    {
       fc::mutable_variant_object result;
-      result["blockchain_version"]       = FUTUREPIA_BLOCKCHAIN_VERSION;
-      result["sw_version"]               = FUTUREPIA_VERSION;
+      result["blockchain_version"]       = FIBERCHAIN_BLOCKCHAIN_VERSION;
+      result["sw_version"]               = FIBERCHAIN_VERSION;
       result["compile_date"]             = "compiled on " __DATE__ " at " __TIME__;
       result["boost_version"]            = boost::replace_all_copy(std::string(BOOST_LIB_VERSION), "_", ".");
       result["openssl_version"]          = OPENSSL_VERSION_TEXT;
@@ -502,7 +502,7 @@ public:
 
    void set_transaction_expiration( uint32_t tx_expiration_seconds )
    {
-      FC_ASSERT( tx_expiration_seconds < FUTUREPIA_MAX_TIME_UNTIL_EXPIRATION );
+      FC_ASSERT( tx_expiration_seconds < FIBERCHAIN_MAX_TIME_UNTIL_EXPIRATION );
       _tx_expiration_seconds = tx_expiration_seconds;
    }
 
@@ -633,7 +633,7 @@ public:
       }
 
       auto minimal_signing_keys = tx.minimize_required_signatures(
-         FUTUREPIA_CHAIN_ID,
+         FIBERCHAIN_CHAIN_ID,
          available_keys,
          [&]( const string& account_name ) -> const authority&
          { return (get_account_from_lut( account_name ).active); },
@@ -641,14 +641,14 @@ public:
          { return (get_account_from_lut( account_name ).owner); },
          [&]( const string& account_name ) -> const authority&
          { return (get_account_from_lut( account_name ).posting); },
-         FUTUREPIA_MAX_SIG_CHECK_DEPTH
+         FIBERCHAIN_MAX_SIG_CHECK_DEPTH
          );
 
       for( const public_key_type& k : minimal_signing_keys )
       {
          auto it = available_private_keys.find(k);
          FC_ASSERT( it != available_private_keys.end() );
-         tx.sign( it->second, FUTUREPIA_CHAIN_ID );
+         tx.sign( it->second, FIBERCHAIN_CHAIN_ID );
       }
 
       if( broadcast ) {

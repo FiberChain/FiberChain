@@ -352,4 +352,4 @@ uint32_t blockchain_statistics_plugin::get_max_history_per_bucket() const
 
 } } // fiberchain::blockchain_statistics
 
-FUTUREPIA_DEFINE_PLUGIN( blockchain_statistics, fiberchain::blockchain_statistics::blockchain_statistics_plugin );
+FIBERCHAIN_DEFINE_PLUGIN( blockchain_statistics, fiberchain::blockchain_statistics::blockchain_statistics_plugin );

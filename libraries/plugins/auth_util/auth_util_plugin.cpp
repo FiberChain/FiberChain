@@ -30,4 +30,4 @@ void auth_util_plugin::plugin_shutdown()
 
 } } } // fiberchain::plugin::auth_util
 
-FUTUREPIA_DEFINE_PLUGIN( auth_util, fiberchain::plugin::auth_util::auth_util_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( auth_util, fiberchain::plugin::auth_util::auth_util_plugin )

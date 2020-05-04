@@ -308,4 +308,4 @@ void tags_plugin::plugin_startup()
 
 } } /// fiberchain::tags
 
-FUTUREPIA_DEFINE_PLUGIN( tags, fiberchain::tags::tags_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( tags, fiberchain::tags::tags_plugin )

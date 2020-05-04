@@ -9,7 +9,7 @@ if( GPERFTOOLS_FOUND )
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
-if( FUTUREPIA_STATIC_BUILD )
+if( FIBERCHAIN_STATIC_BUILD )
    target_link_libraries( fiberchaind PRIVATE
       "-static-libstdc++ -static-libgcc"
       fiberchain_plugins
@@ -37,7 +37,7 @@ elseif( FULL_STATIC_BUILD ) # for windows version (mingw) : include libwinpthrea
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
   )   
-else( FUTUREPIA_STATIC_BUILD )
+else( FIBERCHAIN_STATIC_BUILD )
    target_link_libraries( fiberchaind PRIVATE
       fiberchain_plugins
       fiberchain_mf_plugins
@@ -50,7 +50,7 @@ else( FUTUREPIA_STATIC_BUILD )
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
    )
-endif( FUTUREPIA_STATIC_BUILD )
+endif( FIBERCHAIN_STATIC_BUILD )
 
 install( TARGETS
    fiberchaind

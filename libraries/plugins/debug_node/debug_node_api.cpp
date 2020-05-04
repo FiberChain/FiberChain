@@ -94,8 +94,8 @@ void debug_private_key_storage::maybe_get_private_key(
 
 debug_node_api_impl::debug_node_api_impl( fiberchain::app::application& _app ) : app( _app )
 {
-#ifdef FUTUREPIA_INIT_PRIVATE_KEY
-   fc::ecc::private_key init_key = FUTUREPIA_INIT_PRIVATE_KEY;
+#ifdef FIBERCHAIN_INIT_PRIVATE_KEY
+   fc::ecc::private_key init_key = FIBERCHAIN_INIT_PRIVATE_KEY;
    key_storage.key_table[ init_key.get_public_key() ] = init_key;
 #endif
 }
@@ -239,7 +239,7 @@ void debug_node_api_impl::debug_set_hardfork( uint32_t hardfork_id )
 {
    using namespace fiberchain::chain;
 
-   if( hardfork_id > FUTUREPIA_NUM_HARDFORKS )
+   if( hardfork_id > FIBERCHAIN_NUM_HARDFORKS )
       return;
 
    get_plugin()->debug_update( [=]( database& db )

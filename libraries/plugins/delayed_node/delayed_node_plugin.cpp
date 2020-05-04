@@ -165,4 +165,4 @@ void delayed_node_plugin::connection_failed()
 
 } }
 
-FUTUREPIA_DEFINE_PLUGIN( delayed_node, fiberchain::delayed_node::delayed_node_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( delayed_node, fiberchain::delayed_node::delayed_node_plugin )

@@ -37,7 +37,7 @@ namespace fiberchain { namespace chain {
          time_point_sec    time;
          account_name_type current_bobserver;
 
-         asset             printed_supply            = asset( FUTUREPIA_INIT_SUPPLY, PIA_SYMBOL );
+         asset             printed_supply            = asset( FIBERCHAIN_INIT_SUPPLY, PIA_SYMBOL );
          asset             virtual_supply              = asset( 0, PIA_SYMBOL );   /// total supply after converting snac to pia
          asset             current_supply              = asset( 0, PIA_SYMBOL );   /// total pia supply
          asset             current_snac_supply         = asset( 0, SNAC_SYMBOL );  /// total snac supply
@@ -72,7 +72,7 @@ namespace fiberchain { namespace chain {
          /**
           * dapp transaction fee
           * */
-         asset             dapp_transaction_fee = FUTUREPIA_DAPP_TRANSACTION_FEE;
+         asset             dapp_transaction_fee = FIBERCHAIN_DAPP_TRANSACTION_FEE;
 
          uint32_t          last_irreversible_block_num = 0;
          uint32_t          current_bproducer_count = 0;

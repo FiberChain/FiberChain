@@ -30,4 +30,4 @@ void raw_block_plugin::plugin_shutdown()
 
 } } } // fiberchain::plugin::raw_block
 
-FUTUREPIA_DEFINE_PLUGIN( raw_block, fiberchain::plugin::raw_block::raw_block_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( raw_block, fiberchain::plugin::raw_block::raw_block_plugin )

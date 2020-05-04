@@ -78,7 +78,7 @@ namespace fiberchain { namespace chain {
           *
           * @param data_dir Path to open or create database in
           */
-         void open( const fc::path& data_dir, const fc::path& shared_mem_dir, uint64_t initial_supply = FUTUREPIA_INIT_SUPPLY, uint64_t shared_file_size = 0, uint32_t chainbase_flags = 0 );
+         void open( const fc::path& data_dir, const fc::path& shared_mem_dir, uint64_t initial_supply = FIBERCHAIN_INIT_SUPPLY, uint64_t shared_file_size = 0, uint32_t chainbase_flags = 0 );
 
          /**
           * @brief Rebuild object graph from block history and open detabase
@@ -259,7 +259,7 @@ namespace fiberchain { namespace chain {
           * Use the get_slot_time() and get_slot_at_time() functions
           * to convert between slot_num and timestamp.
           *
-          * Passing slot_num == 0 returns FUTUREPIA_NULL_BOBSERVER
+          * Passing slot_num == 0 returns FIBERCHAIN_NULL_BOBSERVER
           */
          account_name_type get_scheduled_bobserver(uint32_t slot_num)const;
 
@@ -333,7 +333,7 @@ namespace fiberchain { namespace chain {
          /// Reset the object graph in-memory
          void initialize_indexes();
          void init_schema();
-         void init_genesis(uint64_t initial_supply = FUTUREPIA_INIT_SUPPLY );
+         void init_genesis(uint64_t initial_supply = FIBERCHAIN_INIT_SUPPLY );
 
          /** when popping a block, the transactions that were removed get cached here so they
           * can be reapplied at the proper time */
@@ -408,8 +408,8 @@ namespace fiberchain { namespace chain {
 
          vector< signed_transaction >  _pending_tx;
          fork_database                 _fork_db;
-         fc::time_point_sec            _hardfork_times[ FUTUREPIA_NUM_HARDFORKS + 1 ];
-         protocol::hardfork_version    _hardfork_versions[ FUTUREPIA_NUM_HARDFORKS + 1 ];
+         fc::time_point_sec            _hardfork_times[ FIBERCHAIN_NUM_HARDFORKS + 1 ];
+         protocol::hardfork_version    _hardfork_versions[ FIBERCHAIN_NUM_HARDFORKS + 1 ];
 
          block_log                     _block_log;
 

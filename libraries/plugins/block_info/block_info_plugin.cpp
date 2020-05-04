@@ -54,4 +54,4 @@ void block_info_plugin::on_applied_block( const chain::signed_block& b )
 
 } } } // fiberchain::plugin::block_info
 
-FUTUREPIA_DEFINE_PLUGIN( block_info, fiberchain::plugin::block_info::block_info_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( block_info, fiberchain::plugin::block_info::block_info_plugin )

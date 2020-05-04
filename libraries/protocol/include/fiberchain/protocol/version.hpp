@@ -6,7 +6,7 @@
 namespace fiberchain { namespace protocol {
 
 /*
- * This class represents the basic versioning scheme of the Futurepia blockchain.
+ * This class represents the basic versioning scheme of the Fiberchain blockchain.
  * All versions are a triple consisting of a major version, hardfork version, and release version.
  * It allows easy comparison between versions. A version is a read only object.
  */

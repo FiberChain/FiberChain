@@ -358,4 +358,4 @@ void debug_node_plugin::plugin_shutdown()
 
 } } }
 
-FUTUREPIA_DEFINE_PLUGIN( debug_node, fiberchain::plugin::debug_node::debug_node_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( debug_node, fiberchain::plugin::debug_node::debug_node_plugin )

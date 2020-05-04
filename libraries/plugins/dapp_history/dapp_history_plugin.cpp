@@ -120,6 +120,6 @@ namespace fiberchain { namespace dapp_history {
 
 } } //namespace fiberchain::dapp_history
 
-FUTUREPIA_DEFINE_PLUGIN( dapp_history, fiberchain::dapp_history::dapp_history_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( dapp_history, fiberchain::dapp_history::dapp_history_plugin )
 
 

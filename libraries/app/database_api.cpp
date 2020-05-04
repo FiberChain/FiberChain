@@ -739,12 +739,12 @@ set<public_key_type> database_api::get_required_signatures( const signed_transac
 set<public_key_type> database_api_impl::get_required_signatures( const signed_transaction& trx, const flat_set<public_key_type>& available_keys )const
 {
 //   wdump((trx)(available_keys));
-   auto result = trx.get_required_signatures( FUTUREPIA_CHAIN_ID,
+   auto result = trx.get_required_signatures( FIBERCHAIN_CHAIN_ID,
                                               available_keys,
                                               [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).active  ); },
                                               [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).owner   ); },
                                               [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).posting ); },
-                                              FUTUREPIA_MAX_SIG_CHECK_DEPTH );
+                                              FIBERCHAIN_MAX_SIG_CHECK_DEPTH );
 //   wdump((result));
    return result;
 }
@@ -762,7 +762,7 @@ set<public_key_type> database_api_impl::get_potential_signatures( const signed_t
 //   wdump((trx));
    set<public_key_type> result;
    trx.get_required_signatures(
-      FUTUREPIA_CHAIN_ID,
+      FIBERCHAIN_CHAIN_ID,
       flat_set<public_key_type>(),
       [&]( account_name_type account_name )
       {
@@ -785,7 +785,7 @@ set<public_key_type> database_api_impl::get_potential_signatures( const signed_t
             result.insert(k);
          return authority( auth );
       },
-      FUTUREPIA_MAX_SIG_CHECK_DEPTH
+      FIBERCHAIN_MAX_SIG_CHECK_DEPTH
    );
 
 //   wdump((result));
@@ -802,11 +802,11 @@ bool database_api::verify_authority( const signed_transaction& trx ) const
 
 bool database_api_impl::verify_authority( const signed_transaction& trx )const
 {
-   trx.verify_authority( FUTUREPIA_CHAIN_ID,
+   trx.verify_authority( FIBERCHAIN_CHAIN_ID,
                          [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).active  ); },
                          [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).owner   ); },
                          [&]( string account_name ){ return authority( _db.get< account_authority_object, by_account >( account_name ).posting ); },
-                         FUTUREPIA_MAX_SIG_CHECK_DEPTH );
+                         FIBERCHAIN_MAX_SIG_CHECK_DEPTH );
    return true;
 }
 

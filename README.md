@@ -1,4 +1,4 @@
-# Building Futurepia
+# Building Fiberchain
 ## For Ubuntu 16.04
 ```
 sudo apt-get install -y \
@@ -78,7 +78,7 @@ apt-cyg install bzip2 gzip m4 make unzip zip
 
 7. OpenSSL build
 
-8. Futurepia build
+8. Fiberchain build
 
  8.1 Setup build environment (inside build folder)
  ```

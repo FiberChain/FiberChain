@@ -143,7 +143,7 @@ if( options.count(name) ) { \
 
 } } //fiberchain::app
 
-#define FUTUREPIA_DEFINE_PLUGIN( plugin_name, plugin_class ) \
+#define FIBERCHAIN_DEFINE_PLUGIN( plugin_name, plugin_class ) \
    namespace fiberchain { namespace plugin { \
    std::shared_ptr< fiberchain::app::abstract_plugin > create_ ## plugin_name ## _plugin( app::application* app )  \
    { return std::make_shared< plugin_class >( app ); } \

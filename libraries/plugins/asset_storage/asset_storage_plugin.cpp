@@ -101,4 +101,4 @@ namespace fiberchain { namespace asset_storage {
 
 } } //namespace fiberchain::asset_storage
 
-FUTUREPIA_DEFINE_PLUGIN( asset_storage, fiberchain::asset_storage::asset_storage_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( asset_storage, fiberchain::asset_storage::asset_storage_plugin )

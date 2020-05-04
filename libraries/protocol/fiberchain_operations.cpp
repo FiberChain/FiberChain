@@ -100,7 +100,7 @@ namespace fiberchain { namespace protocol {
       validate_account_name( from );
       validate_account_name( to );
       FC_ASSERT( amount.amount > 0, "Cannot transfer a negative amount (aka: stealing)" );
-      FC_ASSERT( memo.size() < FUTUREPIA_MAX_MEMO_SIZE, "Memo is too large" );
+      FC_ASSERT( memo.size() < FIBERCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    } FC_CAPTURE_AND_RETHROW( (*this) ) }
 
@@ -198,12 +198,12 @@ namespace fiberchain { namespace protocol {
       validate_account_name( to );
       FC_ASSERT( amount.amount > 0 );
       FC_ASSERT( amount.symbol == PIA_SYMBOL || amount.symbol == SNAC_SYMBOL );
-      FC_ASSERT( split_pay_month >= FUTUREPIA_TRANSFER_SAVINGS_MIN_MONTH 
-              && split_pay_month <= FUTUREPIA_TRANSFER_SAVINGS_MAX_MONTH );
-      FC_ASSERT( split_pay_order >= FUTUREPIA_TRANSFER_SAVINGS_MIN_MONTH 
-              && split_pay_order <= FUTUREPIA_TRANSFER_SAVINGS_MAX_MONTH );
+      FC_ASSERT( split_pay_month >= FIBERCHAIN_TRANSFER_SAVINGS_MIN_MONTH 
+              && split_pay_month <= FIBERCHAIN_TRANSFER_SAVINGS_MAX_MONTH );
+      FC_ASSERT( split_pay_order >= FIBERCHAIN_TRANSFER_SAVINGS_MIN_MONTH 
+              && split_pay_order <= FIBERCHAIN_TRANSFER_SAVINGS_MAX_MONTH );
       FC_ASSERT( request_id >= 0 );
-      FC_ASSERT( memo.size() < FUTUREPIA_MAX_MEMO_SIZE, "Memo is too large" );
+      FC_ASSERT( memo.size() < FIBERCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    }
 
@@ -277,7 +277,7 @@ namespace fiberchain { namespace protocol {
       FC_ASSERT( amount.symbol == PIA_SYMBOL );
       FC_ASSERT( usertype >= 0 && usertype <= 1 );
       FC_ASSERT( month >= 1 && month <= 12 );
-      FC_ASSERT( memo.size() < FUTUREPIA_MAX_MEMO_SIZE, "Memo is too large" );
+      FC_ASSERT( memo.size() < FIBERCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    }
 
@@ -293,7 +293,7 @@ namespace fiberchain { namespace protocol {
       FC_ASSERT( fund_name.size() >0 );
       FC_ASSERT( amount.amount > 0, "Cannot transfer a negative amount (aka: stealing)" );
       FC_ASSERT( amount.symbol == PIA_SYMBOL );
-      FC_ASSERT( memo.size() < FUTUREPIA_MAX_MEMO_SIZE, "Memo is too large" );
+      FC_ASSERT( memo.size() < FIBERCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    } FC_CAPTURE_AND_RETHROW( (*this) ) }
 

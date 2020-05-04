@@ -39,7 +39,7 @@ namespace fiberchain { namespace chain {
          time_point_sec    created;
          bool              mined = true;
          account_name_type recovery_account;
-         account_name_type reset_account = FUTUREPIA_NULL_ACCOUNT;
+         account_name_type reset_account = FIBERCHAIN_NULL_ACCOUNT;
          time_point_sec    last_account_recovery;
          uint32_t          comment_count = 0;
          uint32_t          post_count = 0;

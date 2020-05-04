@@ -53,7 +53,7 @@ namespace fiberchain { namespace dapp {
          auto& _db = database();
 
          switch( hardfork ) {
-            case FUTUREPIA_HARDFORK_0_2:
+            case FIBERCHAIN_HARDFORK_0_2:
                auto now = _db.head_block_time();
 
                const dynamic_global_property_object& _dgp = _db.get_dynamic_global_properties();
@@ -111,12 +111,12 @@ namespace fiberchain { namespace dapp {
                   vote_itr++;
                }
 
-               if( approval_count >= FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
+               if( approval_count >= FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
                   _db.modify( *dapp_itr, [&]( dapp_object& object ) {
                      object.dapp_state = dapp_state_type::APPROVAL;
                      object.last_updated = now;
                   });
-               } else if( rejection_count >= FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
+               } else if( rejection_count >= FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
                   _db.modify( *dapp_itr, [&]( dapp_object& object ) {
                      object.dapp_state = dapp_state_type::REJECTION;
                      object.last_updated = now;
@@ -161,7 +161,7 @@ namespace fiberchain { namespace dapp {
          auto vote_itr = vote_idx.begin();
          vector< asset > trx_fee_list;
          while( vote_itr != vote_idx.end() ) {
-            if( now < vote_itr->last_update + FUTUREPIA_MAX_FEED_AGE_SECONDS ){
+            if( now < vote_itr->last_update + FIBERCHAIN_MAX_FEED_AGE_SECONDS ){
                trx_fee_list.push_back( vote_itr->trx_fee );
             }
             vote_itr++;
@@ -169,7 +169,7 @@ namespace fiberchain { namespace dapp {
 
          dlog( "aggregate_trx_fee_vote : trx_fee_list.size() = ${s}", ( "s", trx_fee_list.size() ) );
 
-         if( trx_fee_list.size() >= FUTUREPIA_MIN_FEEDS ) {
+         if( trx_fee_list.size() >= FIBERCHAIN_MIN_FEEDS ) {
             std::sort( trx_fee_list.begin(), trx_fee_list.end() );
             auto median_value = trx_fee_list[ trx_fee_list.size()/2 ];
 
@@ -183,7 +183,7 @@ namespace fiberchain { namespace dapp {
 
       void dapp_plugin_impl::on_apply_block( const signed_block& b ) {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
 
@@ -242,6 +242,6 @@ namespace fiberchain { namespace dapp {
 
 } } //namespace fiberchain::dapp
 
-FUTUREPIA_DEFINE_PLUGIN( dapp, fiberchain::dapp::dapp_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( dapp, fiberchain::dapp::dapp_plugin )
 
 

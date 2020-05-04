@@ -46,18 +46,18 @@ int main(int argc, char** argv) {
    try {
 
       std::cerr << "------------------------------------------------------\n\n";
-      std::cerr << "            STARTING FUTUREPIA TEST NETWORK\n\n";
+      std::cerr << "            STARTING FIBERCHAIN TEST NETWORK\n\n";
       std::cerr << "------------------------------------------------------\n";
-      auto oneofall_private_key = graphene::utilities::key_to_wif( FUTUREPIA_INIT_PRIVATE_KEY );
-      std::cerr << "oneofall public key: " << FUTUREPIA_INIT_PUBLIC_KEY_STR << "\n";
+      auto oneofall_private_key = graphene::utilities::key_to_wif( FIBERCHAIN_INIT_PRIVATE_KEY );
+      std::cerr << "oneofall public key: " << FIBERCHAIN_INIT_PUBLIC_KEY_STR << "\n";
       std::cerr << "oneofall private key: " << oneofall_private_key << "\n";
-      std::cerr << "chain id: " << std::string(FUTUREPIA_CHAIN_ID) << "\n";
-      std::cerr << "blockchain version: " << fc::string( FUTUREPIA_BLOCKCHAIN_VERSION ) << "\n";
-      std::cerr << "s/w version: " << fc::string( FUTUREPIA_VERSION ) << "\n";
+      std::cerr << "chain id: " << std::string(FIBERCHAIN_CHAIN_ID) << "\n";
+      std::cerr << "blockchain version: " << fc::string( FIBERCHAIN_BLOCKCHAIN_VERSION ) << "\n";
+      std::cerr << "s/w version: " << fc::string( FIBERCHAIN_VERSION ) << "\n";
       std::cerr << "------------------------------------------------------\n";
 
-      bpo::options_description app_options("Futurepia Daemon");
-      bpo::options_description cfg_options("Futurepia Daemon");
+      bpo::options_description app_options("Fiberchain Daemon");
+      bpo::options_description cfg_options("Fiberchain Daemon");
       app_options.add_options()
             ("help,h", "Print this help message and exit.")
             ("data-dir,d", bpo::value<boost::filesystem::path>()->default_value("node_data_dir"), "Directory containing databases, configuration file, etc.")
@@ -85,8 +85,8 @@ int main(int argc, char** argv) {
 
       if( options.count("version") )
       {
-         std::cout << "fiberchain_blockchain_version: " << fc::string( FUTUREPIA_BLOCKCHAIN_VERSION ) << "\n";
-         std::cout << "fiberchain_version: " << fc::string( FUTUREPIA_VERSION ) << "\n";
+         std::cout << "fiberchain_blockchain_version: " << fc::string( FIBERCHAIN_BLOCKCHAIN_VERSION ) << "\n";
+         std::cout << "fiberchain_version: " << fc::string( FIBERCHAIN_VERSION ) << "\n";
          return 0;
       }
 

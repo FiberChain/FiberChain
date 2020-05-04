@@ -54,7 +54,7 @@ namespace fiberchain { namespace token {
 
       void token_plugin_impl::process_token_fund_withdraw() {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
          
@@ -81,7 +81,7 @@ namespace fiberchain { namespace token {
 
       void token_plugin_impl::process_token_savings_withdraws() {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
 
@@ -118,7 +118,7 @@ namespace fiberchain { namespace token {
                _db.modify( *withdraw_itr, [&]( token_savings_withdraw_object & obj ) {
                   obj.amount -= monthly_amount;
                   obj.split_pay_order += 1;
-                  obj.next_date += FUTUREPIA_TRANSFER_SAVINGS_CYCLE;
+                  obj.next_date += FIBERCHAIN_TRANSFER_SAVINGS_CYCLE;
                   obj.last_updated = now;
                });
                withdraw_itr++;
@@ -166,6 +166,6 @@ namespace fiberchain { namespace token {
 
 } } //namespace fiberchain::token
 
-FUTUREPIA_DEFINE_PLUGIN( token, fiberchain::token::token_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( token, fiberchain::token::token_plugin )
 
 

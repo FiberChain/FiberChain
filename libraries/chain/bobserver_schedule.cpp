@@ -11,8 +11,8 @@ void update_bobserver_schedule4( database& db )
 {
    const bobserver_schedule_object& bo_schedule_object = db.get_bobserver_schedule_object();
    vector< account_name_type > active_bobservers;
-//    active_bobservers.reserve( FUTUREPIA_MAX_BOBSERVERS );
-   active_bobservers.reserve( FUTUREPIA_NUM_BOBSERVERS );
+//    active_bobservers.reserve( FIBERCHAIN_MAX_BOBSERVERS );
+   active_bobservers.reserve( FIBERCHAIN_NUM_BOBSERVERS );
 
    /// Add the highest voted bobservers
    flat_set< bobserver_id_type > selected_bp;
@@ -64,7 +64,7 @@ void update_bobserver_schedule4( database& db )
    }
 
    sigma_num = available_bobservers.size();
-   uint32_t max_num = std::min( (uint32_t)( FUTUREPIA_NUM_BOBSERVERS - active_bobservers.size() ), sigma_num );
+   uint32_t max_num = std::min( (uint32_t)( FIBERCHAIN_NUM_BOBSERVERS - active_bobservers.size() ), sigma_num );
 
    dlog( "BP : max_num = ${max}, now_hi = ${hi}, sigma_num = ${num}"
       , ( "max", max_num )( "hi", now_hi )( "num", sigma_num ) );
@@ -189,7 +189,7 @@ void update_bobserver_schedule4( database& db )
          _bso.current_shuffled_bobservers[i] = active_bobservers[i];
       }
 
-      for( size_t i = active_bobservers.size(); i < FUTUREPIA_MAX_BOBSERVERS; i++ )
+      for( size_t i = active_bobservers.size(); i < FIBERCHAIN_MAX_BOBSERVERS; i++ )
       {
          _bso.current_shuffled_bobservers[i] = account_name_type();
       }
@@ -229,7 +229,7 @@ void update_bobserver_schedule4( database& db )
  */
 void update_bobserver_schedule(database& db)
 {
-   if( (db.head_block_num() % (FUTUREPIA_NUM_BOBSERVERS)) == 0 )
+   if( (db.head_block_num() % (FIBERCHAIN_NUM_BOBSERVERS)) == 0 )
    {
       update_bobserver_schedule4(db);
       return;

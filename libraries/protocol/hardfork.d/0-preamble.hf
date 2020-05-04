@@ -9,4 +9,4 @@
 
 #pragma once
 
-#define FUTUREPIA_NUM_HARDFORKS 2
+#define FIBERCHAIN_NUM_HARDFORKS 2

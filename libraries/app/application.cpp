@@ -278,7 +278,7 @@ namespace detail {
          if( !read_only )
          {
             _self->_read_only = false;
-            ilog( "Starting Futurepia node in write mode." );
+            ilog( "Starting Fiberchain node in write mode." );
             _max_block_age =_options->at("max-block-age").as<int32_t>();
 
             if( _options->count("resync-blockchain") )
@@ -308,7 +308,7 @@ namespace detail {
             {
                try
                {
-                  _chain_db->open(_data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
+                  _chain_db->open(_data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
                }
                catch( fc::assert_exception& )
                {
@@ -321,7 +321,7 @@ namespace detail {
                   catch( chain::block_log_exception& )
                   {
                      wlog( "Error opening block log. Having to resync from network..." );
-                     _chain_db->open( _data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
+                     _chain_db->open( _data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
                   }
                }
             }
@@ -334,8 +334,8 @@ namespace detail {
          }
          else
          {
-            ilog( "Starting Futurepia node in read mode." );
-            _chain_db->open( _data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_only );
+            ilog( "Starting Fiberchain node in read mode." );
+            _chain_db->open( _data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_only );
 
             if( _options->count( "read-forward-rpc" ) )
             {

@@ -114,7 +114,7 @@ namespace fiberchain { namespace app {
 
     fiberchain_version_info login_api::get_version()
     {
-       return fiberchain_version_info( fc::string( FUTUREPIA_BLOCKCHAIN_VERSION ) );
+       return fiberchain_version_info( fc::string( FIBERCHAIN_BLOCKCHAIN_VERSION ) );
     }
 
     network_broadcast_api::network_broadcast_api(const api_context& a):_app(a.app)

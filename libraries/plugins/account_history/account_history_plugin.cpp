@@ -13,7 +13,7 @@
 
 #include <boost/algorithm/string.hpp>
 
-#define FUTUREPIA_NAMESPACE_PREFIX "fiberchain::protocol::"
+#define FIBERCHAIN_NAMESPACE_PREFIX "fiberchain::protocol::"
 
 namespace fiberchain { namespace account_history {
 
@@ -222,7 +222,7 @@ void account_history_plugin::plugin_initialize(const boost::program_options::var
          for( const string& op : ops )
          {
             if( op.size() )
-               my->_op_list.insert( FUTUREPIA_NAMESPACE_PREFIX + op );
+               my->_op_list.insert( FIBERCHAIN_NAMESPACE_PREFIX + op );
          }
       }
 
@@ -240,7 +240,7 @@ void account_history_plugin::plugin_initialize(const boost::program_options::var
          for( const string& op : ops )
          {
             if( op.size() )
-               my->_op_list.insert( FUTUREPIA_NAMESPACE_PREFIX + op );
+               my->_op_list.insert( FIBERCHAIN_NAMESPACE_PREFIX + op );
          }
       }
 
@@ -262,4 +262,4 @@ flat_map< account_name_type, account_name_type > account_history_plugin::tracked
 
 } }
 
-FUTUREPIA_DEFINE_PLUGIN( account_history, fiberchain::account_history::account_history_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( account_history, fiberchain::account_history::account_history_plugin )

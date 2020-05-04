@@ -86,7 +86,7 @@ private:
 
    boost::program_options::variables_map _options;
    bool _production_enabled = false;
-   uint32_t _required_bobserver_participation = 33 * FUTUREPIA_1_PERCENT;
+   uint32_t _required_bobserver_participation = 33 * FIBERCHAIN_1_PERCENT;
    uint32_t _production_skip_flags = fiberchain::chain::database::skip_nothing;
 
    block_id_type    _head_block_id        = block_id_type();

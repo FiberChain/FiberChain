@@ -37,7 +37,7 @@ namespace fiberchain { namespace chain {
 
 inline void validate_permlink_0_1( const string& permlink )
 {
-   FC_ASSERT( permlink.size() > FUTUREPIA_MIN_PERMLINK_LENGTH && permlink.size() < FUTUREPIA_MAX_PERMLINK_LENGTH, "Permlink is not a valid size." );
+   FC_ASSERT( permlink.size() > FIBERCHAIN_MIN_PERMLINK_LENGTH && permlink.size() < FIBERCHAIN_MAX_PERMLINK_LENGTH, "Permlink is not a valid size." );
 
    for( auto c : permlink )
    {
@@ -66,7 +66,7 @@ struct strcmp_equal
 void bobserver_update_evaluator::do_apply( const bobserver_update_operation& o )
 {
    _db.get_account( o.owner ); // verify owner exists
-   FC_ASSERT( o.url.size() <= FUTUREPIA_MAX_BOBSERVER_URL_LENGTH, "URL is too long" );
+   FC_ASSERT( o.url.size() <= FIBERCHAIN_MAX_BOBSERVER_URL_LENGTH, "URL is too long" );
    const auto& by_bobserver_name_idx = _db.get_index< bobserver_index >().indices().get< by_name >();
    auto bo_itr = by_bobserver_name_idx.find( o.owner );
    if( bo_itr != by_bobserver_name_idx.end() )
@@ -134,7 +134,7 @@ void account_create_evaluator::do_apply( const account_create_operation& o )
 
 void account_update_evaluator::do_apply( const account_update_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) FC_ASSERT( o.account != FUTUREPIA_TEMP_ACCOUNT, "Cannot update temp account." );
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) FC_ASSERT( o.account != FIBERCHAIN_TEMP_ACCOUNT, "Cannot update temp account." );
 
    if( o.posting )
       o.posting->validate();
@@ -222,7 +222,7 @@ void delete_comment_evaluator::do_apply( const delete_comment_operation& o )
    // }
 
    /// this loop can be skiped for validate-only nodes as it is merely gathering stats for indicies
-   if( comment.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+   if( comment.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
    {
       auto parent = &_db.get_comment( comment.parent_author, comment.parent_permlink );
       auto now = _db.head_block_time();
@@ -233,7 +233,7 @@ void delete_comment_evaluator::do_apply( const delete_comment_operation& o )
             p.active = now;
          });
 #ifndef IS_LOW_MEM
-         if( parent->parent_author != FUTUREPIA_ROOT_POST_PARENT )
+         if( parent->parent_author != FIBERCHAIN_ROOT_POST_PARENT )
             parent = &_db.get_comment( parent->parent_author, parent->parent_permlink );
          else
 #endif
@@ -246,7 +246,7 @@ void delete_comment_evaluator::do_apply( const delete_comment_operation& o )
 
 void comment_betting_state_evaluator::do_apply( const comment_betting_state_operation& o )
 {
-   if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_2))
+   if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_2))
    {
       FC_ASSERT( false, "comment_betting_state_operation do not use it anymore." );
    }
@@ -291,10 +291,10 @@ void comment_evaluator::do_apply( const comment_operation& o )
    comment_id_type id;
 
    const comment_object* parent = nullptr;
-   if( o.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+   if( o.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
    {
       parent = &_db.get_comment( o.parent_author, o.parent_permlink );
-      FC_ASSERT( parent->depth < FUTUREPIA_MAX_COMMENT_DEPTH, "Comment is nested ${x} posts deep, maximum depth is ${y}.", ("x",parent->depth)("y",FUTUREPIA_MAX_COMMENT_DEPTH) );
+      FC_ASSERT( parent->depth < FIBERCHAIN_MAX_COMMENT_DEPTH, "Comment is nested ${x} posts deep, maximum depth is ${y}.", ("x",parent->depth)("y",FIBERCHAIN_MAX_COMMENT_DEPTH) );
    }
 
    if( o.json_metadata.size() )
@@ -304,20 +304,20 @@ void comment_evaluator::do_apply( const comment_operation& o )
 
    if ( itr == by_permlink_idx.end() )
    {
-      if( o.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+      if( o.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
       {
          FC_ASSERT( _db.get( parent->root_comment ).allow_replies, "The parent comment has disabled replies." );
       }
 
-      if( o.parent_author == FUTUREPIA_ROOT_POST_PARENT )
-          FC_ASSERT( ( now - auth.last_root_post ) > FUTUREPIA_MIN_ROOT_COMMENT_INTERVAL, "You may only post once every 5 minutes.", ("now",now)("last_root_post", auth.last_root_post) );
+      if( o.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
+          FC_ASSERT( ( now - auth.last_root_post ) > FIBERCHAIN_MIN_ROOT_COMMENT_INTERVAL, "You may only post once every 5 minutes.", ("now",now)("last_root_post", auth.last_root_post) );
       else
-          FC_ASSERT( (now - auth.last_post) > FUTUREPIA_MIN_REPLY_INTERVAL, "You may only comment once every 20 seconds.", ("now",now)("auth.last_post",auth.last_post) );
+          FC_ASSERT( (now - auth.last_post) > FIBERCHAIN_MIN_REPLY_INTERVAL, "You may only comment once every 20 seconds.", ("now",now)("auth.last_post",auth.last_post) );
 
       uint64_t post_bandwidth = auth.post_bandwidth;
 
       _db.modify( auth, [&]( account_object& a ) {
-         if( o.parent_author == FUTUREPIA_ROOT_POST_PARENT )
+         if( o.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
          {
             a.last_root_post = now;
             a.post_bandwidth = uint32_t( post_bandwidth );
@@ -335,7 +335,7 @@ void comment_evaluator::do_apply( const comment_operation& o )
          com.created = com.last_update;
          com.active = com.last_update;
  
-         if ( o.parent_author == FUTUREPIA_ROOT_POST_PARENT )
+         if ( o.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
          {
             com.parent_author = "";
             from_string( com.parent_permlink, o.parent_permlink );
@@ -374,7 +374,7 @@ void comment_evaluator::do_apply( const comment_operation& o )
             p.active = now;
          });
 #ifndef IS_LOW_MEM
-         if( parent->parent_author != FUTUREPIA_ROOT_POST_PARENT )
+         if( parent->parent_author != FIBERCHAIN_ROOT_POST_PARENT )
             parent = &_db.get_comment( parent->parent_author, parent->parent_permlink );
          else
 #endif
@@ -465,7 +465,7 @@ void account_bobserver_vote_evaluator::do_apply( const account_bobserver_vote_op
 
    if( itr == by_account_bobserver_idx.end() ) {
       FC_ASSERT( o.approve, "Vote doesn't exist, user must indicate a desire to approve bobserver." );
-      FC_ASSERT( voter.bobservers_voted_for < FUTUREPIA_MAX_ACCOUNT_BOBSERVER_VOTES, "Account has voted for too many bobservers." ); // TODO: Remove after hardfork 2
+      FC_ASSERT( voter.bobservers_voted_for < FIBERCHAIN_MAX_ACCOUNT_BOBSERVER_VOTES, "Account has voted for too many bobservers." ); // TODO: Remove after hardfork 2
 
       _db.create<bobserver_vote_object>( [&]( bobserver_vote_object& v ) {
           v.bobserver = bobserver.id;
@@ -492,11 +492,11 @@ void account_bobserver_vote_evaluator::do_apply( const account_bobserver_vote_op
 
 void account_bproducer_appointment_evaluator::do_apply( const account_bproducer_appointment_operation& o )
 {
-   if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_2))
+   if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_2))
    {
       FC_ASSERT( false, "account_bproducer_appointment_operation do not use it anymore." );
    }
-   else if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_1))
+   else if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_1))
    {
       const auto& bobserver = _db.get_bobserver( o.bobserver );
 
@@ -508,7 +508,7 @@ void account_bproducer_appointment_evaluator::do_apply( const account_bproducer_
       const dynamic_global_property_object& _dgp = _db.get_dynamic_global_properties();
 
       if (o.approve)
-         FC_ASSERT(FUTUREPIA_MAX_VOTED_BOBSERVERS_HF0 > _dgp.current_bproducer_count );
+         FC_ASSERT(FIBERCHAIN_MAX_VOTED_BOBSERVERS_HF0 > _dgp.current_bproducer_count );
 
       _db.modify( bobserver, [&]( bobserver_object& b ) {
          if (o.approve != b.is_bproducer) {      
@@ -557,7 +557,7 @@ void comment_vote_evaluator::do_apply( const comment_vote_operation& o )
    auto now_time = _db.head_block_time();
 
    // int64_t elapsed_seconds = ( now_time - voter.last_vote_time ).to_seconds();
-   // FC_ASSERT( elapsed_seconds >= FUTUREPIA_MIN_VOTE_INTERVAL_SEC, "Can only vote once every 3 seconds." );
+   // FC_ASSERT( elapsed_seconds >= FIBERCHAIN_MIN_VOTE_INTERVAL_SEC, "Can only vote once every 3 seconds." );
 
    if( comment_itr != comment_vote_idx.end()  )
       FC_ASSERT( comment.group_id > 0, "A main feed can only vote once per an account.");
@@ -718,11 +718,11 @@ void custom_binary_evaluator::do_apply( const custom_binary_operation& o )
 
 void convert_evaluator::do_apply( const convert_operation& o )
 {
-   if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_2))
+   if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_2))
    {
       FC_ASSERT( false, "convert_operation do not use it anymore." );
    }
-   else if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_1))
+   else if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_1))
    {
       const auto& owner = _db.get_account( o.owner );
       asset amount = o.amount;
@@ -751,19 +751,19 @@ void convert_evaluator::do_apply( const convert_operation& o )
 
 void exchange_evaluator::do_apply( const exchange_operation& o )
 {
-   if(_db.has_hardfork(FUTUREPIA_HARDFORK_0_2))
+   if(_db.has_hardfork(FIBERCHAIN_HARDFORK_0_2))
    {
       const auto& owner = _db.get_account( o.owner );
       asset amount = o.amount;
       if (amount.symbol == SNAC_SYMBOL)
-         FC_ASSERT( amount >= FUTUREPIA_EXCHANGE_MIN_BALANCE, "It should be greater than 10000 snac value." );
+         FC_ASSERT( amount >= FIBERCHAIN_EXCHANGE_MIN_BALANCE, "It should be greater than 10000 snac value." );
       else
-         FC_ASSERT( _db.to_snac(amount) >= FUTUREPIA_EXCHANGE_MIN_BALANCE, "It should be greater than 10000 snac value." );
+         FC_ASSERT( _db.to_snac(amount) >= FIBERCHAIN_EXCHANGE_MIN_BALANCE, "It should be greater than 10000 snac value." );
       FC_ASSERT( _db.get_balance( owner, amount.symbol ) >= amount, "Account does not have sufficient balance for conversion." );
 
-      /*time_point_sec now_gmt9 = _db.head_block_time() + FUTUREPIA_GMT9;
+      /*time_point_sec now_gmt9 = _db.head_block_time() + FIBERCHAIN_GMT9;
       const auto& now_gmt9_str = now_gmt9.to_non_delimited_iso_string();
-      string time = now_gmt9_str.substr(0,8) + FUTUREPIA_3HOURS_STR;*/
+      string time = now_gmt9_str.substr(0,8) + FIBERCHAIN_3HOURS_STR;*/
 
       _db.create<exchange_withdraw_object>( [&]( exchange_withdraw_object& s ) {
          s.from       = o.owner;
@@ -787,7 +787,7 @@ void exchange_evaluator::do_apply( const exchange_operation& o )
 
 void cancel_exchange_evaluator::do_apply( const cancel_exchange_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       const auto& ewo = _db.get_exchange_withdraw( o.owner, o.request_id );
 
@@ -837,7 +837,7 @@ void request_account_recovery_evaluator::do_apply( const request_account_recover
       {
          req.account_to_recover = o.account_to_recover;
          req.new_owner_authority = o.new_owner_authority;
-         req.expires = _db.head_block_time() + FUTUREPIA_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD;
+         req.expires = _db.head_block_time() + FIBERCHAIN_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD;
       });
    }
    else if( o.new_owner_authority.weight_threshold == 0 ) // Cancel Request if authority is open
@@ -857,7 +857,7 @@ void request_account_recovery_evaluator::do_apply( const request_account_recover
       _db.modify( *request, [&]( account_recovery_request_object& req )
       {
          req.new_owner_authority = o.new_owner_authority;
-         req.expires = _db.head_block_time() + FUTUREPIA_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD;
+         req.expires = _db.head_block_time() + FIBERCHAIN_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD;
       });
    }
 }
@@ -866,7 +866,7 @@ void recover_account_evaluator::do_apply( const recover_account_operation& o )
 {
    const auto& account = _db.get_account( o.account_to_recover );
 
-   FC_ASSERT( _db.head_block_time() - account.last_account_recovery > FUTUREPIA_OWNER_UPDATE_LIMIT, "Owner authority can only be updated once an hour." );
+   FC_ASSERT( _db.head_block_time() - account.last_account_recovery > FIBERCHAIN_OWNER_UPDATE_LIMIT, "Owner authority can only be updated once an hour." );
 
    const auto& recovery_request_idx = _db.get_index< account_recovery_request_index >().indices().get< by_account >();
    auto request = recovery_request_idx.find( o.account_to_recover );
@@ -909,7 +909,7 @@ void change_recovery_account_evaluator::do_apply( const change_recovery_account_
       {
          req.account_to_recover = o.account_to_recover;
          req.recovery_account = o.new_recovery_account;
-         req.effective_on = _db.head_block_time() + FUTUREPIA_OWNER_AUTH_RECOVERY_PERIOD;
+         req.effective_on = _db.head_block_time() + FIBERCHAIN_OWNER_AUTH_RECOVERY_PERIOD;
       });
    }
    else if( account_to_recover.recovery_account != o.new_recovery_account ) // Change existing request
@@ -917,7 +917,7 @@ void change_recovery_account_evaluator::do_apply( const change_recovery_account_
       _db.modify( *request, [&]( change_recovery_account_request_object& req )
       {
          req.recovery_account = o.new_recovery_account;
-         req.effective_on = _db.head_block_time() + FUTUREPIA_OWNER_AUTH_RECOVERY_PERIOD;
+         req.effective_on = _db.head_block_time() + FIBERCHAIN_OWNER_AUTH_RECOVERY_PERIOD;
       });
    }
    else // Request exists and changing back to current recovery account
@@ -931,17 +931,17 @@ void transfer_savings_evaluator::do_apply( const transfer_savings_operation& op 
    const auto& from = _db.get_account( op.from );
    const auto& to = _db.get_account( op.to );
 
-   FC_ASSERT( from.savings_withdraw_requests < FUTUREPIA_SAVINGS_WITHDRAW_REQUEST_LIMIT, "Account has reached limit for pending withdraw requests." );
+   FC_ASSERT( from.savings_withdraw_requests < FIBERCHAIN_SAVINGS_WITHDRAW_REQUEST_LIMIT, "Account has reached limit for pending withdraw requests." );
 
    asset amount = op.amount;
 
    FC_ASSERT( _db.get_balance( from, amount.symbol ) >= amount );
    FC_ASSERT( op.complete > _db.head_block_time()  );
    FC_ASSERT( op.request_id >= 0  );
-   FC_ASSERT( op.split_pay_month >= FUTUREPIA_TRANSFER_SAVINGS_MIN_MONTH 
-         && op.split_pay_month <= FUTUREPIA_TRANSFER_SAVINGS_MAX_MONTH );
-   FC_ASSERT( op.split_pay_order >= FUTUREPIA_TRANSFER_SAVINGS_MIN_MONTH 
-         && op.split_pay_order <= FUTUREPIA_TRANSFER_SAVINGS_MAX_MONTH );
+   FC_ASSERT( op.split_pay_month >= FIBERCHAIN_TRANSFER_SAVINGS_MIN_MONTH 
+         && op.split_pay_month <= FIBERCHAIN_TRANSFER_SAVINGS_MAX_MONTH );
+   FC_ASSERT( op.split_pay_order >= FIBERCHAIN_TRANSFER_SAVINGS_MIN_MONTH 
+         && op.split_pay_order <= FIBERCHAIN_TRANSFER_SAVINGS_MAX_MONTH );
    _db.adjust_balance( from, -amount );
    _db.adjust_savings_balance( to, amount );
    _db.create<savings_withdraw_object>( [&]( savings_withdraw_object& s ) {
@@ -1018,7 +1018,7 @@ void decline_voting_rights_evaluator::do_apply( const decline_voting_rights_oper
       _db.create< decline_voting_rights_request_object >( [&]( decline_voting_rights_request_object& req )
       {
          req.account = account.id;
-         req.effective_date = _db.head_block_time() + FUTUREPIA_OWNER_AUTH_RECOVERY_PERIOD;
+         req.effective_date = _db.head_block_time() + FIBERCHAIN_OWNER_AUTH_RECOVERY_PERIOD;
       });
    }
    else
@@ -1040,11 +1040,11 @@ void set_reset_account_evaluator::do_apply( const set_reset_account_operation& o
 
 void print_evaluator::do_apply( const print_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       FC_ASSERT( false, "print_operation do not use it anymore." );
    }
-   else if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) 
+   else if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) 
    {
       const auto& account = _db.get_account( o.account );
       asset amount = o.amount;
@@ -1064,11 +1064,11 @@ void print_evaluator::do_apply( const print_operation& o )
 
 void burn_evaluator::do_apply( const burn_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       FC_ASSERT( false, "burn_operation do not use it anymore." );
    }
-   else if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) 
+   else if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) 
    {
       const auto& account = _db.get_account( o.account );
       asset amount = o.amount;
@@ -1084,7 +1084,7 @@ void burn_evaluator::do_apply( const burn_operation& o )
 
 void exchange_rate_evaluator::do_apply( const exchange_rate_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       _db.get_account( o.owner ); // verify owner exists
       _db.check_virtual_supply(o.rate);
@@ -1102,7 +1102,7 @@ void exchange_rate_evaluator::do_apply( const exchange_rate_operation& o )
          FC_ASSERT(false, "not found block producer ${bp}",("bp",o.owner));
       }
    }
-   else if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) 
+   else if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) 
    {
       price p = o.rate;
       
@@ -1118,7 +1118,7 @@ void staking_fund_evaluator::do_apply( const staking_fund_operation& op )
 {
    const auto& from = _db.get_account( op.from );
    const auto& fund_name = op.fund_name;
-   FC_ASSERT( from.fund_withdraw_requests < FUTUREPIA_DEPOSIT_COUNT_LIMIT, "Account has reached limit for fund withdraw count." );
+   FC_ASSERT( from.fund_withdraw_requests < FIBERCHAIN_DEPOSIT_COUNT_LIMIT, "Account has reached limit for fund withdraw count." );
    asset amount     = op.amount;
    uint8_t usertype = op.usertype;
    uint8_t month    = op.month-1;
@@ -1154,11 +1154,11 @@ void staking_fund_evaluator::do_apply( const staking_fund_operation& op )
 
 void conclusion_staking_evaluator::do_apply( const conclusion_staking_operation& op )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       FC_ASSERT( false, "conclusion_staking_operation do not use it anymore." );
    }
-   else if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) 
+   else if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) 
    {
       const auto& fund_name = op.fund_name;
       const auto& dwo = _db.get_fund_withdraw( op.from, fund_name, op.request_id );
@@ -1195,11 +1195,11 @@ void transfer_fund_evaluator::do_apply( const transfer_fund_operation& o )
 
 void set_fund_interest_evaluator::do_apply( const set_fund_interest_operation& o )
 {
-   if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+   if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
    {
       FC_ASSERT( false, "set_fund_interest_operation do not use it anymore." );
    }
-   else if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) 
+   else if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) 
    {
       const auto& fund_name = o.fund_name;
       const auto& usertype = o.usertype;
