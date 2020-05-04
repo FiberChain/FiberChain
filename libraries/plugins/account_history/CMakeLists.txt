@@ -1,15 +1,15 @@
-file(GLOB HEADERS "include/futurepia/account_history/*.hpp")
+file(GLOB HEADERS "include/fiberchain/account_history/*.hpp")
 
-add_library( futurepia_account_history
+add_library( fiberchain_account_history
              account_history_plugin.cpp
            )
 
-target_link_libraries( futurepia_account_history futurepia_chain futurepia_protocol futurepia_app )
-target_include_directories( futurepia_account_history
+target_link_libraries( fiberchain_account_history fiberchain_chain fiberchain_protocol fiberchain_app )
+target_include_directories( fiberchain_account_history
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 install( TARGETS
-   futurepia_account_history
+   fiberchain_account_history
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib

@@ -6,7 +6,7 @@ use IO::File;
 require './doxygen/perlmod/DoxyDocs.pm';
 
 # For cygwin (You have to change below path according to your personal settings. and do comment above require.)
-#require '/cygdrive/d/40_VC_Project/futurepia/build/libraries/wallet/doxygen/perlmod/DoxyDocs.pm';
+#require '/cygdrive/d/40_VC_Project/fiberchain/build/libraries/wallet/doxygen/perlmod/DoxyDocs.pm';
 
 my($outputFileName) = @ARGV;
 die "usage: $0 output_file_name" unless $outputFileName;
@@ -16,8 +16,8 @@ my $outFile = new IO::File($outputFileName, "w")
 my $fileHeader = <<'END';
 /** GENERATED FILE **/
 #include <set>
-#include <futurepia/wallet/api_documentation.hpp>
-#include <futurepia/wallet/wallet.hpp>
+#include <fiberchain/wallet/api_documentation.hpp>
+#include <fiberchain/wallet/wallet.hpp>
 
 namespace fiberchain { namespace wallet {
    namespace detail

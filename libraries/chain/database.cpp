@@ -1,26 +1,26 @@
-#include <futurepia/protocol/futurepia_operations.hpp>
+#include <fiberchain/protocol/fiberchain_operations.hpp>
 
-#include <futurepia/chain/block_summary_object.hpp>
-#include <futurepia/chain/compound.hpp>
-#include <futurepia/chain/custom_operation_interpreter.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/database_exceptions.hpp>
-#include <futurepia/chain/db_with.hpp>
-#include <futurepia/chain/evaluator_registry.hpp>
-#include <futurepia/chain/global_property_object.hpp>
-#include <futurepia/chain/history_object.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/futurepia_evaluator.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
-#include <futurepia/chain/transaction_object.hpp>
-#include <futurepia/chain/shared_db_merkle.hpp>
-#include <futurepia/chain/operation_notification.hpp>
-#include <futurepia/chain/bobserver_schedule.hpp>
+#include <fiberchain/chain/block_summary_object.hpp>
+#include <fiberchain/chain/compound.hpp>
+#include <fiberchain/chain/custom_operation_interpreter.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/database_exceptions.hpp>
+#include <fiberchain/chain/db_with.hpp>
+#include <fiberchain/chain/evaluator_registry.hpp>
+#include <fiberchain/chain/global_property_object.hpp>
+#include <fiberchain/chain/history_object.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/fiberchain_evaluator.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
+#include <fiberchain/chain/transaction_object.hpp>
+#include <fiberchain/chain/shared_db_merkle.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
+#include <fiberchain/chain/bobserver_schedule.hpp>
 
-#include <futurepia/chain/util/asset.hpp>
-#include <futurepia/chain/util/reward.hpp>
-#include <futurepia/chain/util/uint256.hpp>
-#include <futurepia/chain/util/reward.hpp>
+#include <fiberchain/chain/util/asset.hpp>
+#include <fiberchain/chain/util/reward.hpp>
+#include <fiberchain/chain/util/uint256.hpp>
+#include <fiberchain/chain/util/reward.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/uint128.hpp>

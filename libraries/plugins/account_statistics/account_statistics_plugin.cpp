@@ -1,9 +1,9 @@
-#include <futurepia/account_statistics/account_statistics_api.hpp>
+#include <fiberchain/account_statistics/account_statistics_api.hpp>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/comment_object.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/comment_object.hpp>
 
-#include <futurepia/chain/database.hpp>
+#include <fiberchain/chain/database.hpp>
 
 namespace fiberchain { namespace account_statistics {
 

@@ -3,20 +3,20 @@
 #include <fc/optional.hpp>
 #include <fc/variant_object.hpp>
 
-#include <futurepia/app/api_context.hpp>
-#include <futurepia/app/application.hpp>
+#include <fiberchain/app/api_context.hpp>
+#include <fiberchain/app/application.hpp>
 
-#include <futurepia/protocol/block.hpp>
+#include <fiberchain/protocol/block.hpp>
 
-#include <futurepia/chain/block_log.hpp>
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/bobserver_objects.hpp>
+#include <fiberchain/chain/block_log.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/bobserver_objects.hpp>
 
 #include <graphene/utilities/key_conversion.hpp>
 
-#include <futurepia/plugins/debug_node/debug_node_api.hpp>
-#include <futurepia/plugins/debug_node/debug_node_plugin.hpp>
+#include <fiberchain/plugins/debug_node/debug_node_api.hpp>
+#include <fiberchain/plugins/debug_node/debug_node_plugin.hpp>
 
 namespace fiberchain { namespace plugin { namespace debug_node {
 

@@ -1,7 +1,7 @@
 add_executable( get_dev_key get_dev_key.cpp )
 
 target_link_libraries( get_dev_key
-                       PRIVATE futurepia_app futurepia_chain futurepia_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+                       PRIVATE fiberchain_app fiberchain_chain fiberchain_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 install( TARGETS
    get_dev_key
@@ -14,7 +14,7 @@ install( TARGETS
 add_executable( sign_digest sign_digest.cpp )
 
 target_link_libraries( sign_digest
-                       PRIVATE futurepia_app futurepia_chain futurepia_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+                       PRIVATE fiberchain_app fiberchain_chain fiberchain_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 install( TARGETS
    sign_digest
@@ -27,7 +27,7 @@ install( TARGETS
 add_executable( sign_transaction sign_transaction.cpp )
 
 target_link_libraries( sign_transaction
-                       PRIVATE futurepia_app futurepia_chain futurepia_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+                       PRIVATE fiberchain_app fiberchain_chain fiberchain_protocol graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 install( TARGETS
    sign_transaction
@@ -39,7 +39,7 @@ install( TARGETS
 
 #add_executable( schema_test schema_test.cpp )
 #target_link_libraries( schema_test
-#                       PRIVATE futurepia_chain fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+#                       PRIVATE fiberchain_chain fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 #
 #install( TARGETS
 #   schema_test
@@ -51,7 +51,7 @@ install( TARGETS
 
 #add_executable( test_block_log test_block_log.cpp )
 #target_link_libraries( test_block_log
-#                       PRIVATE futurepia_chain futurepia_protocol fc ${CMAKE_DL_LIB} ${PLATFORM_SPECIFIC_LIBS} )
+#                       PRIVATE fiberchain_chain fiberchain_protocol fc ${CMAKE_DL_LIB} ${PLATFORM_SPECIFIC_LIBS} )
 
 #install( TARGETS
 #   test_block_log
@@ -63,7 +63,7 @@ install( TARGETS
 
 #add_executable( test_fixed_string test_fixed_string.cpp )
 #target_link_libraries( test_fixed_string
-#                       PRIVATE futurepia_chain futurepia_protocol fc ${CMAKE_DL_LIB} ${PLATFORM_SPECIFIC_LIBS} )
+#                       PRIVATE fiberchain_chain fiberchain_protocol fc ${CMAKE_DL_LIB} ${PLATFORM_SPECIFIC_LIBS} )
 
 #install( TARGETS
 #   test_fixed_string

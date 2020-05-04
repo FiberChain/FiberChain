@@ -23,8 +23,8 @@
  */
 #include <iomanip>
 #include <boost/algorithm/string/join.hpp>
-#include <futurepia/wallet/wallet.hpp>
-#include <futurepia/wallet/api_documentation.hpp>
+#include <fiberchain/wallet/wallet.hpp>
+#include <fiberchain/wallet/api_documentation.hpp>
 
 namespace fiberchain { namespace wallet {
    namespace detail {

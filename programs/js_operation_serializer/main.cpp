@@ -21,8 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <futurepia/protocol/protocol.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
+#include <fiberchain/protocol/protocol.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
 #include <fc/smart_ref_impl.hpp>
 #include <iostream>
 

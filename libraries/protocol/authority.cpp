@@ -1,4 +1,4 @@
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
 namespace fiberchain { namespace protocol {
 

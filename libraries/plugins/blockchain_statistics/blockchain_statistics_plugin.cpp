@@ -1,13 +1,13 @@
-#include <futurepia/blockchain_statistics/blockchain_statistics_api.hpp>
+#include <fiberchain/blockchain_statistics/blockchain_statistics_api.hpp>
 
-#include <futurepia/app/impacted.hpp>
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/comment_object.hpp>
-#include <futurepia/chain/history_object.hpp>
+#include <fiberchain/app/impacted.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/comment_object.hpp>
+#include <fiberchain/chain/history_object.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/operation_notification.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
 
 namespace fiberchain { namespace blockchain_statistics {
 

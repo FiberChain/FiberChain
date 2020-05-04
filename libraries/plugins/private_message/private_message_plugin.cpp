@@ -22,17 +22,17 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/private_message/private_message_evaluators.hpp>
-#include <futurepia/private_message/private_message_operations.hpp>
-#include <futurepia/private_message/private_message_plugin.hpp>
+#include <fiberchain/private_message/private_message_evaluators.hpp>
+#include <fiberchain/private_message/private_message_operations.hpp>
+#include <fiberchain/private_message/private_message_plugin.hpp>
 
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/impacted.hpp>
 
-#include <futurepia/protocol/config.hpp>
+#include <fiberchain/protocol/config.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/generic_custom_operation_interpreter.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/generic_custom_operation_interpreter.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/thread/thread.hpp>

@@ -1,18 +1,18 @@
-file(GLOB HEADERS "include/futurepia/token/*.hpp" "include/futurepia/token/util/*.hpp")
+file(GLOB HEADERS "include/fiberchain/token/*.hpp" "include/fiberchain/token/util/*.hpp")
 
-add_library( futurepia_token
+add_library( fiberchain_token
              token_api.cpp
              token_evaluators.cpp
              token_operations.cpp
              token_plugin.cpp
            )
 
-target_link_libraries( futurepia_token futurepia_chain futurepia_protocol futurepia_app futurepia_dapp )
-target_include_directories( futurepia_token
+target_link_libraries( fiberchain_token fiberchain_chain fiberchain_protocol fiberchain_app fiberchain_dapp )
+target_include_directories( fiberchain_token
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 install( TARGETS
-   futurepia_token
+   fiberchain_token
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib

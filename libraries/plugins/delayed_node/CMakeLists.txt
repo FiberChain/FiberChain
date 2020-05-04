@@ -1,11 +1,11 @@
-file(GLOB HEADERS "include/futurepia/delayed_node/*.hpp")
+file(GLOB HEADERS "include/fiberchain/delayed_node/*.hpp")
 
-add_library( futurepia_delayed_node
+add_library( fiberchain_delayed_node
              delayed_node_plugin.cpp
            )
 
-target_link_libraries( futurepia_delayed_node futurepia_chain futurepia_protocol futurepia_app )
-target_include_directories( futurepia_delayed_node
+target_link_libraries( fiberchain_delayed_node fiberchain_chain fiberchain_protocol fiberchain_app )
+target_include_directories( fiberchain_delayed_node
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 if(MSVC)
@@ -13,7 +13,7 @@ if(MSVC)
 endif(MSVC)
 
 install( TARGETS
-   futurepia_delayed_node
+   fiberchain_delayed_node
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib

@@ -1,4 +1,4 @@
-#include <futurepia/protocol/asset.hpp>
+#include <fiberchain/protocol/asset.hpp>
 #include <boost/rational.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
 

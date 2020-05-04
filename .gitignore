@@ -21,7 +21,7 @@ libraries/wallet/doxygen
 
 out/cli_wallet
 out/js_operation_serializer
-out/futurepiad
+out/fiberchaind
 
 doxygen
 

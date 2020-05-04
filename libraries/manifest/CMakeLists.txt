@@ -1,4 +1,4 @@
-file(GLOB HEADERS "include/futurepia/manifest/*.hpp")
+file(GLOB HEADERS "include/fiberchain/manifest/*.hpp")
 
 ##############################################################################
 # First, we generate plugins.json by reading all the plugins.json files.
@@ -12,7 +12,7 @@ file(GLOB HEADERS "include/futurepia/manifest/*.hpp")
 
 execute_process(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.plugins
+   python3 -m fiberchain_manifest.plugins
    ${CMAKE_CURRENT_SOURCE_DIR}/../plugins
    -o ${CMAKE_CURRENT_BINARY_DIR}/template_context/plugins.json
    --print-dependencies
@@ -27,11 +27,11 @@ message( STATUS "PLUGINS_DEPS: ${PLUGINS_DEPS}" )
 
 add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.plugins
+   python3 -m fiberchain_manifest.plugins
    ${CMAKE_CURRENT_SOURCE_DIR}/../plugins
    -o ${CMAKE_CURRENT_BINARY_DIR}/template_context/plugins.json
    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/template_context/plugins.json
-   DEPENDS ${PLUGINS_DEPS} ${CMAKE_CURRENT_SOURCE_DIR}/futurepia_manifest/plugins.py
+   DEPENDS ${PLUGINS_DEPS} ${CMAKE_CURRENT_SOURCE_DIR}/fiberchain_manifest/plugins.py
 )
 
 ##############################################################################
@@ -42,7 +42,7 @@ add_custom_command(
 
 execute_process(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.build
+   python3 -m fiberchain_manifest.build
    -j ${CMAKE_CURRENT_BINARY_DIR}/template_context
    -t ${CMAKE_CURRENT_SOURCE_DIR}/templates
    -o ${CMAKE_CURRENT_BINARY_DIR}/gensrc
@@ -58,7 +58,7 @@ message( STATUS "MANIFEST_DEPS: ${MANIFEST_DEPS}" )
 
 execute_process(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.build
+   python3 -m fiberchain_manifest.build
    -j ${CMAKE_CURRENT_BINARY_DIR}/template_context
    -t ${CMAKE_CURRENT_SOURCE_DIR}/templates
    -o ${CMAKE_CURRENT_BINARY_DIR}/gensrc
@@ -74,12 +74,12 @@ message( STATUS "MANIFEST_OUTPUTS: ${MANIFEST_OUTPUTS}" )
 
 add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.build
+   python3 -m fiberchain_manifest.build
    -j ${CMAKE_CURRENT_BINARY_DIR}/template_context
    -t ${CMAKE_CURRENT_SOURCE_DIR}/templates
    -o ${CMAKE_CURRENT_BINARY_DIR}/gensrc
    OUTPUT ${MANIFEST_OUTPUTS}
-   DEPENDS ${MANIFEST_DEPS} ${CMAKE_CURRENT_SOURCE_DIR}/futurepia_manifest/build.py
+   DEPENDS ${MANIFEST_DEPS} ${CMAKE_CURRENT_SOURCE_DIR}/fiberchain_manifest/build.py
 )
 
 ##############################################################################
@@ -90,14 +90,14 @@ add_custom_command(
 
 execute_process(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.plugins
+   python3 -m fiberchain_manifest.plugins
    ${CMAKE_CURRENT_SOURCE_DIR}/../plugins
    -o ${CMAKE_CURRENT_BINARY_DIR}/template_context/plugins.json
 )
 
 execute_process(
    COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
-   python3 -m futurepia_manifest.build
+   python3 -m fiberchain_manifest.build
    -j ${CMAKE_CURRENT_BINARY_DIR}/template_context
    -t ${CMAKE_CURRENT_SOURCE_DIR}/templates
    -o ${CMAKE_CURRENT_BINARY_DIR}/gensrc

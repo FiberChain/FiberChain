@@ -4,7 +4,7 @@ if( UNIX AND NOT APPLE )
 endif()
 
 target_link_libraries( js_operation_serializer
-                       PRIVATE futurepia_app graphene_net futurepia_chain futurepia_protocol graphene_utilities futurepia_wallet fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+                       PRIVATE fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities fiberchain_wallet fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 install( TARGETS
    js_operation_serializer

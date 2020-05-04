@@ -28,7 +28,7 @@
 #include <fc/crypto/elliptic.hpp>
 #include <fc/io/json.hpp>
 
-#include <futurepia/protocol/types.hpp>
+#include <fiberchain/protocol/types.hpp>
 #include <graphene/utilities/key_conversion.hpp>
 
 #ifndef WIN32

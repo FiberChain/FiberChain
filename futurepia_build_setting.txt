@@ -21,14 +21,14 @@ directory mask = 0755
 
 sudo service smbd restart   // samba server restart
 
-<-- Put the futurepia file in your personal folder.  -->
+<-- Put the fiberchain file in your personal folder.  -->
 
 
-< futurepia build >
+< fiberchain build >
 
 cd /home/folder_name 
 
-cd /home/folder_name/futurepia   // Move futurepia sourcecode folder
+cd /home/folder_name/fiberchain   // Move fiberchain sourcecode folder
 
 mkdir build   // Create build folder
 
@@ -37,11 +37,11 @@ cd bulid
 mainnet : cmake -DCMAKE_BUILD_TYPE=Release ..
 
 cd ~    // move home folder
-sudo chmod 777 futurepia/ -R   // Authorize after futurepia sourcecode folder creation
+sudo chmod 777 fiberchain/ -R   // Authorize after fiberchain sourcecode folder creation
 
-cd /home/folder_name/futurepia/build   // Move futurepia sourcecode folder
+cd /home/folder_name/fiberchain/build   // Move fiberchain sourcecode folder
 
-make -j$(nproc) futurepiad
+make -j$(nproc) fiberchaind
 
 make -j$(nproc) cli_wallet
 

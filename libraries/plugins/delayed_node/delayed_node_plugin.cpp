@@ -22,13 +22,13 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/delayed_node/delayed_node_plugin.hpp>
+#include <fiberchain/delayed_node/delayed_node_plugin.hpp>
 
-#include <futurepia/protocol/types.hpp>
+#include <fiberchain/protocol/types.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/app/api.hpp>
-#include <futurepia/app/database_api.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/app/database_api.hpp>
 
 #include <fc/network/http/websocket.hpp>
 #include <fc/rpc/websocket_api.hpp>

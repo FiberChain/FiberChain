@@ -1,8 +1,8 @@
-#include <futurepia/protocol/get_config.hpp>
-#include <futurepia/protocol/config.hpp>
-#include <futurepia/protocol/asset.hpp>
-#include <futurepia/protocol/types.hpp>
-#include <futurepia/protocol/version.hpp>
+#include <fiberchain/protocol/get_config.hpp>
+#include <fiberchain/protocol/config.hpp>
+#include <fiberchain/protocol/asset.hpp>
+#include <fiberchain/protocol/types.hpp>
+#include <fiberchain/protocol/version.hpp>
 
 namespace fiberchain { namespace protocol {
 

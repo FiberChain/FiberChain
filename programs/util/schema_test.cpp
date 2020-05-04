@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
 
 using namespace graphene::db;
 

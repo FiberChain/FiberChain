@@ -1,7 +1,7 @@
-#include <futurepia/dapp/dapp_operations.hpp>
+#include <fiberchain/dapp/dapp_operations.hpp>
 
-#include <futurepia/protocol/operation_util_impl.hpp>
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/operation_util_impl.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
 namespace fiberchain { namespace dapp {
    

@@ -22,12 +22,12 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
-#include <futurepia/chain/custom_operation_interpreter.hpp>
-#include <futurepia/chain/generic_custom_operation_interpreter.hpp>
+#include <fiberchain/chain/custom_operation_interpreter.hpp>
+#include <fiberchain/chain/generic_custom_operation_interpreter.hpp>
 
-#include <futurepia/dapp_history/dapp_impacted.hpp>
+#include <fiberchain/dapp_history/dapp_impacted.hpp>
 
 #include <fc/utility.hpp>
 

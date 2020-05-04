@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/app/plugin.hpp>
+#include <fiberchain/app/plugin.hpp>
 
 #include <fc/vector.hpp>
 

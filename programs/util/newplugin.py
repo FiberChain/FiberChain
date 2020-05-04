@@ -17,7 +17,7 @@ add_library( {plugin_provider}_{plugin_name}
              {plugin_name}_api.cpp
            )
 
-target_link_libraries( {plugin_provider}_{plugin_name} futurepia_app futurepia_chain futurepia_protocol )
+target_link_libraries( {plugin_provider}_{plugin_name} fiberchain_app fiberchain_chain fiberchain_protocol )
 target_include_directories( {plugin_provider}_{plugin_name}
                             PUBLIC "${{CMAKE_CURRENT_SOURCE_DIR}}/include" )
 """,
@@ -62,7 +62,7 @@ FC_API( {plugin_provider}::plugin::{plugin_name}::{plugin_name}_api,
 """
 #pragma once
 
-#include <futurepia/app/plugin.hpp>
+#include <fiberchain/app/plugin.hpp>
 
 namespace {plugin_provider} {{ namespace plugin {{ namespace {plugin_name} {{
 
@@ -90,8 +90,8 @@ class {plugin_name}_plugin : public fiberchain::app::plugin
 
 "{plugin_name}_api.cpp" :
 """
-#include <futurepia/app/api_context.hpp>
-#include <futurepia/app/application.hpp>
+#include <fiberchain/app/api_context.hpp>
+#include <fiberchain/app/application.hpp>
 
 #include <{plugin_provider}/plugins/{plugin_name}/{plugin_name}_api.hpp>
 #include <{plugin_provider}/plugins/{plugin_name}/{plugin_name}_plugin.hpp>
@@ -230,7 +230,7 @@ import sys
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument("provider", help="Name of plugin provider (futurepia for plugins developed by Futurepia)")
+    parser.add_argument("provider", help="Name of plugin provider (fiberchain for plugins developed by Futurepia)")
     parser.add_argument("name", help="Name of plugin to create")
     args = parser.parse_args(argv[1:])
     ctx = {

@@ -78,7 +78,7 @@
 #include <graphene/net/config.hpp>
 #include <graphene/net/exceptions.hpp>
 
-#include <futurepia/protocol/config.hpp>
+#include <fiberchain/protocol/config.hpp>
 
 //#define ENABLE_DEBUG_ULOGS
 

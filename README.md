@@ -43,12 +43,12 @@ sudo apt-get install -y \
 ```
 
 ```
-git clone https://github.com/futurepia/futurepia
+git clone https://github.com/fiberchain/fiberchain
 git submodule update --init --recursive
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
-make -j$(nproc) futurepiad
+make -j$(nproc) fiberchaind
 make -j$(nproc) cli_wallet
 ```
 
@@ -92,7 +92,7 @@ testnet
 
  8.2 build
  ```
- make -j6 futurepiad
+ make -j6 fiberchaind
  make -j6 cli_wallet
  ```
  
@@ -108,14 +108,14 @@ Window: Windows 10
 
 # How to run the Node Program
 ## Linux
-1. Move to the directory where the futurepiad file is located, execute the node program with the following command
-   > ./futurepiad
+1. Move to the directory where the fiberchaind file is located, execute the node program with the following command
+   > ./fiberchaind
 ## Windows
-1. Open Explorer and move to folder with futurepiad.exe
+1. Open Explorer and move to folder with fiberchaind.exe
 2. Right-click on the folder while holding down the shift key on the keyboard
 3. Select "Open powerShell window here" in the pop-up menu
-4. Check if the folder name is same as futurepiad.exe and if it is the same, execute the node program with the following command
-   >.\futurepiad.exe
+4. Check if the folder name is same as fiberchaind.exe and if it is the same, execute the node program with the following command
+   >.\fiberchaind.exe
 
 # Setting up Node program 
 Modify the node_data_dir/config.ini file created after the first node execution.

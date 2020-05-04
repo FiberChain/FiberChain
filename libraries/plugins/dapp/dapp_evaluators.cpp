@@ -1,7 +1,7 @@
-#include <futurepia/dapp/dapp_operations.hpp>
-#include <futurepia/dapp/dapp_plugin.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/account_object.hpp>
+#include <fiberchain/dapp/dapp_operations.hpp>
+#include <fiberchain/dapp/dapp_plugin.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/account_object.hpp>
 
 #ifndef IS_LOW_MEM
 #include <diff_match_patch.h>

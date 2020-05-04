@@ -1,7 +1,7 @@
 file( GLOB HEADERS
-      "include/futurepia/asset_storage/*.hpp" )
+      "include/fiberchain/asset_storage/*.hpp" )
 
-add_library( futurepia_asset_storage
+add_library( fiberchain_asset_storage
              ${HEADERS}
              asset_storage_api.cpp
              asset_storage_plugin.cpp
@@ -9,12 +9,12 @@ add_library( futurepia_asset_storage
              asset_storage_operations.cpp
            )
 
-target_link_libraries( futurepia_asset_storage futurepia_app futurepia_chain fc futurepia_protocol )
-target_include_directories( futurepia_asset_storage
+target_link_libraries( fiberchain_asset_storage fiberchain_app fiberchain_chain fc fiberchain_protocol )
+target_include_directories( fiberchain_asset_storage
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 install( TARGETS
-   futurepia_asset_storage
+   fiberchain_asset_storage
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib
    ARCHIVE DESTINATION lib

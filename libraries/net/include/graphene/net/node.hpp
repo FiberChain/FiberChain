@@ -27,7 +27,7 @@
 #include <graphene/net/message.hpp>
 #include <graphene/net/peer_database.hpp>
 
-#include <futurepia/protocol/types.hpp>
+#include <fiberchain/protocol/types.hpp>
 
 #include <list>
 

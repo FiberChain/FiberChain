@@ -1,8 +1,8 @@
 
-#include <futurepia/app/application.hpp>
-#include <futurepia/app/plugin.hpp>
-#include <futurepia/plugins/debug_node/debug_node_api.hpp>
-#include <futurepia/plugins/debug_node/debug_node_plugin.hpp>
+#include <fiberchain/app/application.hpp>
+#include <fiberchain/app/plugin.hpp>
+#include <fiberchain/plugins/debug_node/debug_node_api.hpp>
+#include <fiberchain/plugins/debug_node/debug_node_plugin.hpp>
 
 #include <fc/io/buffered_iostream.hpp>
 #include <fc/io/fstream.hpp>

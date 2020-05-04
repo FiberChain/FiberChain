@@ -38,9 +38,9 @@
 
 #include <graphene/utilities/key_conversion.hpp>
 
-#include <futurepia/app/api.hpp>
-#include <futurepia/protocol/protocol.hpp>
-#include <futurepia/wallet/wallet.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/protocol/protocol.hpp>
+#include <fiberchain/wallet/wallet.hpp>
 
 #include <fc/interprocess/signals.hpp>
 #include <boost/program_options.hpp>

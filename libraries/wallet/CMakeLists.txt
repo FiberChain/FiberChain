@@ -1,4 +1,4 @@
-file(GLOB HEADERS "include/futurepia/wallet/*.hpp")
+file(GLOB HEADERS "include/fiberchain/wallet/*.hpp")
 
 find_package( Perl )
 find_package( Doxygen )
@@ -8,7 +8,7 @@ if( PERL_FOUND AND DOXYGEN_FOUND AND NOT "${CMAKE_GENERATOR}" STREQUAL "Ninja" )
   add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/doxygen/perlmod/DoxyDocs.pm
                       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                       COMMAND ${DOXYGEN_EXECUTABLE}
-                      DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile ${CMAKE_CURRENT_SOURCE_DIR}/include/futurepia/wallet/wallet.hpp )
+                      DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile ${CMAKE_CURRENT_SOURCE_DIR}/include/fiberchain/wallet/wallet.hpp )
 
   add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/api_documentation.cpp
                       COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/generate_api_documentation.pl ${CMAKE_CURRENT_BINARY_DIR}/api_documentation.cpp.new
@@ -23,22 +23,22 @@ else()
                       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/api_documentation_standin.cpp )
 endif()
 
-add_library( futurepia_wallet wallet.cpp ${CMAKE_CURRENT_BINARY_DIR}/api_documentation.cpp ${HEADERS} )
-# I don't know why futurepia_app is required twice in the following line, I just know the linker breaks if it isn't.
-target_link_libraries( futurepia_wallet PRIVATE futurepia_app graphene_net futurepia_chain futurepia_protocol graphene_utilities 
-                                                fc futurepia_private_message futurepia_app futurepia_account_by_key 
-                                                futurepia_token futurepia_dapp futurepia_dapp_history ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-target_include_directories( futurepia_wallet PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
+add_library( fiberchain_wallet wallet.cpp ${CMAKE_CURRENT_BINARY_DIR}/api_documentation.cpp ${HEADERS} )
+# I don't know why fiberchain_app is required twice in the following line, I just know the linker breaks if it isn't.
+target_link_libraries( fiberchain_wallet PRIVATE fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
+                                                fc fiberchain_private_message fiberchain_app fiberchain_account_by_key 
+                                                fiberchain_token fiberchain_dapp fiberchain_dapp_history ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+target_include_directories( fiberchain_wallet PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 if(MSVC)
   set_source_files_properties( wallet.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )
 endif(MSVC)
 
 install( TARGETS
-   futurepia_wallet
+   fiberchain_wallet
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib
    ARCHIVE DESTINATION lib
 )
-install( FILES ${HEADERS} DESTINATION "include/futurepia/wallet" )
+install( FILES ${HEADERS} DESTINATION "include/fiberchain/wallet" )

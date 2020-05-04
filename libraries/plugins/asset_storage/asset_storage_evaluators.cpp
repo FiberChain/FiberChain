@@ -1,7 +1,7 @@
-#include <futurepia/asset_storage/asset_storage_operations.hpp>
-#include <futurepia/asset_storage/asset_storage_plugin.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/account_object.hpp>
+#include <fiberchain/asset_storage/asset_storage_operations.hpp>
+#include <fiberchain/asset_storage/asset_storage_plugin.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/account_object.hpp>
 
 namespace fiberchain { namespace asset_storage {
 

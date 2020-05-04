@@ -1,7 +1,7 @@
-#include <futurepia/token/token_operations.hpp>
+#include <fiberchain/token/token_operations.hpp>
 
-#include <futurepia/protocol/operation_util_impl.hpp>
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/operation_util_impl.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
 #include <boost/algorithm/string.hpp>
 
@@ -16,7 +16,7 @@ namespace fiberchain { namespace token {
          FC_ASSERT( symbol_name.length() > 0  && symbol_name.length() < 8, "Symbol character is less than 8 digits." );
 
          vector< string > prohibit_names;
-         prohibit_names.emplace_back ("futurepia");
+         prohibit_names.emplace_back ("fiberchain");
          prohibit_names.emplace_back ("snac");
 
          std::string lower_name = boost::to_lower_copy( std::string( name ) );

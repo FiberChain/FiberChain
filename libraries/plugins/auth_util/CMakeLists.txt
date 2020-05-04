@@ -1,11 +1,11 @@
-file(GLOB HEADERS "include/futurepia/plugins/auth_util/*.hpp")
+file(GLOB HEADERS "include/fiberchain/plugins/auth_util/*.hpp")
 
-add_library( futurepia_auth_util
+add_library( fiberchain_auth_util
              ${HEADERS}
              auth_util_plugin.cpp
              auth_util_api.cpp
            )
 
-target_link_libraries( futurepia_auth_util futurepia_app futurepia_chain futurepia_protocol fc )
-target_include_directories( futurepia_auth_util
+target_link_libraries( fiberchain_auth_util fiberchain_app fiberchain_chain fiberchain_protocol fc )
+target_include_directories( fiberchain_auth_util
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
