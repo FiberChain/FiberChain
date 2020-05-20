@@ -9,25 +9,25 @@ if( GPERFTOOLS_FOUND )
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
-if( FUTUREPIA_STATIC_BUILD )
-   # I don't know why futurepia_app is required twice in the following line, I just know the linker breaks if it isn't.
+if( FIBERCHAIN_STATIC_BUILD )
+   # I don't know why fiberchain_app is required twice in the following line, I just know the linker breaks if it isn't.
    target_link_libraries( cli_wallet PRIVATE
                           "-static-libstdc++ -static-libgcc -lreadline"
-                          futurepia_app graphene_net futurepia_chain futurepia_protocol graphene_utilities 
-                          futurepia_wallet futurepia_private_message futurepia_app futurepia_token 
-                          futurepia_dapp futurepia_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+                          fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
+                          fiberchain_wallet fiberchain_private_message fiberchain_app fiberchain_token 
+                          fiberchain_dapp fiberchain_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 elseif( FULL_STATIC_BUILD )
 target_link_libraries( cli_wallet PRIVATE
                           "-static-libstdc++ -static-libgcc -lreadline -Wl,-Bstatic -lstdc++ -lwinpthread -Wl,-Bdynamic"
-                          futurepia_app graphene_net futurepia_chain futurepia_protocol graphene_utilities 
-                          futurepia_wallet futurepia_private_message futurepia_app futurepia_token 
-                          futurepia_dapp futurepia_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-else( FUTUREPIA_STATIC_BUILD )
+                          fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
+                          fiberchain_wallet fiberchain_private_message fiberchain_app fiberchain_token 
+                          fiberchain_dapp fiberchain_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+else( FIBERCHAIN_STATIC_BUILD )
    target_link_libraries( cli_wallet PRIVATE
-                          futurepia_app graphene_net futurepia_chain futurepia_protocol graphene_utilities 
-                          futurepia_wallet futurepia_private_message futurepia_app futurepia_token 
-                          futurepia_dapp futurepia_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-endif( FUTUREPIA_STATIC_BUILD )
+                          fiberchain_app graphene_net fiberchain_chain fiberchain_protocol graphene_utilities 
+                          fiberchain_wallet fiberchain_private_message fiberchain_app fiberchain_token 
+                          fiberchain_dapp fiberchain_dapp_history fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+endif( FIBERCHAIN_STATIC_BUILD )
 
 if(MSVC)
   set_source_files_properties( main.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )

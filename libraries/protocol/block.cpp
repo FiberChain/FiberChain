@@ -1,9 +1,9 @@
-#include <futurepia/protocol/block.hpp>
+#include <fiberchain/protocol/block.hpp>
 #include <fc/io/raw.hpp>
 #include <fc/bitutil.hpp>
 #include <algorithm>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
    digest_type block_header::digest()const
    {
       return digest_type::hash(*this);
@@ -66,4 +66,4 @@ namespace futurepia { namespace protocol {
       return checksum_type::hash( ids[0] );
    }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

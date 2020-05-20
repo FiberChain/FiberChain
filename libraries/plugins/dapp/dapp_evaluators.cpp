@@ -1,7 +1,7 @@
-#include <futurepia/dapp/dapp_operations.hpp>
-#include <futurepia/dapp/dapp_plugin.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/account_object.hpp>
+#include <fiberchain/dapp/dapp_operations.hpp>
+#include <fiberchain/dapp/dapp_plugin.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/account_object.hpp>
 
 #ifndef IS_LOW_MEM
 #include <diff_match_patch.h>
@@ -12,7 +12,7 @@ using boost::locale::conv::utf_to_utf;
 #endif
 
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
 
    std::wstring utf8_to_wstring(const std::string& str)
    {
@@ -52,7 +52,7 @@ namespace futurepia { namespace dapp {
             }
          );
 
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {  
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {  
             // owner add to member
             _db.create< dapp_user_object >( [&]( dapp_user_object& object ) {
                object.dapp_id = dapp.id;
@@ -78,13 +78,13 @@ namespace futurepia { namespace dapp {
          const auto& name_idx = _db.get_index< dapp_index >().indices().get< by_name >();
          auto name_itr = name_idx.find( op.dapp_name );
 
-         FC_ASSERT( name_itr != name_idx.end(), "\"${name}\" dapp is not exist in Futurepia.", ( "name", op.dapp_name ) );
+         FC_ASSERT( name_itr != name_idx.end(), "\"${name}\" dapp is not exist in Fiberchain.", ( "name", op.dapp_name ) );
          FC_ASSERT( name_itr->owner == op.owner, "${owner} isn't owner.", ( "owner", op.owner ) );
 
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( op.owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", op.owner ) );
          }
@@ -96,7 +96,7 @@ namespace futurepia { namespace dapp {
          );
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -115,12 +115,12 @@ namespace futurepia { namespace dapp {
          const auto& name_idx = _db.get_index< dapp_index >().indices().get< by_name >();
          auto name_itr = name_idx.find( op.dapp_name );
          FC_ASSERT( name_itr != name_idx.end(), "${name} dapp is not exist", ( "name", op.dapp_name ) );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )
             FC_ASSERT( name_itr->dapp_state == dapp_state_type::APPROVAL, "The state of ${dapp} dapp is ${state}, not APPROVAL"
                      , ( "dapp", op.dapp_name )("state", name_itr->dapp_state) );
 
          // check dapp user
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             const auto& dapp_user_idx = _db.get_index< dapp_user_index >().indicies().get< by_name >();
             auto user_itr = dapp_user_idx.find( std::make_tuple( op.dapp_name, op.author ) );
             FC_ASSERT( user_itr != dapp_user_idx.end() && user_itr->account_name == op.author
@@ -130,7 +130,7 @@ namespace futurepia { namespace dapp {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( name_itr->owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", name_itr->owner ) );
          }
@@ -144,14 +144,14 @@ namespace futurepia { namespace dapp {
 
          dapp_comment_id_type id;
          const dapp_comment_object* parent = nullptr;
-         if ( op.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+         if ( op.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
          {
             parent = &_db.get< dapp_comment_object, by_permlink >( boost::make_tuple( op.dapp_name, op.parent_author, op.parent_permlink ));
 
             dlog( "comment_dapp_evaluator : parent_author=${parent_author}, parent_permlink=${parent_permlink}"
                , ( "parent_author", parent->author )( "parent_permlink", parent->permlink ) );
-            FC_ASSERT( parent->depth < FUTUREPIA_MAX_COMMENT_DEPTH, "Comment is nested ${x} posts deep, maximum depth is ${y}."
-               , ( "x", parent->depth )( "y", FUTUREPIA_MAX_COMMENT_DEPTH ) );
+            FC_ASSERT( parent->depth < FIBERCHAIN_MAX_COMMENT_DEPTH, "Comment is nested ${x} posts deep, maximum depth is ${y}."
+               , ( "x", parent->depth )( "y", FIBERCHAIN_MAX_COMMENT_DEPTH ) );
          }
 
          if ( op.json_metadata.size() )
@@ -162,22 +162,22 @@ namespace futurepia { namespace dapp {
          if ( itr == by_permlink_idx.end() )  // START create comment
          {
             dlog( "comment_dapp_evaluator : new");
-            if ( op.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+            if ( op.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
             {
                FC_ASSERT( _db.get(parent->root_comment).allow_replies, "The parent comment has disabled replies." );
             }
 
-            if ( op.parent_author == FUTUREPIA_ROOT_POST_PARENT )
-               FC_ASSERT( ( now - auth.last_root_post ) > FUTUREPIA_MIN_ROOT_COMMENT_INTERVAL
+            if ( op.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
+               FC_ASSERT( ( now - auth.last_root_post ) > FIBERCHAIN_MIN_ROOT_COMMENT_INTERVAL
                   , "You may only post once every 5 minutes.", ( "now", now )( "last_root_post", auth.last_root_post ) );
             else
-               FC_ASSERT( ( now - auth.last_post ) > FUTUREPIA_MIN_REPLY_INTERVAL
+               FC_ASSERT( ( now - auth.last_post ) > FIBERCHAIN_MIN_REPLY_INTERVAL
                   , "You may only comment once every 20 seconds.", ( "now", now )( "auth.last_post", auth.last_post ) );
 
             uint64_t post_bandwidth = auth.post_bandwidth;
 
             _db.modify( auth, [&]( account_object& a ) {
-               if ( op.parent_author == FUTUREPIA_ROOT_POST_PARENT )
+               if ( op.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
                {
                   a.last_root_post = now;
                   a.post_bandwidth = uint32_t( post_bandwidth );
@@ -195,7 +195,7 @@ namespace futurepia { namespace dapp {
                com.active = com.last_update;
                com.dapp_name = op.dapp_name;
 
-               if ( op.parent_author == FUTUREPIA_ROOT_POST_PARENT )
+               if ( op.parent_author == FIBERCHAIN_ROOT_POST_PARENT )
                {
                   com.parent_author = "";
                   from_string( com.parent_permlink, op.parent_permlink );
@@ -234,7 +234,7 @@ namespace futurepia { namespace dapp {
                   p.active = now;
                });
 #ifndef IS_LOW_MEM
-               if ( parent->parent_author != FUTUREPIA_ROOT_POST_PARENT )
+               if ( parent->parent_author != FIBERCHAIN_ROOT_POST_PARENT )
                {
                   parent = &_db.get< dapp_comment_object, by_permlink >( 
                      boost::make_tuple( parent->dapp_name, parent->parent_author, parent->parent_permlink ) );
@@ -303,7 +303,7 @@ namespace futurepia { namespace dapp {
          } // END edit comment
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -321,7 +321,7 @@ namespace futurepia { namespace dapp {
          FC_ASSERT( dapp_name_itr != dapp_name_idx.end(), "${name} dapp is not exist", ( "name", o.dapp_name ) );
 
          // check dapp user
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             const auto& dapp_user_idx = _db.get_index< dapp_user_index >().indicies().get< by_name >();
             auto user_itr = dapp_user_idx.find( std::make_tuple( o.dapp_name, o.voter ) );
             FC_ASSERT( user_itr != dapp_user_idx.end() && user_itr->account_name == o.voter
@@ -331,7 +331,7 @@ namespace futurepia { namespace dapp {
          // process dapp transaction fee
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( dapp_name_itr->owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", dapp_name_itr->owner) );
          }
@@ -343,7 +343,7 @@ namespace futurepia { namespace dapp {
 
          auto now_time = _db.head_block_time();
 
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( dapp_comment.allow_votes, "This comment(feed) can't be vote for." );
 
             comment_vote_type vote_type = static_cast<comment_vote_type>(o.vote_type);
@@ -382,7 +382,7 @@ namespace futurepia { namespace dapp {
                   cv.last_update = now_time;
                });
             }
-         } else {  //if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )
+         } else {  //if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )
             const auto& dapp_comment_vote_idx = _db.get_index< dapp_comment_vote_index >().indices().get< by_comment_voter >();
             auto itr = dapp_comment_vote_idx.find( std::make_tuple( dapp_comment.id, voter.id ) );
 
@@ -411,10 +411,10 @@ namespace futurepia { namespace dapp {
                   cv.last_update = now_time;
                });
             }
-         } // END if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )
+         } // END if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -441,7 +441,7 @@ namespace futurepia { namespace dapp {
          auto dapp_name_itr = dapp_name_idx.find( op.dapp_name );
          const asset dapp_transaction_fee = _db.get_dynamic_global_properties().dapp_transaction_fee;
          const auto& from_account = _db.get_account( dapp_name_itr->owner );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( from_account.snac_balance >= dapp_transaction_fee, "Balance of ${account} account is less than dapp transaction fee"
                , ( "account", dapp_name_itr->owner ) );
          }
@@ -458,7 +458,7 @@ namespace futurepia { namespace dapp {
          }
 
          // decrease child count of all parent comment
-         if( comment.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+         if( comment.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
          {
             auto parent = comment_index.find( boost::make_tuple( comment.dapp_name, comment.parent_author, comment.parent_permlink ) );
             auto now = _db.head_block_time();
@@ -471,7 +471,7 @@ namespace futurepia { namespace dapp {
                });
                
 #ifndef IS_LOW_MEM
-               if( parent->parent_author != FUTUREPIA_ROOT_POST_PARENT )
+               if( parent->parent_author != FIBERCHAIN_ROOT_POST_PARENT )
                   parent = comment_index.find( boost::make_tuple( parent->dapp_name, parent->parent_author, parent->parent_permlink ) );
                else
 #endif
@@ -483,7 +483,7 @@ namespace futurepia { namespace dapp {
          _db.remove( comment );
 
          // process dapp transaction fee
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) 
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) 
          {
             _db.adjust_balance( from_account, -dapp_transaction_fee );
             _db.adjust_dapp_reward_fund_balance( dapp_transaction_fee );
@@ -498,7 +498,7 @@ namespace futurepia { namespace dapp {
       {
          ilog( "join_dapp_evaluator::do_apply" );
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "join_dapp_operation is not available in versions lower than 0.2.0." );
          }
          
@@ -511,7 +511,7 @@ namespace futurepia { namespace dapp {
          const auto& dapp_idx = _db.get_index< dapp_index >().indicies().get< by_name >();
          auto dapp_ptr = dapp_idx.find( op.dapp_name );
          FC_ASSERT( dapp_ptr != dapp_idx.end(), "${dapp} dapp is not exist.", ( "dapp", op.dapp_name ) );
-         if( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )
+         if( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )
             FC_ASSERT( dapp_ptr->dapp_state == dapp_state_type::APPROVAL, "The state of ${dapp} dapp is ${state}, not APPROVAL"
                      , ( "dapp", op.dapp_name )("state", dapp_ptr->dapp_state) );
 
@@ -548,7 +548,7 @@ namespace futurepia { namespace dapp {
       {
          ilog( "leave_dapp_evaluator::do_apply" );
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "leave_dapp_operation  is not available in versions lower than 0.2.0." );
          }
 
@@ -588,7 +588,7 @@ namespace futurepia { namespace dapp {
       {
          ilog( "vote_dapp_evaluator::do_apply" );
 
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             FC_ASSERT( false, "vote_dapp_evaluator is not available in versions lower than 0.2.0." );
          }
 
@@ -629,7 +629,7 @@ namespace futurepia { namespace dapp {
       try {
          dlog( "vote_dapp_trx_fee_evaluator::do_apply" );
 
-         FC_ASSERT( _db.has_hardfork( FUTUREPIA_HARDFORK_0_2 )
+         FC_ASSERT( _db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 )
             , "vote_dapp_trx_fee_operation is not available in versions lower than 0.2.0." );
 
          const auto& bo_idx = _db.get_index< bobserver_index >().indicies().get< chain::by_bp_owner >();
@@ -655,5 +655,5 @@ namespace futurepia { namespace dapp {
    }
 
 
-} } // namespace futurepia::dapp
+} } // namespace fiberchain::dapp
 

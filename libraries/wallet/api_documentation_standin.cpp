@@ -23,10 +23,10 @@
  */
 #include <iomanip>
 #include <boost/algorithm/string/join.hpp>
-#include <futurepia/wallet/wallet.hpp>
-#include <futurepia/wallet/api_documentation.hpp>
+#include <fiberchain/wallet/wallet.hpp>
+#include <fiberchain/wallet/api_documentation.hpp>
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
    namespace detail {
       namespace
       {
@@ -88,4 +88,4 @@ namespace futurepia { namespace wallet {
                 std::inserter(method_descriptions, method_descriptions.end()));
    }
 
-} } // end namespace futurepia::wallet
+} } // end namespace fiberchain::wallet

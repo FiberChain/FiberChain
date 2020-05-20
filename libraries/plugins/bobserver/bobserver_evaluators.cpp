@@ -1,9 +1,9 @@
-#include <futurepia/bobserver/bobserver_operations.hpp>
-#include <futurepia/bobserver/bobserver_objects.hpp>
+#include <fiberchain/bobserver/bobserver_operations.hpp>
+#include <fiberchain/bobserver/bobserver_objects.hpp>
 
-#include <futurepia/chain/comment_object.hpp>
+#include <fiberchain/chain/comment_object.hpp>
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 void enable_content_editing_evaluator::do_apply( const enable_content_editing_operation& o )
 {
@@ -30,4 +30,4 @@ void enable_content_editing_evaluator::do_apply( const enable_content_editing_op
    FC_CAPTURE_AND_RETHROW( (o) )
 }
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver

@@ -1,31 +1,31 @@
 
-#include <futurepia/app/api_context.hpp>
-#include <futurepia/app/application.hpp>
+#include <fiberchain/app/api_context.hpp>
+#include <fiberchain/app/application.hpp>
 
-#include <futurepia/plugins/block_info/block_info_api.hpp>
-#include <futurepia/plugins/block_info/block_info_plugin.hpp>
+#include <fiberchain/plugins/block_info/block_info_api.hpp>
+#include <fiberchain/plugins/block_info/block_info_plugin.hpp>
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
 namespace detail {
 
 class block_info_api_impl
 {
    public:
-      block_info_api_impl( futurepia::app::application& _app );
+      block_info_api_impl( fiberchain::app::application& _app );
 
-      std::shared_ptr< futurepia::plugin::block_info::block_info_plugin > get_plugin();
+      std::shared_ptr< fiberchain::plugin::block_info::block_info_plugin > get_plugin();
 
       void get_block_info( const get_block_info_args& args, std::vector< block_info >& result );
       void get_blocks_with_info( const get_block_info_args& args, std::vector< block_with_info >& result );
 
-      futurepia::app::application& app;
+      fiberchain::app::application& app;
 };
 
-block_info_api_impl::block_info_api_impl( futurepia::app::application& _app ) : app( _app )
+block_info_api_impl::block_info_api_impl( fiberchain::app::application& _app ) : app( _app )
 {}
 
-std::shared_ptr< futurepia::plugin::block_info::block_info_plugin > block_info_api_impl::get_plugin()
+std::shared_ptr< fiberchain::plugin::block_info::block_info_plugin > block_info_api_impl::get_plugin()
 {
    return app.get_plugin< block_info_plugin >( "block_info" );
 }
@@ -66,7 +66,7 @@ void block_info_api_impl::get_blocks_with_info( const get_block_info_args& args,
 
 } // detail
 
-block_info_api::block_info_api( const futurepia::app::api_context& ctx )
+block_info_api::block_info_api( const fiberchain::app::api_context& ctx )
 {
    my = std::make_shared< detail::block_info_api_impl >(ctx.app);
 }
@@ -87,4 +87,4 @@ std::vector< block_with_info > block_info_api::get_blocks_with_info( get_block_i
 
 void block_info_api::on_api_startup() { }
 
-} } } // futurepia::plugin::block_info
+} } } // fiberchain::plugin::block_info

@@ -1,19 +1,19 @@
 
-#include <futurepia/app/api_context.hpp>
-#include <futurepia/app/application.hpp>
+#include <fiberchain/app/api_context.hpp>
+#include <fiberchain/app/application.hpp>
 
-#include <futurepia/protocol/authority.hpp>
-#include <futurepia/protocol/sign_state.hpp>
+#include <fiberchain/protocol/authority.hpp>
+#include <fiberchain/protocol/sign_state.hpp>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/database.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/database.hpp>
 
-#include <futurepia/plugins/auth_util/auth_util_api.hpp>
-#include <futurepia/plugins/auth_util/auth_util_plugin.hpp>
+#include <fiberchain/plugins/auth_util/auth_util_api.hpp>
+#include <fiberchain/plugins/auth_util/auth_util_plugin.hpp>
 
 #include <fc/container/flat.hpp>
 
-namespace futurepia { namespace plugin { namespace auth_util {
+namespace fiberchain { namespace plugin { namespace auth_util {
 
 using boost::container::flat_set;
 
@@ -22,18 +22,18 @@ namespace detail {
 class auth_util_api_impl
 {
    public:
-      auth_util_api_impl( futurepia::app::application& _app );
+      auth_util_api_impl( fiberchain::app::application& _app );
       void check_authority_signature( const check_authority_signature_params& args, check_authority_signature_result& result );
 
-      std::shared_ptr< futurepia::plugin::auth_util::auth_util_plugin > get_plugin();
+      std::shared_ptr< fiberchain::plugin::auth_util::auth_util_plugin > get_plugin();
 
-      futurepia::app::application& app;
+      fiberchain::app::application& app;
 };
 
-auth_util_api_impl::auth_util_api_impl( futurepia::app::application& _app ) : app( _app )
+auth_util_api_impl::auth_util_api_impl( fiberchain::app::application& _app ) : app( _app )
 {}
 
-std::shared_ptr< futurepia::plugin::auth_util::auth_util_plugin > auth_util_api_impl::get_plugin()
+std::shared_ptr< fiberchain::plugin::auth_util::auth_util_plugin > auth_util_api_impl::get_plugin()
 {
    return app.get_plugin< auth_util_plugin >( "auth_util" );
 }
@@ -80,7 +80,7 @@ void auth_util_api_impl::check_authority_signature( const check_authority_signat
 
 } // detail
 
-auth_util_api::auth_util_api( const futurepia::app::api_context& ctx )
+auth_util_api::auth_util_api( const fiberchain::app::api_context& ctx )
 {
    my = std::make_shared< detail::auth_util_api_impl >(ctx.app);
 }
@@ -94,4 +94,4 @@ check_authority_signature_result auth_util_api::check_authority_signature( check
    return result;
 }
 
-} } } // futurepia::plugin::auth_util
+} } } // fiberchain::plugin::auth_util

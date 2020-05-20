@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  builder:
+    build:
+      context: ./
+      dockerfile: ./docker/build.dockerfile
+    volumes:
+      - ./:/var/program
+  node:
+    build:
+      context: ./
+      dockerfile: ./docker/run.dockerfile
+    volumes:
+      - ./docker/devnet:/var/program/node_data

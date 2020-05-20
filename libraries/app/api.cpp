@@ -23,16 +23,16 @@
  */
 #include <cctype>
 
-#include <futurepia/app/api.hpp>
-#include <futurepia/app/api_access.hpp>
-#include <futurepia/app/application.hpp>
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/app/api_access.hpp>
+#include <fiberchain/app/application.hpp>
+#include <fiberchain/app/impacted.hpp>
 
-#include <futurepia/protocol/get_config.hpp>
+#include <fiberchain/protocol/get_config.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
-#include <futurepia/chain/transaction_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
+#include <fiberchain/chain/transaction_object.hpp>
 #include <fc/time.hpp>
 
 #include <graphene/utilities/key_conversion.hpp>
@@ -40,7 +40,7 @@
 #include <fc/crypto/hex.hpp>
 #include <fc/smart_ref_impl.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
     login_api::login_api(const api_context& ctx)
     :_ctx(ctx)
@@ -112,9 +112,9 @@ namespace futurepia { namespace app {
        return it->second;
     }
 
-    futurepia_version_info login_api::get_version()
+    fiberchain_version_info login_api::get_version()
     {
-       return futurepia_version_info( fc::string( FUTUREPIA_BLOCKCHAIN_VERSION ) );
+       return fiberchain_version_info( fc::string( FIBERCHAIN_BLOCKCHAIN_VERSION ) );
     }
 
     network_broadcast_api::network_broadcast_api(const api_context& a):_app(a.app)
@@ -327,4 +327,4 @@ namespace futurepia { namespace app {
        return _app.p2p_node()->set_advanced_node_parameters(params);
     }
 
-} } // futurepia::app
+} } // fiberchain::app

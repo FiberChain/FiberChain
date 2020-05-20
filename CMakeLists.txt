@@ -1,10 +1,10 @@
-# Defines Futurepia library target.
-project( Futurepia )
+# Defines Fiberchain library target.
+project( Fiberchain )
 cmake_minimum_required( VERSION 3.2 )
 
-set( BLOCKCHAIN_NAME "Futurepia" )
+set( BLOCKCHAIN_NAME "Fiberchain" )
 
-set( GUI_CLIENT_EXECUTABLE_NAME Futurepia )
+set( GUI_CLIENT_EXECUTABLE_NAME Fiberchain )
 set( CUSTOM_URL_SCHEME "gcs" )
 set( INSTALLER_APP_ID "68ad7005-8eee-49c9-95ce-9eed97e5b347" )
 
@@ -78,12 +78,12 @@ if( SKIP_BY_TX_ID )
    SET( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSKIP_BY_TX_ID" )
 endif()
 
-OPTION( FUTUREPIA_STATIC_BUILD "Build futurepiad as a static library (ON or OFF)" OFF )
-if( FUTUREPIA_STATIC_BUILD AND ( ( MSVC AND NOT MINGW ) OR APPLE ) )
+OPTION( FIBERCHAIN_STATIC_BUILD "Build fiberchaind as a static library (ON or OFF)" OFF )
+if( FIBERCHAIN_STATIC_BUILD AND ( ( MSVC AND NOT MINGW ) OR APPLE ) )
    MESSAGE( STATUS "Statuc build is not available on Windows or OS X" )
-   SET( FUTUREPIA_STATIC_BUILD OFF )
+   SET( FIBERCHAIN_STATIC_BUILD OFF )
 endif()
-MESSAGE( STATUS "FUTUREPIA_STATIC_BUILD: ${FUTUREPIA_STATIC_BUILD}" )
+MESSAGE( STATUS "FIBERCHAIN_STATIC_BUILD: ${FIBERCHAIN_STATIC_BUILD}" )
 
 IF( WIN32 )
   SET(BOOST_ROOT $ENV{BOOST_ROOT})
@@ -95,7 +95,7 @@ FIND_PACKAGE(Boost 1.58 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
 
 if( WIN32 )
 
-   message( STATUS "Configuring Futurepia on WIN32")
+   message( STATUS "Configuring Fiberchain on WIN32")
    set( DB_VERSION 60 )
    set( BDB_STATIC_LIBS 1 )
 
@@ -151,11 +151,11 @@ else( WIN32 ) # Apple AND Linux
 
     if( APPLE )
         # Apple Specific Options Here
-        message( STATUS "Configuring Futurepia on OS X" )
+        message( STATUS "Configuring Fiberchain on OS X" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -stdlib=libc++ -Wall -Wno-conversion -Wno-deprecated-declarations" )
     else( APPLE )
         # Linux Specific Options Here
-        message( STATUS "Configuring Futurepia on Linux" )
+        message( STATUS "Configuring Fiberchain on Linux" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -Wall" )
         set( rt_library rt )
         set( pthread_library pthread)
@@ -187,13 +187,13 @@ else( WIN32 ) # Apple AND Linux
 
 endif( WIN32 )
 
-set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build Futurepia for code coverage analysis")
+set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build Fiberchain for code coverage analysis")
 
 if(ENABLE_COVERAGE_TESTING)
     SET(CMAKE_CXX_FLAGS "--coverage ${CMAKE_CXX_FLAGS}")
 endif()
 
-# external_plugins needs to be compiled first because libraries/app depends on FUTUREPIA_EXTERNAL_PLUGINS being fully populated
+# external_plugins needs to be compiled first because libraries/app depends on FIBERCHAIN_EXTERNAL_PLUGINS being fully populated
 add_subdirectory( libraries )
 add_subdirectory( programs )
 
@@ -210,24 +210,24 @@ set(CPACK_OUTPUT_FILE_PREFIX ${CMAKE_BINARY_DIR}/packages)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
 
 SET(CPACK_PACKAGE_DIRECTORY "${CMAKE_INSTALL_PREFIX}")
-set(CPACK_PACKAGE_NAME "futurepia")
+set(CPACK_PACKAGE_NAME "fiberchain")
 set(CPACK_PACKAGE_VENDOR "SigmaChain")
 set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(CPACK_PACKAGE_DESCRIPTION "A client for the Futurepia network")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the Futurepia network")
+set(CPACK_PACKAGE_DESCRIPTION "A client for the Fiberchain network")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the Fiberchain network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Futurepia ${CPACK_PACKAGE_VERSION}")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "Fiberchain ${CPACK_PACKAGE_VERSION}")
 
 if(WIN32)
  SET(CPACK_GENERATOR "ZIP;NSIS")
- set(CPACK_PACKAGE_NAME "Futurepia") # override above
+ set(CPACK_PACKAGE_NAME "Fiberchain") # override above
  set(CPACK_NSIS_EXECUTABLES_DIRECTORY .)
- set(CPACK_NSIS_PACKAGE_NAME "Futurepia v${CPACK_PACKAGE_VERSION}")
+ set(CPACK_NSIS_PACKAGE_NAME "Fiberchain v${CPACK_PACKAGE_VERSION}")
  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
- set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"Futurepia\\\"")
+ set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"Fiberchain\\\"")
  # it seems like windows zip files usually don't have a single directory inside them, unix tgz frequently do
  SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
 

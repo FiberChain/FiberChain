@@ -24,7 +24,7 @@
 #pragma once
 
 #include <graphene/net/config.hpp>
-#include <futurepia/protocol/block.hpp>
+#include <fiberchain/protocol/block.hpp>
 
 #include <fc/crypto/ripemd160.hpp>
 #include <fc/crypto/elliptic.hpp>
@@ -40,10 +40,10 @@
 #include <vector>
 
 namespace graphene { namespace net {
-  using futurepia::protocol::signed_transaction;
-  using futurepia::protocol::block_id_type;
-  using futurepia::protocol::transaction_id_type;
-  using futurepia::protocol::signed_block;
+  using fiberchain::protocol::signed_transaction;
+  using fiberchain::protocol::block_id_type;
+  using fiberchain::protocol::transaction_id_type;
+  using fiberchain::protocol::signed_block;
 
   typedef fc::ecc::public_key_data node_id_t;
   typedef fc::ripemd160 item_hash_t;

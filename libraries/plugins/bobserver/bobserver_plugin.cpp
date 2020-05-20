@@ -21,18 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <futurepia/bobserver/bobserver_plugin.hpp>
-#include <futurepia/bobserver/bobserver_objects.hpp>
-#include <futurepia/bobserver/bobserver_operations.hpp>
+#include <fiberchain/bobserver/bobserver_plugin.hpp>
+#include <fiberchain/bobserver/bobserver_objects.hpp>
+#include <fiberchain/bobserver/bobserver_operations.hpp>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/database_exceptions.hpp>
-#include <futurepia/chain/generic_custom_operation_interpreter.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/database_exceptions.hpp>
+#include <fiberchain/chain/generic_custom_operation_interpreter.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
 
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/impacted.hpp>
 
 #include <fc/time.hpp>
 
@@ -48,7 +48,7 @@
 #define DISTANCE_CALC_PRECISION (10000)
 
 
-namespace futurepia { namespace bobserver {
+namespace fiberchain { namespace bobserver {
 
 namespace bpo = boost::program_options;
 
@@ -58,13 +58,13 @@ using std::vector;
 using protocol::signed_transaction;
 using chain::account_object;
 
-void new_chain_banner( const futurepia::chain::database& db )
+void new_chain_banner( const fiberchain::chain::database& db )
 {
    std::cerr << "\n"
       "************************************\n"
       "*                                  *\n"
       "*   --------- NEW CHAIN --------   *\n"
-      "*   -   Welcome to Futurepia!  -   *\n"
+      "*   -   Welcome to Fiberchain!  -   *\n"
       "*   ----------------------------   *\n"
       "*                                  *\n"
       "************************************\n"
@@ -74,7 +74,7 @@ void new_chain_banner( const futurepia::chain::database& db )
 
 namespace detail
 {
-   using namespace futurepia::chain;
+   using namespace fiberchain::chain;
 
 
    class bobserver_plugin_impl
@@ -85,7 +85,7 @@ namespace detail
 
          void plugin_initialize();
 
-         void pre_apply_block( const futurepia::protocol::signed_block& blk );
+         void pre_apply_block( const fiberchain::protocol::signed_block& blk );
          void pre_operation( const operation_notification& note );
          void post_operation( const chain::operation_notification& note );
          void on_block( const signed_block& b );
@@ -93,7 +93,7 @@ namespace detail
          bobserver_plugin& _self;
          std::shared_ptr< generic_custom_operation_interpreter< bobserver_plugin_operation > > _custom_operation_interpreter;
 
-         std::set< futurepia::protocol::account_name_type >                     _dupe_customs;
+         std::set< fiberchain::protocol::account_name_type >                     _dupe_customs;
    };
 
    void bobserver_plugin_impl::plugin_initialize()
@@ -105,7 +105,7 @@ namespace detail
       _self.database().set_custom_operation_interpreter( _self.plugin_name(), _custom_operation_interpreter );
    }
 
-   void bobserver_plugin_impl::pre_apply_block( const futurepia::protocol::signed_block& b )
+   void bobserver_plugin_impl::pre_apply_block( const fiberchain::protocol::signed_block& b )
    {
       _dupe_customs.clear();
    }
@@ -139,27 +139,27 @@ namespace detail
       for( auto& key_weight_pair : auth.owner.key_auths )
       {
          for( auto& key : keys )
-            FUTUREPIA_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
+            FIBERCHAIN_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
                "Detected private owner key in memo field. You should change your owner keys." );
       }
 
       for( auto& key_weight_pair : auth.active.key_auths )
       {
          for( auto& key : keys )
-            FUTUREPIA_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
+            FIBERCHAIN_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
                "Detected private active key in memo field. You should change your active keys." );
       }
 
       for( auto& key_weight_pair : auth.posting.key_auths )
       {
          for( auto& key : keys )
-            FUTUREPIA_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
+            FIBERCHAIN_ASSERT( key_weight_pair.first != key, chain::plugin_exception,
                "Detected private posting key in memo field. You should change your posting keys." );
       }
 
       const auto& memo_key = account.memo_key;
       for( auto& key : keys )
-         FUTUREPIA_ASSERT( memo_key != key, chain::plugin_exception,
+         FIBERCHAIN_ASSERT( memo_key != key, chain::plugin_exception,
             "Detected private memo key in memo field. You should change your memo key." );
    }
 
@@ -176,14 +176,14 @@ namespace detail
 
       void operator()( const comment_operation& o )const
       {
-         if( o.parent_author != FUTUREPIA_ROOT_POST_PARENT )
+         if( o.parent_author != FIBERCHAIN_ROOT_POST_PARENT )
          {
             const auto& parent = _db.find_comment( o.parent_author, o.parent_permlink );
 
             if( parent != nullptr )
-            FUTUREPIA_ASSERT( parent->depth < FUTUREPIA_SOFT_MAX_COMMENT_DEPTH,
+            FIBERCHAIN_ASSERT( parent->depth < FIBERCHAIN_SOFT_MAX_COMMENT_DEPTH,
                chain::plugin_exception,
-               "Comment is nested ${x} posts deep, maximum depth is ${y}.", ("x",parent->depth)("y",FUTUREPIA_SOFT_MAX_COMMENT_DEPTH) );
+               "Comment is nested ${x} posts deep, maximum depth is ${y}.", ("x",parent->depth)("y",FIBERCHAIN_SOFT_MAX_COMMENT_DEPTH) );
          }
       }
 
@@ -231,7 +231,7 @@ namespace detail
 
             for( auto& account : impacted )
                if( db.is_producing() )
-                  FUTUREPIA_ASSERT( _dupe_customs.insert( account ).second, plugin_exception,
+                  FIBERCHAIN_ASSERT( _dupe_customs.insert( account ).second, plugin_exception,
                      "Account ${a} already submitted a custom json operation this block.",
                      ("a", account) );
          }
@@ -253,7 +253,7 @@ namespace detail
          db.create< reserve_ratio_object >( [&]( reserve_ratio_object& r )
          {
             r.average_block_size = 0;
-            r.current_reserve_ratio = FUTUREPIA_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION;
+            r.current_reserve_ratio = FIBERCHAIN_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION;
          });
       }
       else
@@ -294,8 +294,8 @@ namespace detail
                   // By default, we should always slowly increase the reserve ratio.
                   r.current_reserve_ratio += std::max( RESERVE_RATIO_MIN_INCREMENT, ( r.current_reserve_ratio * distance ) / ( distance - DISTANCE_CALC_PRECISION ) );
 
-                  if( r.current_reserve_ratio > FUTUREPIA_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION )
-                     r.current_reserve_ratio = FUTUREPIA_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION;
+                  if( r.current_reserve_ratio > FIBERCHAIN_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION )
+                     r.current_reserve_ratio = FIBERCHAIN_MAX_RESERVE_RATIO * RESERVE_RATIO_PRECISION;
                }
 
                if( old_reserve_ratio != r.current_reserve_ratio )
@@ -342,7 +342,7 @@ void bobserver_plugin::plugin_set_program_options(
    string bobserver_id_example = "initbobserver";
    command_line_options.add_options()
          ("enable-stale-production", bpo::bool_switch()->notifier([this](bool e){_production_enabled = e;}), "Enable block production, even if the chain is stale.")
-         ("required-participation", bpo::bool_switch()->notifier([this](int e){_required_bobserver_participation = uint32_t(e*FUTUREPIA_1_PERCENT);}), "Percent of bobservers (0-99) that must be participating in order to produce blocks")
+         ("required-participation", bpo::bool_switch()->notifier([this](int e){_required_bobserver_participation = uint32_t(e*FIBERCHAIN_1_PERCENT);}), "Percent of bobservers (0-99) that must be participating in order to produce blocks")
          ("bobserver,w", bpo::value<vector<string>>()->composing()->multitoken(),
           ("name of bobserver controlled by this node (e.g. " + bobserver_id_example+" )" ).c_str())
          ("private-key", bpo::value<vector<string>>()->composing()->multitoken(), "WIF PRIVATE KEY to be used by one or more bobservers or miners" )
@@ -400,7 +400,7 @@ void bobserver_plugin::plugin_startup()
       {
          if( d.head_block_num() == 0 )
             new_chain_banner(d);
-         _production_skip_flags |= futurepia::chain::database::skip_undo_history_check;
+         _production_skip_flags |= fiberchain::chain::database::skip_undo_history_check;
       }
       schedule_production_loop();
    }
@@ -434,9 +434,9 @@ void bobserver_plugin::schedule_production_loop()
 
 block_production_condition::block_production_condition_enum bobserver_plugin::block_production_loop()
 {
-   if( fc::time_point::now() < fc::time_point(FUTUREPIA_GENESIS_TIME) )
+   if( fc::time_point::now() < fc::time_point(FIBERCHAIN_GENESIS_TIME) )
    {
-      wlog( "waiting until genesis time to produce block: ${t}", ("t",FUTUREPIA_GENESIS_TIME) );
+      wlog( "waiting until genesis time to produce block: ${t}", ("t",FIBERCHAIN_GENESIS_TIME) );
       schedule_production_loop();
       return block_production_condition::wait_for_genesis;
    }
@@ -452,7 +452,7 @@ block_production_condition::block_production_condition_enum bobserver_plugin::bl
       //We're trying to exit. Go ahead and let this one out.
       throw;
    }
-   catch( const futurepia::chain::unknown_hardfork_exception& e )
+   catch( const fiberchain::chain::unknown_hardfork_exception& e )
    {
       // Hit a hardfork that the current node know nothing about, stop production and inform user
       elog( "${e}\nNode may be out of date...", ("e", e.to_detail_string()) );
@@ -546,7 +546,7 @@ block_production_condition::block_production_condition_enum bobserver_plugin::ma
    auto itr = bobserver_by_name.find( scheduled_bobserver );
 
    fc::time_point_sec scheduled_time = db.get_slot_time( slot );
-   futurepia::protocol::public_key_type scheduled_key = itr->signing_key;
+   fiberchain::protocol::public_key_type scheduled_key = itr->signing_key;
    auto private_key_itr = _private_keys.find( scheduled_key );
 
    if( private_key_itr == _private_keys.end() )
@@ -559,7 +559,7 @@ block_production_condition::block_production_condition_enum bobserver_plugin::ma
    uint32_t prate = db.bobserver_participation_rate();
    if( prate < _required_bobserver_participation )
    {
-      capture("pct", uint32_t(100*uint64_t(prate) / FUTUREPIA_1_PERCENT));
+      capture("pct", uint32_t(100*uint64_t(prate) / FIBERCHAIN_1_PERCENT));
       return block_production_condition::low_participation;
    }
 
@@ -605,6 +605,6 @@ block_production_condition::block_production_condition_enum bobserver_plugin::ma
    return block_production_condition::exception_producing_block;
 }
 
-} } // futurepia::bobserver
+} } // fiberchain::bobserver
 
-FUTUREPIA_DEFINE_PLUGIN( bobserver, futurepia::bobserver::bobserver_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( bobserver, fiberchain::bobserver::bobserver_plugin )

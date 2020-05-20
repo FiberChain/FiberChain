@@ -1,15 +1,15 @@
-#include <futurepia/account_by_key/account_by_key_plugin.hpp>
-#include <futurepia/account_by_key/account_by_key_objects.hpp>
+#include <fiberchain/account_by_key/account_by_key_plugin.hpp>
+#include <fiberchain/account_by_key/account_by_key_objects.hpp>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/operation_notification.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
 
 #include <graphene/schema/schema.hpp>
 #include <graphene/schema/schema_impl.hpp>
 
-namespace futurepia { namespace account_by_key {
+namespace fiberchain { namespace account_by_key {
 
 namespace detail
 {
@@ -19,7 +19,7 @@ class account_by_key_plugin_impl
    public:
       account_by_key_plugin_impl( account_by_key_plugin& _plugin ) : _self( _plugin ) {}
 
-      futurepia::chain::database& database()
+      fiberchain::chain::database& database()
       {
          return _self.database();
       }
@@ -178,7 +178,7 @@ void account_by_key_plugin_impl::post_operation( const operation_notification& n
 
 } // detail
 
-account_by_key_plugin::account_by_key_plugin( futurepia::app::application* app )
+account_by_key_plugin::account_by_key_plugin( fiberchain::app::application* app )
    : plugin( app ), my( new detail::account_by_key_plugin_impl( *this ) ) {}
 
 void account_by_key_plugin::plugin_set_program_options(
@@ -206,6 +206,6 @@ void account_by_key_plugin::plugin_startup()
    app().register_api_factory< account_by_key_api >( "account_by_key_api" );
 }
 
-} } // futurepia::account_by_key
+} } // fiberchain::account_by_key
 
-FUTUREPIA_DEFINE_PLUGIN( account_by_key, futurepia::account_by_key::account_by_key_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( account_by_key, fiberchain::account_by_key::account_by_key_plugin )

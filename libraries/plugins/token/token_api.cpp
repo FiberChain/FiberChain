@@ -1,14 +1,14 @@
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/token/token_api.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/token/token_api.hpp>
 
 #include <boost/tuple/tuple.hpp>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
    namespace detail {
 
       class token_api_impl {
          public:
-            token_api_impl( futurepia::app::application& app ):_app( app ) {}
+            token_api_impl( fiberchain::app::application& app ):_app( app ) {}
 
             vector< token_balance_api_object > get_token_balance( string& account_name ) const;
             optional< token_api_object > get_token( string& name ) const;
@@ -23,10 +23,10 @@ namespace futurepia { namespace token {
             vector< token_savings_withdraw_api_obj > get_token_savings_withdraw_to( string token, string to ) const;
             vector< token_savings_withdraw_api_obj > lookup_token_savings_withdraw( string token, string from, string to, int req_id, int limit ) const;
 
-            futurepia::chain::database& database() { return *_app.chain_database(); }
+            fiberchain::chain::database& database() { return *_app.chain_database(); }
 
          private:
-            futurepia::app::application& _app;
+            fiberchain::app::application& _app;
       };
 
       vector< token_balance_api_object > token_api_impl::get_token_balance( string& account_name ) const {
@@ -177,7 +177,7 @@ namespace futurepia { namespace token {
 
    } //namespace details
 
-   token_api::token_api( const futurepia::app::api_context& ctx ) {
+   token_api::token_api( const fiberchain::app::api_context& ctx ) {
       _my = std::make_shared< detail::token_api_impl >( ctx.app );
    }
 
@@ -255,4 +255,4 @@ namespace futurepia { namespace token {
       });
    }
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token

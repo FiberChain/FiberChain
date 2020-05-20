@@ -38,9 +38,9 @@
 
 #include <graphene/utilities/key_conversion.hpp>
 
-#include <futurepia/app/api.hpp>
-#include <futurepia/protocol/protocol.hpp>
-#include <futurepia/wallet/wallet.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/protocol/protocol.hpp>
+#include <fiberchain/wallet/wallet.hpp>
 
 #include <fc/interprocess/signals.hpp>
 #include <boost/program_options.hpp>
@@ -59,9 +59,9 @@
 
 
 using namespace graphene::utilities;
-using namespace futurepia::app;
-using namespace futurepia::chain;
-using namespace futurepia::wallet;
+using namespace fiberchain::app;
+using namespace fiberchain::chain;
+using namespace fiberchain::wallet;
 using namespace std;
 namespace bpo = boost::program_options;
 

@@ -1,14 +1,14 @@
-#include <futurepia/dapp/dapp_plugin.hpp>
-#include <futurepia/dapp/dapp_api.hpp>
+#include <fiberchain/dapp/dapp_plugin.hpp>
+#include <fiberchain/dapp/dapp_api.hpp>
 
-#include <futurepia/protocol/hardfork.hpp>
+#include <fiberchain/protocol/hardfork.hpp>
 
-#include <futurepia/chain/generic_custom_operation_interpreter.hpp>
-#include <futurepia/chain/index.hpp>
+#include <fiberchain/chain/generic_custom_operation_interpreter.hpp>
+#include <fiberchain/chain/index.hpp>
 
 #include <memory>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
    namespace detail {
       class dapp_plugin_impl
       {
@@ -17,7 +17,7 @@ namespace futurepia { namespace dapp {
 
             void plugin_initialize();
 
-            futurepia::chain::database& database()
+            fiberchain::chain::database& database()
             {
                return _self.database();
             }
@@ -26,16 +26,16 @@ namespace futurepia { namespace dapp {
             void on_apply_block( const signed_block& b );
 
          private:
-            void aggregate_dapp_approve_vote( futurepia::chain::database& _db );
-            void aggregate_trx_fee_vote( futurepia::chain::database& _db );
+            void aggregate_dapp_approve_vote( fiberchain::chain::database& _db );
+            void aggregate_trx_fee_vote( fiberchain::chain::database& _db );
 
             dapp_plugin&  _self;
-            std::shared_ptr< generic_custom_operation_interpreter< futurepia::dapp::dapp_operation > > _custom_op_interpreter;
+            std::shared_ptr< generic_custom_operation_interpreter< fiberchain::dapp::dapp_operation > > _custom_op_interpreter;
       };
 
       void dapp_plugin_impl::plugin_initialize() 
       {
-         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< futurepia::dapp::dapp_operation > >( database() );
+         _custom_op_interpreter = std::make_shared< generic_custom_operation_interpreter< fiberchain::dapp::dapp_operation > >( database() );
          _custom_op_interpreter->register_evaluator< create_dapp_evaluator >( &_self );
          _custom_op_interpreter->register_evaluator< update_dapp_key_evaluator >( &_self );
          _custom_op_interpreter->register_evaluator< comment_dapp_evaluator >( &_self );
@@ -53,7 +53,7 @@ namespace futurepia { namespace dapp {
          auto& _db = database();
 
          switch( hardfork ) {
-            case FUTUREPIA_HARDFORK_0_2:
+            case FIBERCHAIN_HARDFORK_0_2:
                auto now = _db.head_block_time();
 
                const dynamic_global_property_object& _dgp = _db.get_dynamic_global_properties();
@@ -91,7 +91,7 @@ namespace futurepia { namespace dapp {
          }
       }
 
-      void dapp_plugin_impl::aggregate_dapp_approve_vote( futurepia::chain::database& _db ) {
+      void dapp_plugin_impl::aggregate_dapp_approve_vote( fiberchain::chain::database& _db ) {
          auto now = _db.head_block_time();
          
          const auto& dapp_idx = _db.get_index < dapp_index >().indices().get < by_id >();
@@ -111,12 +111,12 @@ namespace futurepia { namespace dapp {
                   vote_itr++;
                }
 
-               if( approval_count >= FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
+               if( approval_count >= FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
                   _db.modify( *dapp_itr, [&]( dapp_object& object ) {
                      object.dapp_state = dapp_state_type::APPROVAL;
                      object.last_updated = now;
                   });
-               } else if( rejection_count >= FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
+               } else if( rejection_count >= FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS_HF2 ){
                   _db.modify( *dapp_itr, [&]( dapp_object& object ) {
                      object.dapp_state = dapp_state_type::REJECTION;
                      object.last_updated = now;
@@ -153,7 +153,7 @@ namespace futurepia { namespace dapp {
          }
       }
 
-      void dapp_plugin_impl::aggregate_trx_fee_vote ( futurepia::chain::database& _db ) {
+      void dapp_plugin_impl::aggregate_trx_fee_vote ( fiberchain::chain::database& _db ) {
          auto now = _db.head_block_time();
          const dynamic_global_property_object& dgp = _db.get_dynamic_global_properties();
 
@@ -161,7 +161,7 @@ namespace futurepia { namespace dapp {
          auto vote_itr = vote_idx.begin();
          vector< asset > trx_fee_list;
          while( vote_itr != vote_idx.end() ) {
-            if( now < vote_itr->last_update + FUTUREPIA_MAX_FEED_AGE_SECONDS ){
+            if( now < vote_itr->last_update + FIBERCHAIN_MAX_FEED_AGE_SECONDS ){
                trx_fee_list.push_back( vote_itr->trx_fee );
             }
             vote_itr++;
@@ -169,7 +169,7 @@ namespace futurepia { namespace dapp {
 
          dlog( "aggregate_trx_fee_vote : trx_fee_list.size() = ${s}", ( "s", trx_fee_list.size() ) );
 
-         if( trx_fee_list.size() >= FUTUREPIA_MIN_FEEDS ) {
+         if( trx_fee_list.size() >= FIBERCHAIN_MIN_FEEDS ) {
             std::sort( trx_fee_list.begin(), trx_fee_list.end() );
             auto median_value = trx_fee_list[ trx_fee_list.size()/2 ];
 
@@ -183,7 +183,7 @@ namespace futurepia { namespace dapp {
 
       void dapp_plugin_impl::on_apply_block( const signed_block& b ) {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
 
@@ -240,8 +240,8 @@ namespace futurepia { namespace dapp {
       app().register_api_factory< dapp_api >( "dapp_api" );
    }
 
-} } //namespace futurepia::dapp
+} } //namespace fiberchain::dapp
 
-FUTUREPIA_DEFINE_PLUGIN( dapp, futurepia::dapp::dapp_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( dapp, fiberchain::dapp::dapp_plugin )
 
 

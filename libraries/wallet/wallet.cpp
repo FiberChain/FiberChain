@@ -1,16 +1,17 @@
 #include <graphene/utilities/key_conversion.hpp>
 #include <graphene/utilities/words.hpp>
 
-#include <futurepia/app/api.hpp>
-#include <futurepia/protocol/base.hpp>
-#include <futurepia/private_message/private_message_operations.hpp>
-#include <futurepia/token/token_operations.hpp>
-#include <futurepia/dapp/dapp_plugin.hpp>
-#include <futurepia/wallet/wallet.hpp>
-#include <futurepia/wallet/api_documentation.hpp>
-#include <futurepia/wallet/reflect_util.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/protocol/base.hpp>
+#include <fiberchain/private_message/private_message_operations.hpp>
+#include <fiberchain/token/token_operations.hpp>
+#include <fiberchain/dapp/dapp_plugin.hpp>
+#include <fiberchain/wallet/wallet.hpp>
+#include <fiberchain/wallet/api_documentation.hpp>
+#include <fiberchain/wallet/reflect_util.hpp>
+#include <fiberchain/asset_storage/asset_storage_plugin.hpp>
 
-#include <futurepia/account_by_key/account_by_key_api.hpp>
+#include <fiberchain/account_by_key/account_by_key_api.hpp>
 
 #include <algorithm>
 #include <cctype>
@@ -59,7 +60,7 @@
 
 #define BRAIN_KEY_WORD_COUNT 16
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 
 namespace detail {
 
@@ -326,8 +327,8 @@ public:
    variant_object about() const
    {
       fc::mutable_variant_object result;
-      result["blockchain_version"]       = FUTUREPIA_BLOCKCHAIN_VERSION;
-      result["sw_version"]               = FUTUREPIA_VERSION;
+      result["blockchain_version"]       = FIBERCHAIN_BLOCKCHAIN_VERSION;
+      result["sw_version"]               = FIBERCHAIN_VERSION;
       result["compile_date"]             = "compiled on " __DATE__ " at " __TIME__;
       result["boost_version"]            = boost::replace_all_copy(std::string(BOOST_LIB_VERSION), "_", ".");
       result["openssl_version"]          = OPENSSL_VERSION_TEXT;
@@ -399,7 +400,7 @@ public:
       fc::optional<fc::ecc::private_key> optional_private_key = wif_to_key(wif_key);
       if (!optional_private_key)
          FC_THROW("Invalid private key");
-      futurepia::chain::public_key_type wif_pub_key = optional_private_key->get_public_key();
+      fiberchain::chain::public_key_type wif_pub_key = optional_private_key->get_public_key();
 
       _keys[wif_pub_key] = wif_key;
       return true;
@@ -470,7 +471,7 @@ public:
       for (int key_index = 0; ; ++key_index)
       {
          fc::ecc::private_key derived_private_key = derive_private_key(key_to_wif(parent_key), key_index);
-         futurepia::chain::public_key_type derived_public_key = derived_private_key.get_public_key();
+         fiberchain::chain::public_key_type derived_public_key = derived_private_key.get_public_key();
          if( _keys.find(derived_public_key) == _keys.end() )
          {
             if (number_of_consecutive_unused_keys)
@@ -501,7 +502,7 @@ public:
 
    void set_transaction_expiration( uint32_t tx_expiration_seconds )
    {
-      FC_ASSERT( tx_expiration_seconds < FUTUREPIA_MAX_TIME_UNTIL_EXPIRATION );
+      FC_ASSERT( tx_expiration_seconds < FIBERCHAIN_MAX_TIME_UNTIL_EXPIRATION );
       _tx_expiration_seconds = tx_expiration_seconds;
    }
 
@@ -632,7 +633,7 @@ public:
       }
 
       auto minimal_signing_keys = tx.minimize_required_signatures(
-         FUTUREPIA_CHAIN_ID,
+         FIBERCHAIN_CHAIN_ID,
          available_keys,
          [&]( const string& account_name ) -> const authority&
          { return (get_account_from_lut( account_name ).active); },
@@ -640,14 +641,14 @@ public:
          { return (get_account_from_lut( account_name ).owner); },
          [&]( const string& account_name ) -> const authority&
          { return (get_account_from_lut( account_name ).posting); },
-         FUTUREPIA_MAX_SIG_CHECK_DEPTH
+         FIBERCHAIN_MAX_SIG_CHECK_DEPTH
          );
 
       for( const public_key_type& k : minimal_signing_keys )
       {
          auto it = available_private_keys.find(k);
          FC_ASSERT( it != available_private_keys.end() );
-         tx.sign( it->second, FUTUREPIA_CHAIN_ID );
+         tx.sign( it->second, FIBERCHAIN_CHAIN_ID );
       }
 
       if( broadcast ) {
@@ -830,6 +831,15 @@ public:
       catch( const fc::exception& e ) { elog( "Couldn't get account_by_key API" ); throw(e); }
    }
 
+   void use_asset_api()
+   {
+      if (_remote_asset_api.valid())
+         return;
+
+      try { _remote_asset_api = _remote_api->get_api_by_name("asset_storage_api")->as< asset_storage::asset_api >(); }
+      catch (const fc::exception& e) { elog("Couldn't get asset API"); throw(e); }
+   }
+
    void network_add_nodes( const vector<string>& nodes )
    {
       use_network_node_api();
@@ -876,6 +886,7 @@ public:
    optional< fc::api< token::token_api > >                   _remote_token_api;
    optional< fc::api< dapp::dapp_api > >                     _remote_dapp_api;
    optional< fc::api< dapp_history::dapp_history_api > >     _remote_dapp_history_api;
+   optional< fc::api< asset_storage::asset_api > >           _remote_asset_api;
    uint32_t                                                  _tx_expiration_seconds = 30;
 
    flat_map<string, operation>                               _prototype_ops;
@@ -888,11 +899,11 @@ public:
    const string _wallet_filename_extension = ".wallet";
 };  // class wallet_api_impl
 
-} } } // futurepia::wallet::detail
+} } } // fiberchain::wallet::detail
 
 
 
-namespace futurepia { namespace wallet {
+namespace fiberchain { namespace wallet {
 wallet_api::wallet_api(const wallet_data& initial_data, fc::api<login_api> rapi)
    : my(new detail::wallet_api_impl(*this, initial_data, rapi))
 {}
@@ -3018,5 +3029,88 @@ vector< account_balance_api_obj > wallet_api::get_snac_rank( int limit ){
    return my->_remote_db->get_snac_rank( limit );
 }
 
-} } // futurepia::wallet
+annotated_signed_transaction wallet_api::create_asset ( string owner, string name, string data, bool broadcast )
+{
+   try
+   {
+      FC_ASSERT( !is_locked() );
+
+      create_asset_operation operation;
+      operation.owner = owner;
+
+      operation.asset_name = name;
+      operation.asset_data = data;
+
+      asset_storage_operation a_op = operation;
+
+      custom_json_hf2_operation custom_operation;
+      custom_operation.id = ASSET_PLUGIN_NAME;
+      custom_operation.json = fc::json::to_string( a_op );
+      custom_operation.required_active_auths.insert( owner );
+
+      signed_transaction trx;
+      trx.operations.push_back( custom_operation );
+      trx.validate();
+
+      annotated_signed_transaction signed_trx = my->sign_transaction( trx, broadcast );
+
+      return signed_trx;
+   } FC_CAPTURE_AND_RETHROW( ( owner )( name )( data )( broadcast ) )
+}
+
+annotated_signed_transaction wallet_api::create_asset_event ( string author, string asset, string title, string body, bool broadcast )
+{
+   try
+   {
+      FC_ASSERT( !is_locked() );
+
+      create_asset_event_operation operation;
+      operation.author = author;
+
+      operation.asset = asset;
+      operation.title = title;
+      operation.body = body;
+
+      asset_storage_operation a_op = operation;
+
+      custom_json_hf2_operation custom_operation;
+      custom_operation.id = ASSET_PLUGIN_NAME;
+      custom_operation.json = fc::json::to_string( a_op );
+      custom_operation.required_active_auths.insert( author );
+
+      signed_transaction trx;
+      trx.operations.push_back( custom_operation );
+      trx.validate();
+
+      annotated_signed_transaction signed_trx = my->sign_transaction( trx, broadcast );
+
+      return signed_trx;
+   } FC_CAPTURE_AND_RETHROW( ( author )( asset )( title )( body )( broadcast ) )
+}
+
+optional< asset_api_object > wallet_api::get_asset_by_name( string asset_name )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_asset_by_name( asset_name );
+   return result;
+}
+
+vector< asset_api_object > wallet_api::get_assets_by_owner( string owner )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_assets_by_owner( owner );
+   return result;
+}
+
+vector< asset_event_api_object > wallet_api::get_asset_events( string asset_name )
+{
+   FC_ASSERT( !is_locked() );
+   my->use_asset_api();
+   auto result = ( *my->_remote_asset_api )->get_asset_events( asset_name );
+   return result;
+}
+
+} } // fiberchain::wallet
 

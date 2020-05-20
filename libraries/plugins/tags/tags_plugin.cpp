@@ -1,14 +1,14 @@
-#include <futurepia/tags/tags_plugin.hpp>
+#include <fiberchain/tags/tags_plugin.hpp>
 
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/impacted.hpp>
 
-#include <futurepia/protocol/config.hpp>
+#include <fiberchain/protocol/config.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/operation_notification.hpp>
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/comment_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/comment_object.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/thread/thread.hpp>
@@ -18,11 +18,11 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/algorithm/string.hpp>
 
-namespace futurepia { namespace tags {
+namespace fiberchain { namespace tags {
 
 namespace detail {
 
-using namespace futurepia::protocol;
+using namespace fiberchain::protocol;
 
 class tags_plugin_impl
 {
@@ -32,7 +32,7 @@ class tags_plugin_impl
       { }
       virtual ~tags_plugin_impl();
 
-      futurepia::chain::database& database()
+      fiberchain::chain::database& database()
       {
          return _self.database();
       }
@@ -306,6 +306,6 @@ void tags_plugin::plugin_startup()
 {
 }
 
-} } /// futurepia::tags
+} } /// fiberchain::tags
 
-FUTUREPIA_DEFINE_PLUGIN( tags, futurepia::tags::tags_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( tags, fiberchain::tags::tags_plugin )

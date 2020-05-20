@@ -1,6 +1,6 @@
 
-#include <futurepia/protocol/transaction.hpp>
-#include <futurepia/protocol/exceptions.hpp>
+#include <fiberchain/protocol/transaction.hpp>
+#include <fiberchain/protocol/exceptions.hpp>
 
 #include <fc/io/raw.hpp>
 #include <fc/bitutil.hpp>
@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 digest_type signed_transaction::merkle_digest()const
 {
@@ -39,7 +39,7 @@ void transaction::validate() const
       operation_validate(op);
 }
 
-futurepia::protocol::transaction_id_type futurepia::protocol::transaction::id() const
+fiberchain::protocol::transaction_id_type fiberchain::protocol::transaction::id() const
 {
    auto h = digest();
    transaction_id_type result;
@@ -47,14 +47,14 @@ futurepia::protocol::transaction_id_type futurepia::protocol::transaction::id() 
    return result;
 }
 
-const signature_type& futurepia::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)
+const signature_type& fiberchain::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)
 {
    digest_type h = sig_digest( chain_id );
    signatures.push_back(key.sign_compact(h));
    return signatures.back();
 }
 
-signature_type futurepia::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)const
+signature_type fiberchain::protocol::signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)const
 {
    digest_type::encoder enc;
    fc::raw::pack( enc, chain_id );
@@ -119,7 +119,7 @@ void verify_authority( const vector<operation>& ops, const flat_set<public_key_t
          s.approved_by.insert( id );
       for( auto id : required_posting )
       {
-         FUTUREPIA_ASSERT( s.check_authority(id) ||
+         FIBERCHAIN_ASSERT( s.check_authority(id) ||
                           s.check_authority(get_active(id)) ||
                           s.check_authority(get_owner(id)),
                           tx_missing_posting_auth, "Missing Posting Authority ${id}",
@@ -128,7 +128,7 @@ void verify_authority( const vector<operation>& ops, const flat_set<public_key_t
                           ("active",get_active(id))
                           ("owner",get_owner(id)) );
       }
-      FUTUREPIA_ASSERT(
+      FIBERCHAIN_ASSERT(
          !s.remove_unused_signatures(),
          tx_irrelevant_sig,
          "Unnecessary signature(s) detected"
@@ -146,25 +146,25 @@ void verify_authority( const vector<operation>& ops, const flat_set<public_key_t
 
    for( const auto& auth : other )
    {
-      FUTUREPIA_ASSERT( s.check_authority(auth), tx_missing_other_auth, "Missing Authority", ("auth",auth)("sigs",sigs) );
+      FIBERCHAIN_ASSERT( s.check_authority(auth), tx_missing_other_auth, "Missing Authority", ("auth",auth)("sigs",sigs) );
    }
 
    // fetch all of the top level authorities
    for( auto id : required_active )
    {
-      FUTUREPIA_ASSERT( s.check_authority(id) ||
+      FIBERCHAIN_ASSERT( s.check_authority(id) ||
                        s.check_authority(get_owner(id)),
                        tx_missing_active_auth, "Missing Active Authority ${id}", ("id",id)("auth",get_active(id))("owner",get_owner(id)) );
    }
 
    for( auto id : required_owner )
    {
-      FUTUREPIA_ASSERT( owner_approvals.find(id) != owner_approvals.end() ||
+      FIBERCHAIN_ASSERT( owner_approvals.find(id) != owner_approvals.end() ||
                        s.check_authority(get_owner(id)),
                        tx_missing_owner_auth, "Missing Owner Authority ${id}", ("id",id)("auth",get_owner(id)) );
    }
 
-   FUTUREPIA_ASSERT(
+   FIBERCHAIN_ASSERT(
       !s.remove_unused_signatures(),
       tx_irrelevant_sig,
       "Unnecessary signature(s) detected"
@@ -178,7 +178,7 @@ flat_set<public_key_type> signed_transaction::get_signature_keys( const chain_id
    flat_set<public_key_type> result;
    for( const auto&  sig : signatures )
    {
-      FUTUREPIA_ASSERT(
+      FIBERCHAIN_ASSERT(
          result.insert( fc::ecc::public_key(sig,d) ).second,
          tx_duplicate_sig,
          "Duplicate Signature detected" );
@@ -262,7 +262,7 @@ set<public_key_type> signed_transaction::minimize_required_signatures(
       result.erase( k );
       try
       {
-         futurepia::protocol::verify_authority( operations, result, get_active, get_owner, get_posting, max_recursion );
+         fiberchain::protocol::verify_authority( operations, result, get_active, get_owner, get_posting, max_recursion );
          continue;  // element stays erased if verify_authority is ok
       }
       catch( const tx_missing_owner_auth& e ) {}
@@ -281,7 +281,7 @@ void signed_transaction::verify_authority(
    const authority_getter& get_posting,
    uint32_t max_recursion )const
 { try {
-   futurepia::protocol::verify_authority( operations, get_signature_keys( chain_id ), get_active, get_owner, get_posting, max_recursion );
+   fiberchain::protocol::verify_authority( operations, get_signature_keys( chain_id ), get_active, get_owner, get_posting, max_recursion );
 } FC_CAPTURE_AND_RETHROW( (*this) ) }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

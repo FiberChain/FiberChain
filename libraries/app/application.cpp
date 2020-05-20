@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <futurepia/app/api.hpp>
-#include <futurepia/app/api_access.hpp>
-#include <futurepia/app/application.hpp>
-#include <futurepia/app/plugin.hpp>
+#include <fiberchain/app/api.hpp>
+#include <fiberchain/app/api_access.hpp>
+#include <fiberchain/app/application.hpp>
+#include <fiberchain/app/plugin.hpp>
 
-#include <futurepia/chain/futurepia_objects.hpp>
-#include <futurepia/chain/futurepia_object_types.hpp>
-#include <futurepia/chain/database_exceptions.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
+#include <fiberchain/chain/fiberchain_object_types.hpp>
+#include <fiberchain/chain/database_exceptions.hpp>
 
 #include <fc/time.hpp>
 
@@ -59,7 +59,7 @@
 
 #include <boost/range/adaptor/reversed.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 using graphene::net::item_hash_t;
 using graphene::net::item_id;
 using graphene::net::message;
@@ -278,7 +278,7 @@ namespace detail {
          if( !read_only )
          {
             _self->_read_only = false;
-            ilog( "Starting Futurepia node in write mode." );
+            ilog( "Starting Fiberchain node in write mode." );
             _max_block_age =_options->at("max-block-age").as<int32_t>();
 
             if( _options->count("resync-blockchain") )
@@ -308,7 +308,7 @@ namespace detail {
             {
                try
                {
-                  _chain_db->open(_data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
+                  _chain_db->open(_data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
                }
                catch( fc::assert_exception& )
                {
@@ -321,7 +321,7 @@ namespace detail {
                   catch( chain::block_log_exception& )
                   {
                      wlog( "Error opening block log. Having to resync from network..." );
-                     _chain_db->open( _data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
+                     _chain_db->open( _data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_write );
                   }
                }
             }
@@ -334,8 +334,8 @@ namespace detail {
          }
          else
          {
-            ilog( "Starting Futurepia node in read mode." );
-            _chain_db->open( _data_dir / "blockchain", _shared_dir, FUTUREPIA_INIT_SUPPLY, _shared_file_size, chainbase::database::read_only );
+            ilog( "Starting Fiberchain node in read mode." );
+            _chain_db->open( _data_dir / "blockchain", _shared_dir, FIBERCHAIN_INIT_SUPPLY, _shared_file_size, chainbase::database::read_only );
 
             if( _options->count( "read-forward-rpc" ) )
             {
@@ -514,7 +514,7 @@ namespace detail {
                }
 
                return result;
-            } catch ( const futurepia::chain::unlinkable_block_exception& e ) {
+            } catch ( const fiberchain::chain::unlinkable_block_exception& e ) {
                // translate to a graphene::net exception
                fc_elog(fc::logger::get("sync"),
                      "Error when pushing block, current head block is ${head}:\n${e}",
@@ -913,7 +913,7 @@ namespace detail {
       api_access _apiaccess;
 
       //std::shared_ptr<graphene::db::object_database>   _pending_trx_db;
-      std::shared_ptr<futurepia::chain::database>        _chain_db;
+      std::shared_ptr<fiberchain::chain::database>        _chain_db;
       std::shared_ptr<graphene::net::node>             _p2p_network;
       std::shared_ptr<fc::http::websocket_server>      _websocket_server;
       std::shared_ptr<fc::http::websocket_tls_server>  _websocket_tls_server;
@@ -957,7 +957,6 @@ void application::set_program_options(boost::program_options::options_descriptio
                                       boost::program_options::options_description& configuration_file_options) const
 {
    std::vector< std::string > default_seed_nodes;
-   default_seed_nodes.push_back( "testnet.futurepia.io:14001" );
    std::string str_default_seed_nodes = boost::algorithm::join( default_seed_nodes, " " );
 
    std::vector< std::string > default_apis;
@@ -968,6 +967,7 @@ void application::set_program_options(boost::program_options::options_descriptio
    default_apis.push_back( "dapp_api" );
    default_apis.push_back( "token_api" );
    default_apis.push_back( "dapp_history_api" );
+   default_apis.push_back( "asset_storage_api" );
    std::string str_default_apis = boost::algorithm::join( default_apis, " " );
 
    std::vector< std::string > default_plugins;
@@ -978,6 +978,7 @@ void application::set_program_options(boost::program_options::options_descriptio
    default_plugins.push_back( "dapp" );
    default_plugins.push_back( "token" );
    default_plugins.push_back( "dapp_history" );
+   default_plugins.push_back( "asset_storage" );
    std::string str_default_plugins = boost::algorithm::join( default_plugins, " " );
 
    configuration_file_options.add_options()

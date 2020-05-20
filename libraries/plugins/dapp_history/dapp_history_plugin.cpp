@@ -1,13 +1,13 @@
-#include <futurepia/dapp_history/dapp_history_plugin.hpp>
-#include <futurepia/dapp_history/dapp_impacted.hpp>
-#include <futurepia/dapp_history/dapp_history_objects.hpp>
-#include <futurepia/dapp_history/dapp_history_api.hpp>
+#include <fiberchain/dapp_history/dapp_history_plugin.hpp>
+#include <fiberchain/dapp_history/dapp_impacted.hpp>
+#include <fiberchain/dapp_history/dapp_history_objects.hpp>
+#include <fiberchain/dapp_history/dapp_history_api.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/history_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/history_object.hpp>
 
-namespace futurepia { namespace dapp_history {
+namespace fiberchain { namespace dapp_history {
 
    namespace detail {
       class dapp_history_plugin_impl
@@ -15,7 +15,7 @@ namespace futurepia { namespace dapp_history {
          public:
             dapp_history_plugin_impl( dapp_history_plugin& _plugin ) : _self( _plugin ) {}
 
-            futurepia::chain::database& database() {
+            fiberchain::chain::database& database() {
                return _self.database();
             }
             void on_pre_operation( const operation_notification& note );
@@ -86,7 +86,7 @@ namespace futurepia { namespace dapp_history {
 
       void dapp_history_plugin_impl::on_pre_operation( const operation_notification& note ){
          flat_set< dapp_name_type > impacted;
-         futurepia::chain::database& db = database();
+         fiberchain::chain::database& db = database();
 
          const operation_object* new_obj = nullptr;
          operation_get_impacted_dapp( note.op, db, impacted );
@@ -118,8 +118,8 @@ namespace futurepia { namespace dapp_history {
       app().register_api_factory< dapp_history_api >( "dapp_history_api" );
    }
 
-} } //namespace futurepia::dapp_history
+} } //namespace fiberchain::dapp_history
 
-FUTUREPIA_DEFINE_PLUGIN( dapp_history, futurepia::dapp_history::dapp_history_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( dapp_history, fiberchain::dapp_history::dapp_history_plugin )
 
 

@@ -1,16 +1,16 @@
-#include <futurepia/dapp_history/dapp_history_api.hpp>
+#include <fiberchain/dapp_history/dapp_history_api.hpp>
 
-namespace futurepia { namespace dapp_history {
+namespace fiberchain { namespace dapp_history {
    namespace detail {
       class dapp_history_api_impl
       {
          public:
-            dapp_history_api_impl( futurepia::app::application& app ):_app( app ) {}
+            dapp_history_api_impl( fiberchain::app::application& app ):_app( app ) {}
             map< uint32_t, applied_operation > get_dapp_history( string dapp_name, uint64_t from, uint32_t limit )const;
-            futurepia::chain::database& database() { return *_app.chain_database(); }
+            fiberchain::chain::database& database() { return *_app.chain_database(); }
 
          private:
-            futurepia::app::application& _app;
+            fiberchain::app::application& _app;
       };
 
       
@@ -33,7 +33,7 @@ namespace futurepia { namespace dapp_history {
 
    } //namespace details
 
-   dapp_history_api::dapp_history_api( const futurepia::app::api_context& ctx ) {
+   dapp_history_api::dapp_history_api( const fiberchain::app::api_context& ctx ) {
       _my = std::make_shared< detail::dapp_history_api_impl >( ctx.app );
    }
 
@@ -45,4 +45,4 @@ namespace futurepia { namespace dapp_history {
       });
    }
 
-} } //namespace futurepia::dapp_history
+} } //namespace fiberchain::dapp_history

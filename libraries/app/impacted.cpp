@@ -22,19 +22,19 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/custom_operation_interpreter.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/custom_operation_interpreter.hpp>
 
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/impacted.hpp>
 
 #include <fc/utility.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 using namespace fc;
-using namespace futurepia::protocol;
+using namespace fiberchain::protocol;
 
 // TODO:  Review all of these, especially no-ops
 struct get_impacted_account_visitor
@@ -315,6 +315,7 @@ void get_impacted_account_from_custom( const custom_json_hf2_operation& op, flat
    auto var = fc::json::from_string( op.json );
 
    process_inner_operation< dapp_operation >( var, get_account_visitor_from_custom( result ) );
+   process_inner_operation< asset_storage_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< token_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< private_message_plugin_operation >( var, get_account_visitor_from_custom( result ) );
    process_inner_operation< bobserver_plugin_operation >( var, get_account_visitor_from_custom( result ) );

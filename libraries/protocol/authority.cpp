@@ -1,6 +1,6 @@
-#include <futurepia/protocol/authority.hpp>
+#include <fiberchain/protocol/authority.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
 // authority methods
 void authority::add_authority( const public_key_type& k, weight_type w )
@@ -45,15 +45,15 @@ void authority::validate()const
 
 bool is_valid_account_name( const string& name )
 {
-#if FUTUREPIA_MIN_ACCOUNT_NAME_LENGTH < 3
+#if FIBERCHAIN_MIN_ACCOUNT_NAME_LENGTH < 3
 #error This is_valid_account_name implementation implicitly enforces minimum name length of 3.
 #endif
 
    const size_t len = name.size();
-   if( len < FUTUREPIA_MIN_ACCOUNT_NAME_LENGTH )
+   if( len < FIBERCHAIN_MIN_ACCOUNT_NAME_LENGTH )
       return false;
 
-   if( len > FUTUREPIA_MAX_ACCOUNT_NAME_LENGTH )
+   if( len > FIBERCHAIN_MAX_ACCOUNT_NAME_LENGTH )
       return false;
 
    size_t begin = 0;
@@ -116,4 +116,4 @@ bool operator == ( const authority& a, const authority& b )
             ( a.key_auths      == b.key_auths );
 }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

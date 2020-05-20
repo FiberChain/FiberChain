@@ -1,26 +1,26 @@
-#include <futurepia/protocol/futurepia_operations.hpp>
+#include <fiberchain/protocol/fiberchain_operations.hpp>
 
-#include <futurepia/chain/block_summary_object.hpp>
-#include <futurepia/chain/compound.hpp>
-#include <futurepia/chain/custom_operation_interpreter.hpp>
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/database_exceptions.hpp>
-#include <futurepia/chain/db_with.hpp>
-#include <futurepia/chain/evaluator_registry.hpp>
-#include <futurepia/chain/global_property_object.hpp>
-#include <futurepia/chain/history_object.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/futurepia_evaluator.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
-#include <futurepia/chain/transaction_object.hpp>
-#include <futurepia/chain/shared_db_merkle.hpp>
-#include <futurepia/chain/operation_notification.hpp>
-#include <futurepia/chain/bobserver_schedule.hpp>
+#include <fiberchain/chain/block_summary_object.hpp>
+#include <fiberchain/chain/compound.hpp>
+#include <fiberchain/chain/custom_operation_interpreter.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/database_exceptions.hpp>
+#include <fiberchain/chain/db_with.hpp>
+#include <fiberchain/chain/evaluator_registry.hpp>
+#include <fiberchain/chain/global_property_object.hpp>
+#include <fiberchain/chain/history_object.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/fiberchain_evaluator.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
+#include <fiberchain/chain/transaction_object.hpp>
+#include <fiberchain/chain/shared_db_merkle.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
+#include <fiberchain/chain/bobserver_schedule.hpp>
 
-#include <futurepia/chain/util/asset.hpp>
-#include <futurepia/chain/util/reward.hpp>
-#include <futurepia/chain/util/uint256.hpp>
-#include <futurepia/chain/util/reward.hpp>
+#include <fiberchain/chain/util/asset.hpp>
+#include <fiberchain/chain/util/reward.hpp>
+#include <fiberchain/chain/util/uint256.hpp>
+#include <fiberchain/chain/util/reward.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/uint128.hpp>
@@ -34,7 +34,7 @@
 #include <fstream>
 #include <functional>
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 //namespace db2 = graphene::db2;
 
@@ -60,11 +60,11 @@ struct db_schema
 
 } }
 
-FC_REFLECT( futurepia::chain::object_schema_repr, (space_type)(type) )
-FC_REFLECT( futurepia::chain::operation_schema_repr, (id)(type) )
-FC_REFLECT( futurepia::chain::db_schema, (types)(object_types)(operation_type)(custom_operation_types) )
+FC_REFLECT( fiberchain::chain::object_schema_repr, (space_type)(type) )
+FC_REFLECT( fiberchain::chain::operation_schema_repr, (id)(type) )
+FC_REFLECT( fiberchain::chain::db_schema, (types)(object_types)(operation_type)(custom_operation_types) )
 
-namespace futurepia { namespace chain {
+namespace fiberchain { namespace chain {
 
 using boost::container::flat_set;
 
@@ -143,11 +143,11 @@ void database::reindex( const fc::path& data_dir, const fc::path& shared_mem_dir
    {
       ilog( "Reindexing Blockchain" );
       wipe( data_dir, shared_mem_dir, false );
-      open( data_dir, shared_mem_dir, FUTUREPIA_INIT_SUPPLY, shared_file_size, chainbase::database::read_write );
+      open( data_dir, shared_mem_dir, FIBERCHAIN_INIT_SUPPLY, shared_file_size, chainbase::database::read_write );
       _fork_db.reset();    // override effect of _fork_db.start_block() call in open()
 
       auto start = fc::time_point::now();
-      FUTUREPIA_ASSERT( _block_log.head(), block_log_exception, "No blocks in block log. Cannot reindex an empty chain." );
+      FIBERCHAIN_ASSERT( _block_log.head(), block_log_exception, "No blocks in block log. Cannot reindex an empty chain." );
 
       ilog( "Replaying blocks..." );
 
@@ -339,7 +339,7 @@ std::vector< block_id_type > database::get_block_ids_on_fork( block_id_type head
 
 chain_id_type database::get_chain_id() const
 {
-   return FUTUREPIA_CHAIN_ID;
+   return FIBERCHAIN_CHAIN_ID;
 }
 
 const bobserver_object& database::get_bobserver( const account_name_type& name ) const
@@ -435,7 +435,7 @@ const hardfork_property_object& database::get_hardfork_property_object()const
 uint32_t database::bobserver_participation_rate()const
 {
    const dynamic_global_property_object& dpo = get_dynamic_global_properties();
-   return uint64_t(FUTUREPIA_100_PERCENT) * dpo.recent_slots_filled.popcount() / 128;
+   return uint64_t(FIBERCHAIN_100_PERCENT) * dpo.recent_slots_filled.popcount() / 128;
 }
 
 void database::add_checkpoints( const flat_map< uint32_t, block_id_type >& checkpts )
@@ -680,7 +680,7 @@ signed_block database::_generate_block(
       FC_ASSERT( bobserver_obj.signing_key == block_signing_private_key.get_public_key() );
 
    static const size_t max_block_header_size = fc::raw::pack_size( signed_block_header() ) + 4;
-   auto maximum_block_size = get_dynamic_global_properties().maximum_block_size; //FUTUREPIA_MAX_BLOCK_SIZE;
+   auto maximum_block_size = get_dynamic_global_properties().maximum_block_size; //FIBERCHAIN_MAX_BLOCK_SIZE;
    size_t total_block_size = max_block_header_size;
 
    signed_block pending_block;
@@ -757,22 +757,22 @@ signed_block database::_generate_block(
 
    const auto& bobserver = get_bobserver( bobserver_owner );
 
-   if( bobserver.running_version != FUTUREPIA_BLOCKCHAIN_VERSION )
-      pending_block.extensions.insert( block_header_extensions( FUTUREPIA_BLOCKCHAIN_VERSION ) );
+   if( bobserver.running_version != FIBERCHAIN_BLOCKCHAIN_VERSION )
+      pending_block.extensions.insert( block_header_extensions( FIBERCHAIN_BLOCKCHAIN_VERSION ) );
 
    const auto& hfp = get_hardfork_property_object();
 
    if (bobserver.is_bproducer) 
    {
-      if( hfp.current_hardfork_version < FUTUREPIA_BLOCKCHAIN_HARDFORK_VERSION // Binary is newer hardfork than has been applied
+      if( hfp.current_hardfork_version < FIBERCHAIN_BLOCKCHAIN_HARDFORK_VERSION // Binary is newer hardfork than has been applied
             && ( bobserver.hardfork_version_vote != _hardfork_versions[ hfp.last_hardfork + 1 ] 
             || bobserver.hardfork_time_vote != _hardfork_times[ hfp.last_hardfork + 1 ] ) ) // Bobserver vote does not match binary configuration
       {
             // Make vote match binary configuration
             pending_block.extensions.insert( block_header_extensions( hardfork_version_vote( _hardfork_versions[ hfp.last_hardfork + 1 ], _hardfork_times[ hfp.last_hardfork + 1 ] ) ) );
       }
-      else if( hfp.current_hardfork_version == FUTUREPIA_BLOCKCHAIN_HARDFORK_VERSION // Binary does not know of a new hardfork
-            && bobserver.hardfork_version_vote > FUTUREPIA_BLOCKCHAIN_HARDFORK_VERSION ) // Voting for hardfork in the future, that we do not know of...
+      else if( hfp.current_hardfork_version == FIBERCHAIN_BLOCKCHAIN_HARDFORK_VERSION // Binary does not know of a new hardfork
+            && bobserver.hardfork_version_vote > FIBERCHAIN_BLOCKCHAIN_HARDFORK_VERSION ) // Voting for hardfork in the future, that we do not know of...
       {
             // Make vote match binary configuration. This is vote to not apply the new hardfork.
             pending_block.extensions.insert( block_header_extensions( hardfork_version_vote( _hardfork_versions[ hfp.last_hardfork ], _hardfork_times[ hfp.last_hardfork ] ) ) );
@@ -785,7 +785,7 @@ signed_block database::_generate_block(
    // TODO:  Move this to _push_block() so session is restored.
    if( !(skip & skip_block_size_check) )
    {
-      FC_ASSERT( fc::raw::pack_size(pending_block) <= FUTUREPIA_MAX_BLOCK_SIZE );
+      FC_ASSERT( fc::raw::pack_size(pending_block) <= FIBERCHAIN_MAX_BLOCK_SIZE );
    }
 
    push_block( pending_block, skip );
@@ -806,7 +806,7 @@ void database::pop_block()
 
       /// save the head block so we can recover its transactions
       optional<signed_block> head_block = fetch_block_by_id( head_id );
-      FUTUREPIA_ASSERT( head_block.valid(), pop_empty_chain, "there are no blocks to pop" );
+      FIBERCHAIN_ASSERT( head_block.valid(), pop_empty_chain, "there are no blocks to pop" );
 
       _fork_db.pop_block();
       undo();
@@ -835,12 +835,12 @@ void database::notify_pre_apply_operation( operation_notification& note )
    note.trx_in_block = _current_trx_in_block;
    note.op_in_trx    = _current_op_in_trx;
 
-   FUTUREPIA_TRY_NOTIFY( pre_apply_operation, note )
+   FIBERCHAIN_TRY_NOTIFY( pre_apply_operation, note )
 }
 
 void database::notify_post_apply_operation( const operation_notification& note )
 {
-   FUTUREPIA_TRY_NOTIFY( post_apply_operation, note )
+   FIBERCHAIN_TRY_NOTIFY( post_apply_operation, note )
 }
 
 void database::push_virtual_operation( const operation& op, bool force )
@@ -855,31 +855,31 @@ void database::push_virtual_operation( const operation& op, bool force )
 
 void database::notify_applied_block( const signed_block& block )
 {
-   FUTUREPIA_TRY_NOTIFY( applied_block, block )
+   FIBERCHAIN_TRY_NOTIFY( applied_block, block )
 }
 
 void database::notify_pre_apply_block( const signed_block& block )
 {
-   FUTUREPIA_TRY_NOTIFY( pre_apply_block, block )
+   FIBERCHAIN_TRY_NOTIFY( pre_apply_block, block )
 }
 
 void database::notify_on_pending_transaction( const signed_transaction& tx )
 {
-   FUTUREPIA_TRY_NOTIFY( on_pending_transaction, tx )
+   FIBERCHAIN_TRY_NOTIFY( on_pending_transaction, tx )
 }
 
 void database::notify_on_pre_apply_transaction( const signed_transaction& tx )
 {
-   FUTUREPIA_TRY_NOTIFY( on_pre_apply_transaction, tx )
+   FIBERCHAIN_TRY_NOTIFY( on_pre_apply_transaction, tx )
 }
 
 void database::notify_on_applied_transaction( const signed_transaction& tx )
 {
-   FUTUREPIA_TRY_NOTIFY( on_applied_transaction, tx )
+   FIBERCHAIN_TRY_NOTIFY( on_applied_transaction, tx )
 }
 
 void database::notify_on_apply_hardfork( const uint32_t hardfork ){
-   FUTUREPIA_TRY_NOTIFY( on_apply_hardfork, hardfork )
+   FIBERCHAIN_TRY_NOTIFY( on_apply_hardfork, hardfork )
 }
 
 account_name_type database::get_scheduled_bobserver( uint32_t slot_num )const
@@ -895,7 +895,7 @@ fc::time_point_sec database::get_slot_time(uint32_t slot_num)const
    if( slot_num == 0 )
       return fc::time_point_sec();
 
-   auto interval = FUTUREPIA_BLOCK_INTERVAL;
+   auto interval = FIBERCHAIN_BLOCK_INTERVAL;
    const dynamic_global_property_object& dpo = get_dynamic_global_properties();
 
    if( head_block_num() == 0 )
@@ -920,7 +920,7 @@ uint32_t database::get_slot_at_time(fc::time_point_sec when)const
    fc::time_point_sec first_slot_time = get_slot_time( 1 );
    if( when < first_slot_time )
       return 0;
-   return (when - first_slot_time).to_seconds() / FUTUREPIA_BLOCK_INTERVAL + 1;
+   return (when - first_slot_time).to_seconds() / FIBERCHAIN_BLOCK_INTERVAL + 1;
 }
 
 void database::adjust_bobserver_vote( const bobserver_object& bobserver, share_type delta )
@@ -950,7 +950,7 @@ void database::clear_bobserver_votes( const account_object& a )
 
 void database::clear_null_account_balance()
 {
-   const auto& null_account = get_account( FUTUREPIA_NULL_ACCOUNT );
+   const auto& null_account = get_account( FIBERCHAIN_NULL_ACCOUNT );
    asset total_pia( 0, PIA_SYMBOL );
    asset total_snac( 0, SNAC_SYMBOL );
 
@@ -987,7 +987,7 @@ void database::clear_null_account_balance()
 
 void database::update_owner_authority( const account_object& account, const authority& owner_authority )
 {
-   if( head_block_num() >= FUTUREPIA_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM )
+   if( head_block_num() >= FIBERCHAIN_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM )
    {
       create< owner_authority_history_object >( [&]( owner_authority_history_object& hist )
       {
@@ -1009,7 +1009,7 @@ void database::process_funds()
    const auto& props = get_dynamic_global_properties();
    const auto& bobserver = get_bobserver( props.current_bobserver );
 
-   if( has_hardfork( FUTUREPIA_HARDFORK_0_2 ) )  // process reward about dapp
+   if( has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) )  // process reward about dapp
    {
       account_name_type reward_account;
       if( bobserver.is_bproducer ) {
@@ -1100,7 +1100,7 @@ void database::process_savings_withdraws()
             s.memo            = memo;
 #endif
             s.request_id      = request_id;
-            s.complete        = complete + FUTUREPIA_TRANSFER_SAVINGS_CYCLE;
+            s.complete        = complete + FIBERCHAIN_TRANSFER_SAVINGS_CYCLE;
          });
       }
    }
@@ -1148,7 +1148,7 @@ void database::process_exchange_withdraws()
          break;
 
       const auto& owner  = get_account( itr->from );
-      const auto& fowner = get_account( FUTUREPIA_EXCHANGE_FEE_OWNER );
+      const auto& fowner = get_account( FIBERCHAIN_EXCHANGE_FEE_OWNER );
       asset amount = itr->amount;
 
       try
@@ -1158,10 +1158,10 @@ void database::process_exchange_withdraws()
             adjust_exchange_balance( owner, -amount );           
             asset snac = to_snac( amount );
 
-            if (snac > FUTUREPIA_EXCHANGE_FEE)
+            if (snac > FIBERCHAIN_EXCHANGE_FEE)
             {
-               snac -= FUTUREPIA_EXCHANGE_FEE;
-               adjust_balance( fowner, FUTUREPIA_EXCHANGE_FEE );
+               snac -= FIBERCHAIN_EXCHANGE_FEE;
+               adjust_balance( fowner, FIBERCHAIN_EXCHANGE_FEE );
             }
             else
             {   
@@ -1178,10 +1178,10 @@ void database::process_exchange_withdraws()
             adjust_exchange_balance( owner, -amount );
             asset snac = amount;
 
-            if ( snac > FUTUREPIA_EXCHANGE_FEE)
+            if ( snac > FIBERCHAIN_EXCHANGE_FEE)
             {           
-               snac -= FUTUREPIA_EXCHANGE_FEE;
-               adjust_balance( fowner, FUTUREPIA_EXCHANGE_FEE );
+               snac -= FIBERCHAIN_EXCHANGE_FEE;
+               adjust_balance( fowner, FIBERCHAIN_EXCHANGE_FEE );
             }
             else
             {
@@ -1232,7 +1232,7 @@ void database::account_recovery_processing()
    const auto& hist_idx = get_index< owner_authority_history_index >().indices(); //by id
    auto hist = hist_idx.begin();
 
-   while( hist != hist_idx.end() && time_point_sec( hist->last_valid_time + FUTUREPIA_OWNER_AUTH_RECOVERY_PERIOD ) < head_block_time() )
+   while( hist != hist_idx.end() && time_point_sec( hist->last_valid_time + FIBERCHAIN_OWNER_AUTH_RECOVERY_PERIOD ) < head_block_time() )
    {
       remove( *hist );
       hist = hist_idx.begin();
@@ -1468,53 +1468,53 @@ void database::init_genesis( uint64_t init_supply )
       } inhibitor(*this);
 
       // Create blockchain accounts
-      public_key_type      init_public_key(FUTUREPIA_INIT_PUBLIC_KEY);
+      public_key_type      init_public_key(FIBERCHAIN_INIT_PUBLIC_KEY);
 
       create< account_object >( [&]( account_object& a )
       {
-         a.name = FUTUREPIA_MINER_ACCOUNT;
+         a.name = FIBERCHAIN_MINER_ACCOUNT;
       } );
       create< account_authority_object >( [&]( account_authority_object& auth )
       {
-         auth.account = FUTUREPIA_MINER_ACCOUNT;
+         auth.account = FIBERCHAIN_MINER_ACCOUNT;
          auth.owner.weight_threshold = 1;
          auth.active.weight_threshold = 1;
       });
 
       create< account_object >( [&]( account_object& a )
       {
-         a.name = FUTUREPIA_NULL_ACCOUNT;
+         a.name = FIBERCHAIN_NULL_ACCOUNT;
       } );
       create< account_authority_object >( [&]( account_authority_object& auth )
       {
-         auth.account = FUTUREPIA_NULL_ACCOUNT;
+         auth.account = FIBERCHAIN_NULL_ACCOUNT;
          auth.owner.weight_threshold = 1;
          auth.active.weight_threshold = 1;
       });
 
       create< account_object >( [&]( account_object& a )
       {
-         a.name = FUTUREPIA_TEMP_ACCOUNT;
+         a.name = FIBERCHAIN_TEMP_ACCOUNT;
       } );
       create< account_authority_object >( [&]( account_authority_object& auth )
       {
-         auth.account = FUTUREPIA_TEMP_ACCOUNT;
+         auth.account = FIBERCHAIN_TEMP_ACCOUNT;
          auth.owner.weight_threshold = 0;
          auth.active.weight_threshold = 0;
       });
 
-      for( int i = 0; i < FUTUREPIA_NUM_INIT_MINERS; ++i )
+      for( int i = 0; i < FIBERCHAIN_NUM_INIT_MINERS; ++i )
       {
          create< account_object >( [&]( account_object& a )
          {
-            a.name = FUTUREPIA_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
+            a.name = FIBERCHAIN_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
             a.memo_key = init_public_key;
             a.balance  = asset( i ? 0 : init_supply, PIA_SYMBOL );
          } );
 
          create< account_authority_object >( [&]( account_authority_object& auth )
          {
-            auth.account = FUTUREPIA_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
+            auth.account = FIBERCHAIN_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
             auth.owner.add_authority( init_public_key, 1 );
             auth.owner.weight_threshold = 1;
             auth.active  = auth.owner;
@@ -1523,34 +1523,34 @@ void database::init_genesis( uint64_t init_supply )
 
          create< bobserver_object >( [&]( bobserver_object& w )
          {
-            w.account      = FUTUREPIA_INIT_MINER_NAME + ( i ? fc::to_string(i) : std::string() );
+            w.account      = FIBERCHAIN_INIT_MINER_NAME + ( i ? fc::to_string(i) : std::string() );
             w.signing_key  = init_public_key;
          } );
       }
 
       create< dynamic_global_property_object >( [&]( dynamic_global_property_object& p )
       {
-         p.current_bobserver = FUTUREPIA_INIT_MINER_NAME;
-         p.time = FUTUREPIA_GENESIS_TIME;
+         p.current_bobserver = FIBERCHAIN_INIT_MINER_NAME;
+         p.time = FIBERCHAIN_GENESIS_TIME;
          p.recent_slots_filled = fc::uint128::max_value();
          p.participation_count = 128;
          p.current_supply = asset( init_supply, PIA_SYMBOL );
          p.virtual_supply = p.current_supply;
-         p.maximum_block_size = FUTUREPIA_MAX_BLOCK_SIZE;
-         p.dapp_transaction_fee = FUTUREPIA_DAPP_TRANSACTION_FEE;
+         p.maximum_block_size = FIBERCHAIN_MAX_BLOCK_SIZE;
+         p.dapp_transaction_fee = FIBERCHAIN_DAPP_TRANSACTION_FEE;
       } );
 
       for( int i = 0; i < 0x10000; i++ )
          create< block_summary_object >( [&]( block_summary_object& ) {});
       create< hardfork_property_object >( [&](hardfork_property_object& hpo )
       {
-         hpo.processed_hardforks.push_back( FUTUREPIA_GENESIS_TIME );
+         hpo.processed_hardforks.push_back( FIBERCHAIN_GENESIS_TIME );
       } );
 
       // Create bobserver scheduler
       create< bobserver_schedule_object >( [&]( bobserver_schedule_object& wso )
       {
-         wso.current_shuffled_bobservers[0] = FUTUREPIA_INIT_MINER_NAME;
+         wso.current_shuffled_bobservers[0] = FIBERCHAIN_INIT_MINER_NAME;
       } );
 
    }
@@ -1563,7 +1563,7 @@ void database::notify_changed_objects()
    {
       /*vector< graphene::chainbase::generic_id > ids;
       get_changed_ids( ids );
-      FUTUREPIA_TRY_NOTIFY( changed_objects, ids )*/
+      FIBERCHAIN_TRY_NOTIFY( changed_objects, ids )*/
       /*
       if( _undo_db.enabled() )
       {
@@ -1578,7 +1578,7 @@ void database::notify_changed_objects()
             changed_ids.push_back( item.first );
             removed.emplace_back( item.second.get() );
          }
-         FUTUREPIA_TRY_NOTIFY( changed_objects, changed_ids )
+         FIBERCHAIN_TRY_NOTIFY( changed_objects, changed_ids )
       }
       */
    }
@@ -1723,10 +1723,10 @@ void database::_apply_block( const signed_block& next_block )
 
    FC_ASSERT( block_size <= gprops.maximum_block_size, "Block Size is too Big", ("next_block_num",next_block_num)("block_size", block_size)("max",gprops.maximum_block_size) );
 
-   if( block_size < FUTUREPIA_MIN_BLOCK_SIZE )
+   if( block_size < FIBERCHAIN_MIN_BLOCK_SIZE )
    {
       elog( "Block size is too small",
-         ("next_block_num",next_block_num)("block_size", block_size)("min",FUTUREPIA_MIN_BLOCK_SIZE)
+         ("next_block_num",next_block_num)("block_size", block_size)("min",FIBERCHAIN_MIN_BLOCK_SIZE)
       );
    }
 
@@ -1850,7 +1850,7 @@ void database::_apply_transaction(const signed_transaction& trx)
       trx.validate();
 
    auto& trx_idx = get_index<transaction_index>();
-   const chain_id_type& chain_id = FUTUREPIA_CHAIN_ID;
+   const chain_id_type& chain_id = FIBERCHAIN_CHAIN_ID;
    auto trx_id = trx.id();
    // idump((trx_id)(skip&skip_transaction_dupe_check));
    FC_ASSERT( (skip & skip_transaction_dupe_check) ||
@@ -1865,7 +1865,7 @@ void database::_apply_transaction(const signed_transaction& trx)
 
       try
       {
-         trx.verify_authority( chain_id, get_active, get_owner, get_posting, FUTUREPIA_MAX_SIG_CHECK_DEPTH );
+         trx.verify_authority( chain_id, get_active, get_owner, get_posting, FIBERCHAIN_MAX_SIG_CHECK_DEPTH );
       }
       catch( protocol::tx_missing_active_auth& e )
       {
@@ -1882,17 +1882,17 @@ void database::_apply_transaction(const signed_transaction& trx)
       {
          const auto& tapos_block_summary = get< block_summary_object >( trx.ref_block_num );
          //Verify TaPoS block summary has correct ID prefix, and that this block's time is not past the expiration
-         FUTUREPIA_ASSERT( trx.ref_block_prefix == tapos_block_summary.block_id._hash[1], transaction_tapos_exception,
+         FIBERCHAIN_ASSERT( trx.ref_block_prefix == tapos_block_summary.block_id._hash[1], transaction_tapos_exception,
                     "", ("trx.ref_block_prefix", trx.ref_block_prefix)
                     ("tapos_block_summary",tapos_block_summary.block_id._hash[1]));
       }
 
       fc::time_point_sec now = head_block_time();
 
-      FUTUREPIA_ASSERT( trx.expiration <= now + fc::seconds(FUTUREPIA_MAX_TIME_UNTIL_EXPIRATION), transaction_expiration_exception,
-                  "", ("trx.expiration",trx.expiration)("now",now)("max_til_exp",FUTUREPIA_MAX_TIME_UNTIL_EXPIRATION));
-      FUTUREPIA_ASSERT( now < trx.expiration, transaction_expiration_exception, "", ("now",now)("trx.exp",trx.expiration) );
-      FUTUREPIA_ASSERT( now <= trx.expiration, transaction_expiration_exception, "", ("now",now)("trx.exp",trx.expiration) );
+      FIBERCHAIN_ASSERT( trx.expiration <= now + fc::seconds(FIBERCHAIN_MAX_TIME_UNTIL_EXPIRATION), transaction_expiration_exception,
+                  "", ("trx.expiration",trx.expiration)("now",now)("max_til_exp",FIBERCHAIN_MAX_TIME_UNTIL_EXPIRATION));
+      FIBERCHAIN_ASSERT( now < trx.expiration, transaction_expiration_exception, "", ("now",now)("trx.exp",trx.expiration) );
+      FIBERCHAIN_ASSERT( now <= trx.expiration, transaction_expiration_exception, "", ("now",now)("trx.exp",trx.expiration) );
    }
 
    //Insert transaction into unique transactions database.
@@ -2002,19 +2002,19 @@ void database::update_global_dynamic_data( const signed_block& b )
 
    if( !(get_node_properties().skip_flags & skip_undo_history_check) )
    {
-      FUTUREPIA_ASSERT( _dgp.head_block_number - _dgp.last_irreversible_block_num  < FUTUREPIA_MAX_UNDO_HISTORY, undo_database_exception,
+      FIBERCHAIN_ASSERT( _dgp.head_block_number - _dgp.last_irreversible_block_num  < FIBERCHAIN_MAX_UNDO_HISTORY, undo_database_exception,
                  "The database does not have enough undo history to support a blockchain with so many missed blocks. "
                  "Please add a checkpoint if you would like to continue applying blocks beyond this point.",
                  ("last_irreversible_block_num",_dgp.last_irreversible_block_num)("head", _dgp.head_block_number)
-                 ("max_undo",FUTUREPIA_MAX_UNDO_HISTORY) );
+                 ("max_undo",FIBERCHAIN_MAX_UNDO_HISTORY) );
    }
 } FC_CAPTURE_AND_RETHROW() }
 
 void database::update_median_feed() 
 { try {
-   if(has_hardfork(FUTUREPIA_HARDFORK_0_2))
+   if(has_hardfork(FIBERCHAIN_HARDFORK_0_2))
    {
-      if( (head_block_num() % FUTUREPIA_FEED_INTERVAL_BLOCKS) != 0 )
+      if( (head_block_num() % FIBERCHAIN_FEED_INTERVAL_BLOCKS) != 0 )
          return;
 
       auto now = head_block_time();
@@ -2023,14 +2023,14 @@ void database::update_median_feed()
       for( int i = 0; i < bso.num_scheduled_bobservers; i++ )
       {
          const auto& bo = get_bobserver( bso.current_shuffled_bobservers[i] );
-         if( now < bo.last_snac_exchange_update + FUTUREPIA_MAX_FEED_AGE_SECONDS
+         if( now < bo.last_snac_exchange_update + FIBERCHAIN_MAX_FEED_AGE_SECONDS
             && !bo.snac_exchange_rate.is_null() && bo.is_bproducer )
          {
             feeds.push_back( bo.snac_exchange_rate );
          }
       }
 
-      if( feeds.size() >= FUTUREPIA_MIN_FEEDS )
+      if( feeds.size() >= FIBERCHAIN_MIN_FEEDS )
       {
          std::sort( feeds.begin(), feeds.end() );
          auto median_feed = feeds[feeds.size()/2];
@@ -2068,15 +2068,15 @@ void database::update_last_irreversible_block()
     * Prior to voting taking over, we must be more conservative...
     *
     */
-   if( head_block_num() < FUTUREPIA_START_MINER_VOTING_BLOCK )
+   if( head_block_num() < FIBERCHAIN_START_MINER_VOTING_BLOCK )
    {
       modify( dpo, [&]( dynamic_global_property_object& _dpo )
       {
-      //    if ( head_block_num() > FUTUREPIA_MAX_BOBSERVERS )
-      //       _dpo.last_irreversible_block_num = head_block_num() - FUTUREPIA_MAX_BOBSERVERS;
+      //    if ( head_block_num() > FIBERCHAIN_MAX_BOBSERVERS )
+      //       _dpo.last_irreversible_block_num = head_block_num() - FIBERCHAIN_MAX_BOBSERVERS;
 
-            if ( head_block_num() > FUTUREPIA_NUM_BOBSERVERS )
-                  _dpo.last_irreversible_block_num = head_block_num() - FUTUREPIA_NUM_BOBSERVERS;
+            if ( head_block_num() > FIBERCHAIN_NUM_BOBSERVERS )
+                  _dpo.last_irreversible_block_num = head_block_num() - FIBERCHAIN_NUM_BOBSERVERS;
       } );
    }
    else
@@ -2088,13 +2088,13 @@ void database::update_last_irreversible_block()
       for( int i = 0; i < wso.num_scheduled_bobservers; i++ )
          wit_objs.push_back( &get_bobserver( wso.current_shuffled_bobservers[i] ) );
 
-      static_assert( FUTUREPIA_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
+      static_assert( FIBERCHAIN_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
 
       // 1 1 1 2 2 2 2 2 2 2 -> 2     .7*10 = 7
       // 1 1 1 1 1 1 1 2 2 2 -> 1
       // 3 3 3 3 3 3 3 3 3 3 -> 3
 
-      size_t offset = ((FUTUREPIA_100_PERCENT - FUTUREPIA_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / FUTUREPIA_100_PERCENT);
+      size_t offset = ((FIBERCHAIN_100_PERCENT - FIBERCHAIN_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / FIBERCHAIN_100_PERCENT);
 
       std::nth_element( wit_objs.begin(), wit_objs.begin() + offset, wit_objs.end(),
          []( const bobserver_object* a, const bobserver_object* b )
@@ -2157,11 +2157,11 @@ void database::check_total_supply(const asset& delta )
    asset total_supply = supply_list.find( PIA_SYMBOL )->second;
 
    asset max_supply = asset( 0, PIA_SYMBOL );
-   if( has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+   if( has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
       max_supply = asset( INT64_MAX, PIA_SYMBOL );
    }
-   else if( has_hardfork( FUTUREPIA_HARDFORK_0_1 ) ) {
-      max_supply = asset( FUTUREPIA_MAX_SUPPLY, PIA_SYMBOL );
+   else if( has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) ) {
+      max_supply = asset( FIBERCHAIN_MAX_SUPPLY, PIA_SYMBOL );
    }
    
    const auto pia = ( delta.symbol != PIA_SYMBOL ) 
@@ -2405,21 +2405,21 @@ asset database::get_exchange_balance( const account_object& a, asset_symbol_type
 
 void database::init_hardforks()
 {
-   _hardfork_times[ 0 ] = fc::time_point_sec( FUTUREPIA_GENESIS_TIME );
+   _hardfork_times[ 0 ] = fc::time_point_sec( FIBERCHAIN_GENESIS_TIME );
    _hardfork_versions[ 0 ] = hardfork_version( 0, 0 );
    
-   FC_ASSERT( FUTUREPIA_HARDFORK_0_1 == 1, "Invalid hardfork configuration : 0.1" );
-   _hardfork_times[ FUTUREPIA_HARDFORK_0_1 ] = fc::time_point_sec( FUTUREPIA_HARDFORK_0_1_TIME );
-   _hardfork_versions[ FUTUREPIA_HARDFORK_0_1 ] = FUTUREPIA_HARDFORK_0_1_VERSION;
+   FC_ASSERT( FIBERCHAIN_HARDFORK_0_1 == 1, "Invalid hardfork configuration : 0.1" );
+   _hardfork_times[ FIBERCHAIN_HARDFORK_0_1 ] = fc::time_point_sec( FIBERCHAIN_HARDFORK_0_1_TIME );
+   _hardfork_versions[ FIBERCHAIN_HARDFORK_0_1 ] = FIBERCHAIN_HARDFORK_0_1_VERSION;
    
-   FC_ASSERT( FUTUREPIA_HARDFORK_0_2 == 2, "Invalid hardfork configuration : 0.2" );
-   _hardfork_times[ FUTUREPIA_HARDFORK_0_2 ] = fc::time_point_sec( FUTUREPIA_HARDFORK_0_2_TIME );
-   _hardfork_versions[ FUTUREPIA_HARDFORK_0_2 ] = FUTUREPIA_HARDFORK_0_2_VERSION;
+   FC_ASSERT( FIBERCHAIN_HARDFORK_0_2 == 2, "Invalid hardfork configuration : 0.2" );
+   _hardfork_times[ FIBERCHAIN_HARDFORK_0_2 ] = fc::time_point_sec( FIBERCHAIN_HARDFORK_0_2_TIME );
+   _hardfork_versions[ FIBERCHAIN_HARDFORK_0_2 ] = FIBERCHAIN_HARDFORK_0_2_VERSION;
 
    const auto& hardforks = get_hardfork_property_object();
-   FC_ASSERT( hardforks.last_hardfork <= FUTUREPIA_NUM_HARDFORKS, "Chain knows of more hardforks than configuration", ("hardforks.last_hardfork",hardforks.last_hardfork)("FUTUREPIA_NUM_HARDFORKS",FUTUREPIA_NUM_HARDFORKS) );
-   FC_ASSERT( _hardfork_versions[ hardforks.last_hardfork ] <= FUTUREPIA_BLOCKCHAIN_VERSION, "Blockchain version is older than last applied hardfork" );
-   FC_ASSERT( FUTUREPIA_BLOCKCHAIN_HARDFORK_VERSION == _hardfork_versions[ FUTUREPIA_NUM_HARDFORKS ] );
+   FC_ASSERT( hardforks.last_hardfork <= FIBERCHAIN_NUM_HARDFORKS, "Chain knows of more hardforks than configuration", ("hardforks.last_hardfork",hardforks.last_hardfork)("FIBERCHAIN_NUM_HARDFORKS",FIBERCHAIN_NUM_HARDFORKS) );
+   FC_ASSERT( _hardfork_versions[ hardforks.last_hardfork ] <= FIBERCHAIN_BLOCKCHAIN_VERSION, "Blockchain version is older than last applied hardfork" );
+   FC_ASSERT( FIBERCHAIN_BLOCKCHAIN_HARDFORK_VERSION == _hardfork_versions[ FIBERCHAIN_NUM_HARDFORKS ] );
 }
 
 void database::process_hardforks()
@@ -2429,12 +2429,12 @@ void database::process_hardforks()
       // If there are upcoming hardforks and the next one is later, do nothing
       const auto& hardforks = get_hardfork_property_object();
 
-      if( has_hardfork( FUTUREPIA_HARDFORK_0_1 ) )
+      if( has_hardfork( FIBERCHAIN_HARDFORK_0_1 ) )
       {
          while( _hardfork_versions[ hardforks.last_hardfork ] < hardforks.next_hardfork
             && hardforks.next_hardfork_time <= head_block_time() )    // next_hardfork_time is decided by vote of bp
          {
-            if( hardforks.last_hardfork < FUTUREPIA_NUM_HARDFORKS ) {
+            if( hardforks.last_hardfork < FIBERCHAIN_NUM_HARDFORKS ) {
                apply_hardfork( hardforks.last_hardfork + 1 );
             }
             else
@@ -2443,9 +2443,8 @@ void database::process_hardforks()
       }
       else
       {
-         while( hardforks.last_hardfork < FUTUREPIA_NUM_HARDFORKS
-               && _hardfork_times[ hardforks.last_hardfork + 1 ] <= head_block_time()
-               && hardforks.last_hardfork < FUTUREPIA_HARDFORK_0_1 )
+         while( hardforks.last_hardfork < FIBERCHAIN_NUM_HARDFORKS
+               && _hardfork_times[ hardforks.last_hardfork + 1 ] <= head_block_time() )
          {
             apply_hardfork( hardforks.last_hardfork + 1 );
          }
@@ -2463,9 +2462,9 @@ void database::set_hardfork( uint32_t hardfork, bool apply_now )
 {
    auto const& hardforks = get_hardfork_property_object();
 
-   for( uint32_t i = hardforks.last_hardfork + 1; i <= hardfork && i <= FUTUREPIA_NUM_HARDFORKS; i++ )
+   for( uint32_t i = hardforks.last_hardfork + 1; i <= hardfork && i <= FIBERCHAIN_NUM_HARDFORKS; i++ )
    {
-      /*if( i <= FUTUREPIA_HARDFORK_0_5__54 )
+      /*if( i <= FIBERCHAIN_HARDFORK_0_5__54 )
          _hardfork_times[i] = head_block_time();
       else*/
       {
@@ -2488,20 +2487,20 @@ void database::apply_hardfork( uint32_t hardfork )
 
    switch( hardfork )
    {
-      case FUTUREPIA_HARDFORK_0_1:
+      case FIBERCHAIN_HARDFORK_0_1:
          {
             static_assert(
-               FUTUREPIA_MAX_VOTED_BOBSERVERS_HF0 + FUTUREPIA_MAX_MINER_BOBSERVERS_HF0 + FUTUREPIA_MAX_RUNNER_BOBSERVERS_HF0 == FUTUREPIA_MAX_BOBSERVERS,
-               "HF0 bobserver counts must add up to FUTUREPIA_MAX_BOBSERVERS" );
+               FIBERCHAIN_MAX_VOTED_BOBSERVERS_HF0 + FIBERCHAIN_MAX_MINER_BOBSERVERS_HF0 + FIBERCHAIN_MAX_RUNNER_BOBSERVERS_HF0 == FIBERCHAIN_MAX_BOBSERVERS,
+               "HF0 bobserver counts must add up to FIBERCHAIN_MAX_BOBSERVERS" );
 
             auto deposit_rf = create< common_fund_object >( [&]( common_fund_object& cfo )
             {
-               cfo.name = FUTUREPIA_DEPOSIT_FUND_NAME;
+               cfo.name = FIBERCHAIN_DEPOSIT_FUND_NAME;
                cfo.last_update = head_block_time();
                cfo.fund_balance = asset(0,PIA_SYMBOL);
                cfo.fund_withdraw_ready = asset(0,PIA_SYMBOL);
-               for (int i = 0 ; i < FUTUREPIA_MAX_USER_TYPE ; i++) {
-                  for (int j = 0 ; j < FUTUREPIA_MAX_STAKING_MONTH ; j++) {
+               for (int i = 0 ; i < FIBERCHAIN_MAX_USER_TYPE ; i++) {
+                  for (int j = 0 ; j < FIBERCHAIN_MAX_STAKING_MONTH ; j++) {
                      cfo.percent_interest[i][j] = -1.0;
                   }
                }
@@ -2510,11 +2509,11 @@ void database::apply_hardfork( uint32_t hardfork )
          }
          break;
 
-      case FUTUREPIA_HARDFORK_0_2:
+      case FIBERCHAIN_HARDFORK_0_2:
          {
             modify( get< common_fund_object >(), [&]( common_fund_object& cfo ) {
-               for (int i = 0 ; i < FUTUREPIA_MAX_USER_TYPE ; i++) {
-                  for (int j = 0 ; j < FUTUREPIA_MAX_STAKING_MONTH ; j++) {
+               for (int i = 0 ; i < FIBERCHAIN_MAX_USER_TYPE ; i++) {
+                  for (int j = 0 ; j < FIBERCHAIN_MAX_STAKING_MONTH ; j++) {
                      cfo.percent_interest[i][j] = 0.0;
                   }
                }
@@ -2531,7 +2530,7 @@ void database::apply_hardfork( uint32_t hardfork )
             }
 
             modify( get< bobserver_schedule_object >(), [&]( bobserver_schedule_object& bso ) {
-               bso.hardfork_required_bobservers = FUTUREPIA_HARDFORK_REQUIRED_BOBSERVERS_HF2;
+               bso.hardfork_required_bobservers = FIBERCHAIN_HARDFORK_REQUIRED_BOBSERVERS_HF2;
             });
 
             auto dapp_reward_fund = create< dapp_reward_fund_object>( [&]( dapp_reward_fund_object& object ) {
@@ -2620,4 +2619,4 @@ const dapp_reward_fund_object& database::get_dapp_reward_fund()const
    return get(dapp_reward_fund_id_type());
 }
 
-} } //futurepia::chain
+} } //fiberchain::chain

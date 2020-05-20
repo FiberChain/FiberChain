@@ -1,4 +1,4 @@
-#include <futurepia/protocol/asset.hpp>
+#include <fiberchain/protocol/asset.hpp>
 #include <boost/rational.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
 
@@ -12,7 +12,7 @@ index : field
    7  : \0
 */
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
       typedef boost::multiprecision::int128_t  int128_t;
 
       uint8_t asset::decimals()const
@@ -197,8 +197,8 @@ namespace futurepia { namespace protocol {
          return price{ base, quote };
       } FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
 
-      price price::max( asset_symbol_type base, asset_symbol_type quote ) { return asset( share_type(FUTUREPIA_MAX_SHARE_SUPPLY), base ) / asset( share_type(1), quote); }
-      price price::min( asset_symbol_type base, asset_symbol_type quote ) { return asset( 1, base ) / asset( FUTUREPIA_MAX_SHARE_SUPPLY, quote); }
+      price price::max( asset_symbol_type base, asset_symbol_type quote ) { return asset( share_type(FIBERCHAIN_MAX_SHARE_SUPPLY), base ) / asset( share_type(1), quote); }
+      price price::min( asset_symbol_type base, asset_symbol_type quote ) { return asset( 1, base ) / asset( FIBERCHAIN_MAX_SHARE_SUPPLY, quote); }
 
       bool price::is_null() const { return *this == price(); }
 
@@ -210,4 +210,4 @@ namespace futurepia { namespace protocol {
       } FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
 
 
-} } // futurepia::protocol
+} } // fiberchain::protocol

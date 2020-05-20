@@ -1,16 +1,16 @@
-file(GLOB HEADERS "include/futurepia/chain/*.hpp" "include/futurepia/chain/util/*.hpp")
+file(GLOB HEADERS "include/fiberchain/chain/*.hpp" "include/fiberchain/chain/util/*.hpp")
 
 ## SORT .cpp by most likely to change / break compile
-add_library( futurepia_chain
+add_library( fiberchain_chain
 
              # As database takes the longest to compile, start it first
              database.cpp
              fork_database.cpp
              bobserver_schedule.cpp
 
-             futurepia_evaluator.cpp
+             fiberchain_evaluator.cpp
 
-             futurepia_objects.cpp
+             fiberchain_objects.cpp
              shared_authority.cpp
              block_log.cpp
 
@@ -19,8 +19,8 @@ add_library( futurepia_chain
              ${HEADERS}
            )
 
-target_link_libraries( futurepia_chain futurepia_protocol fc chainbase graphene_schema ${PATCH_MERGE_LIB} )
-target_include_directories( futurepia_chain
+target_link_libraries( fiberchain_chain fiberchain_protocol fc chainbase graphene_schema ${PATCH_MERGE_LIB} )
+target_include_directories( fiberchain_chain
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_BINARY_DIR}/include" )
 
 if(MSVC)
@@ -28,10 +28,10 @@ if(MSVC)
 endif(MSVC)
 
 INSTALL( TARGETS
-   futurepia_chain
+   fiberchain_chain
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib
    ARCHIVE DESTINATION lib
 )
-INSTALL( FILES ${HEADERS} DESTINATION "include/futurepia/chain" )
+INSTALL( FILES ${HEADERS} DESTINATION "include/fiberchain/chain" )

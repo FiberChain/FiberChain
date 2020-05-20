@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include <futurepia/chain/account_object.hpp>
-#include <futurepia/chain/futurepia_objects.hpp>
+#include <fiberchain/chain/account_object.hpp>
+#include <fiberchain/chain/fiberchain_objects.hpp>
 
 using namespace graphene::db;
 
@@ -48,8 +48,8 @@ int main( int argc, char** argv, char** envp )
 {
    std::vector< std::shared_ptr< abstract_schema > > schemas;
 
-   schemas.push_back( get_schema_for_type< futurepia::chain::account_object >() );
-   schemas.push_back( get_schema_for_type< futurepia::chain::comment_object >() );
+   schemas.push_back( get_schema_for_type< fiberchain::chain::account_object >() );
+   schemas.push_back( get_schema_for_type< fiberchain::chain::comment_object >() );
    add_dependent_schemas( schemas );
 
    for( const std::shared_ptr< abstract_schema >& s : schemas )

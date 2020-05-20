@@ -1,7 +1,7 @@
 file( GLOB HEADERS
-      "include/futurepia/dapp/*.hpp" )
+      "include/fiberchain/dapp/*.hpp" )
 
-add_library( futurepia_dapp
+add_library( fiberchain_dapp
              ${HEADERS}
              dapp_api.cpp
              dapp_plugin.cpp
@@ -9,12 +9,12 @@ add_library( futurepia_dapp
              dapp_operations.cpp
            )
 
-target_link_libraries( futurepia_dapp futurepia_app futurepia_chain fc futurepia_protocol )
-target_include_directories( futurepia_dapp
+target_link_libraries( fiberchain_dapp fiberchain_app fiberchain_chain fc fiberchain_protocol )
+target_include_directories( fiberchain_dapp
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 install( TARGETS
-   futurepia_dapp
+   fiberchain_dapp
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib
    ARCHIVE DESTINATION lib

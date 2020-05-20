@@ -1,14 +1,14 @@
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/global_property_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/global_property_object.hpp>
 
-#include <futurepia/plugins/block_info/block_info.hpp>
-#include <futurepia/plugins/block_info/block_info_api.hpp>
-#include <futurepia/plugins/block_info/block_info_plugin.hpp>
+#include <fiberchain/plugins/block_info/block_info.hpp>
+#include <fiberchain/plugins/block_info/block_info_api.hpp>
+#include <fiberchain/plugins/block_info/block_info_plugin.hpp>
 
 #include <string>
 
-namespace futurepia { namespace plugin { namespace block_info {
+namespace fiberchain { namespace plugin { namespace block_info {
 
 block_info_plugin::block_info_plugin( application* app ) : plugin( app ) {}
 block_info_plugin::~block_info_plugin() {}
@@ -52,6 +52,6 @@ void block_info_plugin::on_applied_block( const chain::signed_block& b )
    return;
 }
 
-} } } // futurepia::plugin::block_info
+} } } // fiberchain::plugin::block_info
 
-FUTUREPIA_DEFINE_PLUGIN( block_info, futurepia::plugin::block_info::block_info_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( block_info, fiberchain::plugin::block_info::block_info_plugin )

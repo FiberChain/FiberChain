@@ -1,14 +1,14 @@
-file(GLOB HEADERS "include/futurepia/tags/*.hpp")
+file(GLOB HEADERS "include/fiberchain/tags/*.hpp")
 
-add_library( futurepia_tags
+add_library( fiberchain_tags
              tags_plugin.cpp )
 
-target_link_libraries( futurepia_tags futurepia_chain futurepia_protocol futurepia_app )
-target_include_directories( futurepia_tags
+target_link_libraries( fiberchain_tags fiberchain_chain fiberchain_protocol fiberchain_app )
+target_include_directories( fiberchain_tags
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 install( TARGETS
-   futurepia_tags
+   fiberchain_tags
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib

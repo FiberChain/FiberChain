@@ -1,26 +1,26 @@
-#include <futurepia/account_history/account_history_plugin.hpp>
+#include <fiberchain/account_history/account_history_plugin.hpp>
 
-#include <futurepia/app/impacted.hpp>
+#include <fiberchain/app/impacted.hpp>
 
-#include <futurepia/protocol/config.hpp>
+#include <fiberchain/protocol/config.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/operation_notification.hpp>
-#include <futurepia/chain/history_object.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/operation_notification.hpp>
+#include <fiberchain/chain/history_object.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/thread/thread.hpp>
 
 #include <boost/algorithm/string.hpp>
 
-#define FUTUREPIA_NAMESPACE_PREFIX "futurepia::protocol::"
+#define FIBERCHAIN_NAMESPACE_PREFIX "fiberchain::protocol::"
 
-namespace futurepia { namespace account_history {
+namespace fiberchain { namespace account_history {
 
 namespace detail
 {
 
-using namespace futurepia::protocol;
+using namespace fiberchain::protocol;
 
 class account_history_plugin_impl
 {
@@ -30,7 +30,7 @@ class account_history_plugin_impl
       { }
       virtual ~account_history_plugin_impl();
 
-      futurepia::chain::database& database()
+      fiberchain::chain::database& database()
       {
          return _self.database();
       }
@@ -124,7 +124,7 @@ struct operation_visitor_filter : operation_visitor
 void account_history_plugin_impl::on_operation( const operation_notification& note )
 {
    flat_set<account_name_type> impacted;
-   futurepia::chain::database& db = database();
+   fiberchain::chain::database& db = database();
 
    const operation_object* new_obj = nullptr;
    app::operation_get_impacted_accounts( note.op, db, impacted );
@@ -222,7 +222,7 @@ void account_history_plugin::plugin_initialize(const boost::program_options::var
          for( const string& op : ops )
          {
             if( op.size() )
-               my->_op_list.insert( FUTUREPIA_NAMESPACE_PREFIX + op );
+               my->_op_list.insert( FIBERCHAIN_NAMESPACE_PREFIX + op );
          }
       }
 
@@ -240,7 +240,7 @@ void account_history_plugin::plugin_initialize(const boost::program_options::var
          for( const string& op : ops )
          {
             if( op.size() )
-               my->_op_list.insert( FUTUREPIA_NAMESPACE_PREFIX + op );
+               my->_op_list.insert( FIBERCHAIN_NAMESPACE_PREFIX + op );
          }
       }
 
@@ -262,4 +262,4 @@ flat_map< account_name_type, account_name_type > account_history_plugin::tracked
 
 } }
 
-FUTUREPIA_DEFINE_PLUGIN( account_history, futurepia::account_history::account_history_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( account_history, fiberchain::account_history::account_history_plugin )

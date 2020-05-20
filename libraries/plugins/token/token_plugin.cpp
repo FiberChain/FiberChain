@@ -1,16 +1,16 @@
-#include <futurepia/token/token_plugin.hpp>
-#include <futurepia/token/token_objects.hpp>
-#include <futurepia/token/token_api.hpp>
-#include <futurepia/token/token_operations.hpp>
-#include <futurepia/token/util/token_util.hpp>
+#include <fiberchain/token/token_plugin.hpp>
+#include <fiberchain/token/token_objects.hpp>
+#include <fiberchain/token/token_api.hpp>
+#include <fiberchain/token/token_operations.hpp>
+#include <fiberchain/token/util/token_util.hpp>
 
-#include <futurepia/chain/database.hpp>
-#include <futurepia/chain/index.hpp>
-#include <futurepia/chain/generic_custom_operation_interpreter.hpp>
+#include <fiberchain/chain/database.hpp>
+#include <fiberchain/chain/index.hpp>
+#include <fiberchain/chain/generic_custom_operation_interpreter.hpp>
 
 #include <memory>
 
-namespace futurepia { namespace token {
+namespace fiberchain { namespace token {
 
    namespace detail {
       class token_plugin_impl
@@ -20,7 +20,7 @@ namespace futurepia { namespace token {
 
             void plugin_initialize();
 
-            futurepia::chain::database& database()
+            fiberchain::chain::database& database()
             {
                return _self.database();
             }
@@ -31,12 +31,12 @@ namespace futurepia { namespace token {
 
          private:
             token_plugin&  _self;
-            std::shared_ptr< generic_custom_operation_interpreter< futurepia::token::token_operation > > _custom_operation_interpreter;
+            std::shared_ptr< generic_custom_operation_interpreter< fiberchain::token::token_operation > > _custom_operation_interpreter;
       };
 
       void token_plugin_impl::plugin_initialize() 
       {
-         _custom_operation_interpreter = std::make_shared< generic_custom_operation_interpreter< futurepia::token::token_operation > >( database() );
+         _custom_operation_interpreter = std::make_shared< generic_custom_operation_interpreter< fiberchain::token::token_operation > >( database() );
          _custom_operation_interpreter->register_evaluator< create_token_evaluator >( &_self );
          _custom_operation_interpreter->register_evaluator< issue_token_evaluator >( &_self );
          _custom_operation_interpreter->register_evaluator< transfer_token_evaluator >( &_self );
@@ -54,7 +54,7 @@ namespace futurepia { namespace token {
 
       void token_plugin_impl::process_token_fund_withdraw() {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
          
@@ -81,7 +81,7 @@ namespace futurepia { namespace token {
 
       void token_plugin_impl::process_token_savings_withdraws() {
          auto& _db = database();
-         if( !_db.has_hardfork( FUTUREPIA_HARDFORK_0_2 ) ) {
+         if( !_db.has_hardfork( FIBERCHAIN_HARDFORK_0_2 ) ) {
             return;
          }
 
@@ -118,7 +118,7 @@ namespace futurepia { namespace token {
                _db.modify( *withdraw_itr, [&]( token_savings_withdraw_object & obj ) {
                   obj.amount -= monthly_amount;
                   obj.split_pay_order += 1;
-                  obj.next_date += FUTUREPIA_TRANSFER_SAVINGS_CYCLE;
+                  obj.next_date += FIBERCHAIN_TRANSFER_SAVINGS_CYCLE;
                   obj.last_updated = now;
                });
                withdraw_itr++;
@@ -164,8 +164,8 @@ namespace futurepia { namespace token {
       app().register_api_factory< token_api >( "token_api" );
    }
 
-} } //namespace futurepia::token
+} } //namespace fiberchain::token
 
-FUTUREPIA_DEFINE_PLUGIN( token, futurepia::token::token_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( token, fiberchain::token::token_plugin )
 
 

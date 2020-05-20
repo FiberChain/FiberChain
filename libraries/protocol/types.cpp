@@ -1,12 +1,12 @@
-#include <futurepia/protocol/config.hpp>
-#include <futurepia/protocol/types.hpp>
+#include <fiberchain/protocol/config.hpp>
+#include <fiberchain/protocol/types.hpp>
 
 #include <fc/crypto/base58.hpp>
 #include <fc/crypto/ripemd160.hpp>
 #include <fc/exception/exception.hpp>
 #include <fc/io/raw.hpp>
 
-namespace futurepia { namespace protocol {
+namespace fiberchain { namespace protocol {
 
     public_key_type::public_key_type():key_data(){};
 
@@ -20,7 +20,7 @@ namespace futurepia { namespace protocol {
     {
       // TODO:  Refactor syntactic checks into static is_valid()
       //        to make public_key_type API more similar to address API
-       std::string prefix( FUTUREPIA_ADDRESS_PREFIX );
+       std::string prefix( FIBERCHAIN_ADDRESS_PREFIX );
 
        const size_t prefix_len = prefix.size();
        FC_ASSERT( base58str.size() > prefix_len );
@@ -48,7 +48,7 @@ namespace futurepia { namespace protocol {
        k.data = key_data;
        k.check = fc::ripemd160::hash( k.data.data, k.data.size() )._hash[0];
        auto data = fc::raw::pack( k );
-       return FUTUREPIA_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
+       return FIBERCHAIN_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
     }
 
     bool operator == ( const public_key_type& p1, const fc::ecc::public_key& p2)
@@ -80,7 +80,7 @@ namespace futurepia { namespace protocol {
 
     extended_public_key_type::extended_public_key_type( const std::string& base58str )
     {
-       std::string prefix( FUTUREPIA_ADDRESS_PREFIX );
+       std::string prefix( FIBERCHAIN_ADDRESS_PREFIX );
 
        const size_t prefix_len = prefix.size();
        FC_ASSERT( base58str.size() > prefix_len );
@@ -102,7 +102,7 @@ namespace futurepia { namespace protocol {
        k.data = key_data;
        k.check = fc::ripemd160::hash( k.data.data, k.data.size() )._hash[0];
        auto data = fc::raw::pack( k );
-       return FUTUREPIA_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
+       return FIBERCHAIN_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
     }
 
     bool operator == ( const extended_public_key_type& p1, const fc::ecc::extended_public_key& p2)
@@ -134,7 +134,7 @@ namespace futurepia { namespace protocol {
 
     extended_private_key_type::extended_private_key_type( const std::string& base58str )
     {
-       std::string prefix( FUTUREPIA_ADDRESS_PREFIX );
+       std::string prefix( FIBERCHAIN_ADDRESS_PREFIX );
 
        const size_t prefix_len = prefix.size();
        FC_ASSERT( base58str.size() > prefix_len );
@@ -156,7 +156,7 @@ namespace futurepia { namespace protocol {
        k.data = key_data;
        k.check = fc::ripemd160::hash( k.data.data, k.data.size() )._hash[0];
        auto data = fc::raw::pack( k );
-       return FUTUREPIA_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
+       return FIBERCHAIN_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
     }
 
     bool operator == ( const extended_private_key_type& p1, const fc::ecc::extended_public_key& p2)
@@ -174,38 +174,38 @@ namespace futurepia { namespace protocol {
        return p1.key_data != p2.key_data;
     }
 
-} } // futurepia::protocol
+} } // fiberchain::protocol
 
 namespace fc
 {
     using namespace std;
-    void to_variant( const futurepia::protocol::public_key_type& var,  fc::variant& vo )
+    void to_variant( const fiberchain::protocol::public_key_type& var,  fc::variant& vo )
     {
         vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var,  futurepia::protocol::public_key_type& vo )
+    void from_variant( const fc::variant& var,  fiberchain::protocol::public_key_type& vo )
     {
-        vo = futurepia::protocol::public_key_type( var.as_string() );
+        vo = fiberchain::protocol::public_key_type( var.as_string() );
     }
 
-    void to_variant( const futurepia::protocol::extended_public_key_type& var, fc::variant& vo )
+    void to_variant( const fiberchain::protocol::extended_public_key_type& var, fc::variant& vo )
     {
        vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_public_key_type& vo )
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_public_key_type& vo )
     {
-       vo = futurepia::protocol::extended_public_key_type( var.as_string() );
+       vo = fiberchain::protocol::extended_public_key_type( var.as_string() );
     }
 
-    void to_variant( const futurepia::protocol::extended_private_key_type& var, fc::variant& vo )
+    void to_variant( const fiberchain::protocol::extended_private_key_type& var, fc::variant& vo )
     {
        vo = std::string( var );
     }
 
-    void from_variant( const fc::variant& var, futurepia::protocol::extended_private_key_type& vo )
+    void from_variant( const fc::variant& var, fiberchain::protocol::extended_private_key_type& vo )
     {
-       vo = futurepia::protocol::extended_private_key_type( var.as_string() );
+       vo = fiberchain::protocol::extended_private_key_type( var.as_string() );
     }
 } // fc

@@ -1,15 +1,15 @@
-#include <futurepia/dapp/dapp_api.hpp>
-#include <futurepia/app/state.hpp>
+#include <fiberchain/dapp/dapp_api.hpp>
+#include <fiberchain/app/state.hpp>
 
 #include <functional>
 
-namespace futurepia { namespace dapp {
+namespace fiberchain { namespace dapp {
 
    namespace detail {
       class dapp_api_impl
       {
          public:
-            dapp_api_impl( futurepia::app::application& app ):_app( app ) {}
+            dapp_api_impl( fiberchain::app::application& app ):_app( app ) {}
 
             vector< dapp_api_object > lookup_dapps( string& lower_bound_name, uint32_t limit ) const;
             optional< dapp_api_object > get_dapp( string dapp_name ) const;
@@ -37,12 +37,12 @@ namespace futurepia { namespace dapp {
             vector< dapp_user_api_object > get_join_dapps( string account_name )const;
             vector< dapp_vote_api_object > get_dapp_votes( string dapp_name ) const;
 
-            futurepia::chain::database& database() { return *_app.chain_database(); }
+            fiberchain::chain::database& database() { return *_app.chain_database(); }
 
          private:
             static bool filter_default( const dapp_comment_api_obj& c ) { return false; }
             static bool exit_default( const dapp_comment_api_obj& c )   { return false; }
-            futurepia::app::application& _app;
+            fiberchain::app::application& _app;
       };
 
       vector< dapp_api_object > dapp_api_impl::lookup_dapps( string& lower_bound_name, uint32_t limit ) const
@@ -431,9 +431,9 @@ namespace futurepia { namespace dapp {
          FC_CAPTURE_AND_RETHROW( (dapp_name) )
       }
 
-   } //namespace futurepia::dapp::detail
+   } //namespace fiberchain::dapp::detail
 
-   dapp_api::dapp_api( const futurepia::app::api_context& ctx )
+   dapp_api::dapp_api( const fiberchain::app::api_context& ctx )
    {
       _my = std::make_shared< detail::dapp_api_impl >( ctx.app );
    }
@@ -542,4 +542,4 @@ namespace futurepia { namespace dapp {
          return _my->get_dapp_votes( dapp_name );
       });
    }
-}} //namespace futurepia::dapp
+}} //namespace fiberchain::dapp

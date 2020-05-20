@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-#include <futurepia/app/plugin.hpp>
+#include <fiberchain/app/plugin.hpp>
 
 #include <fc/vector.hpp>
 
-namespace futurepia { namespace app {
+namespace fiberchain { namespace app {
 
 plugin::plugin( application* app ) : _app( app )
 {
@@ -66,4 +66,4 @@ void plugin::plugin_set_program_options(
    return;
 }
 
-} } // futurepia::app
+} } // fiberchain::app

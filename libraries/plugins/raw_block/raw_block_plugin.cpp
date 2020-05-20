@@ -1,11 +1,11 @@
 
 
-#include <futurepia/plugins/raw_block/raw_block_api.hpp>
-#include <futurepia/plugins/raw_block/raw_block_plugin.hpp>
+#include <fiberchain/plugins/raw_block/raw_block_api.hpp>
+#include <fiberchain/plugins/raw_block/raw_block_plugin.hpp>
 
 #include <string>
 
-namespace futurepia { namespace plugin { namespace raw_block {
+namespace fiberchain { namespace plugin { namespace raw_block {
 
 raw_block_plugin::raw_block_plugin( application* app ) : plugin( app ) {}
 raw_block_plugin::~raw_block_plugin() {}
@@ -28,6 +28,6 @@ void raw_block_plugin::plugin_shutdown()
 {
 }
 
-} } } // futurepia::plugin::raw_block
+} } } // fiberchain::plugin::raw_block
 
-FUTUREPIA_DEFINE_PLUGIN( raw_block, futurepia::plugin::raw_block::raw_block_plugin )
+FIBERCHAIN_DEFINE_PLUGIN( raw_block, fiberchain::plugin::raw_block::raw_block_plugin )
